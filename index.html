@@ -7,6 +7,7 @@
          ============================================ -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline';">
     <meta name="description" content="Nur Kumbasar - Computer Engineering Student | Personal Portfolio">
     <title>Nur Kumbasar | Portfolio</title>
 
@@ -93,10 +94,10 @@
                     Kadir Has Üniversitesi</p>
 
                 <div class="hero-socials">
-                    <a href="https://github.com/nurkumbasar" target="_blank" aria-label="GitHub" class="social-link">
+                    <a href="https://github.com/nurkumbasar" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="social-link">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="https://www.linkedin.com/in/nur-kumbasar" target="_blank" aria-label="LinkedIn"
+                    <a href="https://www.linkedin.com/in/nur-kumbasar" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
                         class="social-link">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
@@ -390,13 +391,13 @@
                         <p>nur.kumbasar@stu.khas.edu.tr</p>
                     </a>
 
-                    <a href="https://github.com/nurkumbasar" target="_blank" class="contact-card glass-card">
+                    <a href="https://github.com/nurkumbasar" target="_blank" rel="noopener noreferrer" class="contact-card glass-card">
                         <div class="contact-icon"><i class="fab fa-github"></i></div>
                         <h3>GitHub</h3>
                         <p>nurkumbasar</p>
                     </a>
 
-                    <a href="https://www.linkedin.com/in/nur-kumbasar" target="_blank" class="contact-card glass-card">
+                    <a href="https://www.linkedin.com/in/nur-kumbasar" target="_blank" rel="noopener noreferrer" class="contact-card glass-card">
                         <div class="contact-icon"><i class="fab fa-linkedin-in"></i></div>
                         <h3>LinkedIn</h3>
                         <p>nur-kumbasar</p>
@@ -424,7 +425,7 @@
     </footer>
 
     <!-- JavaScript dosyamız -->
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 
 </html>

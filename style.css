@@ -37,7 +37,7 @@
 }
 
 /* ===================================================
-   TEMEL SIFIRLAMA (Reset)
+   TEMEL SIFIRLAMA (Reset) & GLOBAL STİLLER
    =================================================== */
 * {
     margin: 0;
@@ -77,7 +77,7 @@ body {
 }
 
 /* ===================================================
-   CONTAINER
+   CONTAINER (İÇ DÜZEN)
    =================================================== */
 .container {
     max-width: 1100px;
@@ -86,7 +86,7 @@ body {
 }
 
 /* ===================================================
-   NAVİGASYON BARI
+   NAVİGASYON BARI (MOBILE BASE)
    =================================================== */
 .navbar {
     position: fixed;
@@ -129,20 +129,37 @@ body {
     font-size: 1.9rem;
 }
 
+/* MENÜ LİNKLERİ - MOBİL (Varsayılan olarak kapalı/Yandan açılan) */
 .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 270px;
+    height: 100vh;
+    background: rgba(248, 246, 243, 0.97);
+    backdrop-filter: blur(20px);
     display: flex;
-    list-style: none;
+    flex-direction: column;
+    padding: 80px 28px 30px;
     gap: 4px;
+    transition: right var(--transition);
+    box-shadow: -6px 0 28px rgba(0,0,0,0.06);
+    list-style: none;
+}
+
+.nav-links.active {
+    right: 0;
 }
 
 .nav-links a {
     text-decoration: none;
     color: var(--text-medium);
     font-weight: 500;
-    font-size: 0.88rem;
-    padding: 7px 15px;
-    border-radius: 50px;
+    font-size: 1rem;
+    padding: 12px 20px;
+    border-radius: var(--radius-sm);
     transition: all var(--transition);
+    display: block;
 }
 
 .nav-links a:hover {
@@ -156,6 +173,7 @@ body {
     gap: 12px;
 }
 
+/* DİL DEĞİŞTİRİCİ */
 .lang-toggle {
     background: rgba(255,255,255,0.7);
     border: 1.5px solid rgba(91, 127, 166, 0.3);
@@ -185,17 +203,16 @@ body {
     color: var(--text-light);
 }
 
-/* ===================================================
-   HAMBURGERMENİ
-   =================================================== */
+/* HAMBURGER MENÜ (Mobil Varsayılan) */
 .hamburger {
-    display: none;
+    display: flex;
     flex-direction: column;
     gap: 5px;
     background: none;
     border: none;
     cursor: pointer;
     padding: 4px;
+    z-index: 1001; /* Menü üzerinden her zaman basılabilir olsun */
 }
 
 .hamburger span {
@@ -216,8 +233,9 @@ body {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
+
 /* ===================================================
-   HERO BÖLÜMÜ
+   HERO BÖLÜMÜ (MOBILE BASE)
    =================================================== */
 .hero {
     min-height: 100vh;
@@ -265,14 +283,6 @@ body {
     animation: float 11s ease-in-out infinite reverse;
 }
 
-.shape-3 {
-    display: none;
-}
-
-.shape-4 {
-    display: none;
-}
-
 @keyframes float {
     0%, 100% { transform: translate(0, 0) scale(1); }
     33%       { transform: translate(18px, -18px) scale(1.04); }
@@ -283,7 +293,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 48px;
+    flex-direction: column; /* Mobil (Alt alta) */
+    text-align: center;     /* Mobil (Ortalı) */
+    gap: 24px;
     max-width: 1100px;
     position: relative;
     z-index: 1;
@@ -294,8 +306,8 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
+    align-items: center; /* Mobil (Ortalı) */
+    text-align: center;
 }
 
 .hero-greeting {
@@ -309,7 +321,7 @@ body {
 
 .hero-name {
     font-family: 'Playfair Display', serif;
-    font-size: 2.8rem;
+    font-size: 2rem; /* Mobil varsayılan boyut */
     font-weight: 700;
     color: var(--text-dark);
     line-height: 1.1;
@@ -338,7 +350,7 @@ body {
 }
 
 .hero-title {
-    font-size: 1.25rem;
+    font-size: 1rem; /* Mobil base */
     color: var(--primary);
     font-weight: 500;
 }
@@ -366,6 +378,7 @@ body {
     gap: 10px;
     margin-bottom: 28px;
     animation: fadeInUp 0.8s ease 0.8s both;
+    justify-content: center; /* Mobil ortalı */
 }
 
 .social-link {
@@ -414,22 +427,21 @@ body {
     box-shadow: 0 8px 28px rgba(61, 94, 130, 0.35);
 }
 
-/* Profil Resim Alanı */
 .hero-image {
     flex-shrink: 0;
     animation: fadeInUp 0.8s ease 0.3s both;
 }
 
 .profile-avatar {
-    width: 300px;
+    width: 180px; /* Mobil */
     height: auto;
     object-fit: contain;
     mix-blend-mode: multiply;
-    /* Gölgelendirme (drop-shadow) resmin kare sınırını belli ettiği için kaldırıldı */
     display: block;
+    margin: 0 auto;
 }
 
-/* Aşağı Kaydır Göstergesi */
+/* AŞAĞI KAYDIR GÖSTERGESİ */
 .scroll-indicator {
     position: absolute;
     bottom: 32px;
@@ -480,10 +492,10 @@ body {
 }
 
 /* ===================================================
-   BÖLÜM STİLLERİ
+   BÖLÜM STİLLERİ (MOBILE BASE)
    =================================================== */
 .section {
-    padding: 100px 0;
+    padding: 70px 0; /* Mobil aralığı */
     position: relative;
 }
 
@@ -493,7 +505,7 @@ body {
 
 .section-title {
     text-align: center;
-    font-size: 1.9rem;
+    font-size: 1.55rem; /* Mobil base */
     font-weight: 700;
     color: var(--text-dark);
     margin-bottom: 8px;
@@ -524,7 +536,7 @@ body {
 }
 
 /* ===================================================
-   HAKKIMDA BÖLÜMÜ
+   HAKKIMDA BÖLÜMÜ (MOBILE BASE)
    =================================================== */
 .about-content {
     display: flex;
@@ -533,9 +545,11 @@ body {
 }
 
 .about-card {
-    padding: 36px 40px;
+    padding: 26px 22px; /* Mobil padding */
     display: flex;
-    align-items: flex-start;
+    flex-direction: column; /* Mobil (Dikey hizalı) */
+    align-items: center;
+    text-align: center;
     gap: 24px;
 }
 
@@ -561,7 +575,7 @@ body {
 
 .about-stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr; /* Mobil: Alt alta 1 sütun */
     gap: 20px;
 }
 
@@ -585,11 +599,11 @@ body {
 }
 
 /* ===================================================
-   DENEYİM - TİMELINE
+   DENEYİM - TİMELINE (MOBILE BASE)
    =================================================== */
 .timeline {
     position: relative;
-    padding-left: 40px;
+    padding-left: 28px; /* Mobil girinti */
 }
 
 .timeline::before {
@@ -614,7 +628,7 @@ body {
 
 .timeline-dot {
     position: absolute;
-    left: -36px;
+    left: -24px; /* Mobil konum */
     top: 28px;
     width: 16px;
     height: 16px;
@@ -626,12 +640,13 @@ body {
 }
 
 .timeline-content {
-    padding: 26px 30px;
+    padding: 18px 20px; /* Mobil padding */
 }
 
 .timeline-header {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column; /* Mobil - alt alta */
+    justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
     gap: 8px;
@@ -670,7 +685,7 @@ body {
 }
 
 /* ===================================================
-   EĞİTİM KARTLARI
+   EĞİTİM KARTLARI (MOBILE BASE)
    =================================================== */
 .education-grid {
     display: flex;
@@ -679,9 +694,11 @@ body {
 }
 
 .edu-card {
-    padding: 26px 30px;
+    padding: 22px 18px; /* Mobil padding */
     display: flex;
-    align-items: center;
+    flex-direction: column; /* Mobil */
+    align-items: center;    /* Mobil */
+    text-align: center;     /* Mobil */
     gap: 22px;
 }
 
@@ -724,11 +741,11 @@ body {
 }
 
 /* ===================================================
-   YETENEKLER KARTLARI
+   YETENEKLER KARTLARI (MOBILE BASE)
    =================================================== */
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: 1fr; /* Mobil 1 sütun */
     gap: 22px;
 }
 
@@ -785,7 +802,7 @@ body {
 }
 
 /* ===================================================
-   İLETİŞİM BÖLÜMÜ
+   İLETİŞİM BÖLÜMÜ (MOBILE BASE)
    =================================================== */
 .contact-content {
     text-align: center;
@@ -796,6 +813,7 @@ body {
     color: var(--text-medium);
     margin-bottom: 40px;
     display: flex;
+    flex-direction: column; /* Mobil */
     align-items: center;
     justify-content: center;
     gap: 10px;
@@ -809,7 +827,7 @@ body {
 
 .contact-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: 1fr; /* Mobil 1 sütun */
     gap: 18px;
 }
 
@@ -872,117 +890,119 @@ body {
 }
 
 /* ===================================================
-   RESPONSIVE TASARIM - MOBİL UYUMLULUK
+   MOBILE-FIRST MEDYA ONSORGULARI (MIN-WIDTH)
+   Büyük ekranlar için (Tablet ve Masaüstü) 
    =================================================== */
 
-/* Tablet ve küçük ekranlar (768px altı) */
-@media (max-width: 768px) {
+/* Tablet & Küçük Masaüstü (768px ve üzeri) */
+@media (min-width: 768px) {
+    /* Navbar yatay oluyor, hamburger menü kayboluyor */
     .hamburger {
-        display: flex;
+        display: none;
     }
-
+    
     .nav-links {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 270px;
-        height: 100vh;
-        background: rgba(248, 246, 243, 0.97);
-        backdrop-filter: blur(20px);
-        flex-direction: column;
-        padding: 80px 28px 30px;
+        position: static;
+        width: auto;
+        height: auto;
+        flex-direction: row;
+        background: transparent;
+        padding: 0;
+        box-shadow: none;
+        backdrop-filter: none;
         gap: 4px;
-        transition: right var(--transition);
-        box-shadow: -6px 0 28px rgba(0,0,0,0.06);
-    }
-
-    .nav-links.active {
-        right: 0;
     }
 
     .nav-links a {
-        font-size: 1rem;
-        padding: 12px 20px;
-        border-radius: var(--radius-sm);
+        font-size: 0.88rem;
+        padding: 7px 15px;
+        border-radius: 50px;
     }
 
+    /* Hero bölümü yan yana (2 kolonlu) */
     .hero-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 24px;
+        flex-direction: row;
+        text-align: left;
+        gap: 48px;
     }
 
     .hero-text {
-        align-items: center;
-        text-align: center;
+        align-items: flex-start;
+        text-align: left;
     }
 
     .hero-name {
-        font-size: 2rem;
+        font-size: 2.8rem;
+    }
+
+    .hero-title {
+        font-size: 1.25rem;
     }
 
     .hero-socials {
-        justify-content: center;
+        justify-content: flex-start;
     }
 
     .profile-avatar {
-        width: 180px;
-        margin: 0 auto;
+        width: 300px;
+        margin: 0;
     }
 
+    /* Padding artıyor */
+    .section {
+        padding: 100px 0;
+    }
+
+    .section-title {
+        font-size: 1.9rem;
+    }
+
+    /* Bilgi İstatistik Kartları 3 Sütun */
     .about-stats {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, 1fr);
     }
 
     .about-card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 26px 22px;
+        flex-direction: row;
+        align-items: flex-start;
+        text-align: left;
+        padding: 36px 40px;
     }
 
+    /* Timeline Yapısı Genişliyor */
     .timeline {
-        padding-left: 28px;
+        padding-left: 40px;
     }
 
     .timeline-dot {
-        left: -24px;
+        left: -36px;
     }
 
     .timeline-content {
-        padding: 18px 20px;
+        padding: 26px 30px;
     }
 
     .timeline-header {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-between;
     }
 
+    /* Eğitim ve Yetenek / İletişim Kartları Gridleri */
     .edu-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 22px 18px;
+        flex-direction: row;
+        text-align: left;
+        padding: 26px 30px;
     }
 
-    .section {
-        padding: 70px 0;
-    }
-}
-
-/* Çok küçük ekranlar (480px altı) */
-@media (max-width: 480px) {
-    .hero-name {
-        font-size: 1.8rem;
-    }
-    .hero-title {
-        font-size: 1rem;
-    }
-    .section-title {
-        font-size: 1.55rem;
-    }
     .skills-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
+
+    .contact-intro {
+        flex-direction: row;
+    }
+
     .contact-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
 }
