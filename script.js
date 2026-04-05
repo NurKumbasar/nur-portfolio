@@ -22,11 +22,17 @@
 
 let currentLang = 'tr'; // Başlangıç dili: Türkçe
 
-// Typing efekti için dile göre metinler
+// Typing efekti için dile göre metinler (emoji yok)
 const typingTexts = {
-    tr: ['Bilgisayar Mühendisi 💻', 'QA Stajyeri 🔍', 'Problem Çözücü 🧩', 'Sürekli Öğrenen 📚'],
-    en: ['Computer Engineer 💻', 'QA Intern 🔍', 'Problem Solver 🧩', 'Lifelong Learner 📚']
+    tr: ['Bilgisayar Mühendisi', 'QA Stajyeri'],
+    en: ['Computer Engineer', 'QA Intern']
 };
+
+// Her metin için Font Awesome ikon sınıfları
+const typingIcons = [
+    'fas fa-laptop-code',   // Bilgisayar Mühendisi
+    'fas fa-bug',           // QA Stajyeri
+];
 
 /* ---------------------------------------------------
    switchLanguage() Fonksiyonu
@@ -84,12 +90,23 @@ document.getElementById('langToggle').addEventListener('click', switchLanguage);
    =================================================== */
 const navbar = document.getElementById('navbar');
 
+const scrollIndicator = document.querySelector('.scroll-indicator');
+
 window.addEventListener('scroll', function () {
     // scrollY → sayfanın ne kadar aşağı kaydırıldığı (piksel)
     if (window.scrollY > 50) {
         navbar.classList.add('scrolled');
     } else {
         navbar.classList.remove('scrolled');
+    }
+
+    // Scroll indicator: hero bölümünden çıkınca gizle
+    if (scrollIndicator) {
+        if (window.scrollY > 50) {
+            scrollIndicator.classList.add('hidden');
+        } else {
+            scrollIndicator.classList.remove('hidden');
+        }
     }
 });
 
@@ -172,6 +189,7 @@ setTimeout(function () {
    - pauseTime: metin tamamlandıktan sonra bekleme
    =================================================== */
 const typingElement = document.getElementById('typingText');
+const typingIconEl = document.getElementById('typingIcon');
 const typingSpeed = 80;     // ms — yazma hızı
 const deletingSpeed = 40;   // ms — silme hızı
 const pauseTime = 2000;     // ms — bekleme süresi
@@ -180,6 +198,13 @@ let textIndex = 0;      // Şuanki metin indeksi
 let charIndex = 0;       // Şuanki karakter indeksi
 let isDeleting = false;  // Silme modunda mıyız?
 let typingTimeout = null; // Zamanlayıcı referansı
+
+function updateTypingIcon() {
+    if (typingIconEl) {
+        const iconClass = typingIcons[textIndex % typingIcons.length];
+        typingIconEl.className = 'typing-icon ' + iconClass;
+    }
+}
 
 function typeText() {
     // Mevcut dildeki metinleri al
@@ -195,6 +220,7 @@ function typeText() {
             // Tüm metin silindi, sonraki metne geç
             isDeleting = false;
             textIndex++;
+            updateTypingIcon(); // İkonu güncelle
             typingTimeout = setTimeout(typeText, 400); // Kısa bekleme
             return;
         }

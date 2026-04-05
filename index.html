@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <!-- ============================================
          META TAGS - Tarayıcıya sayfamız hakkında bilgi verir
@@ -17,10 +18,13 @@
          ============================================ -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <!-- ============================================
@@ -63,30 +67,37 @@
          İsim, unvan ve sosyal medya linkleri burada.
          ============================================ -->
     <section class="hero" id="hero">
-        <!-- Dekoratif arka plan şekilleri (CSS ile stillendirilecek) -->
+        <!-- Dekoratif arka plan -->
         <div class="hero-shapes">
             <div class="shape shape-1"></div>
             <div class="shape shape-2"></div>
-            <div class="shape shape-3"></div>
-            <div class="shape shape-4"></div>
         </div>
 
         <div class="hero-content">
+            <!-- Sol: Avatar İllüstrasyonu -->
+            <div class="hero-image">
+                <img src="Avatar_Nur.png" alt="Nur Kumbasar" class="profile-avatar">
+            </div>
+
+            <!-- Sağ: Metin -->
             <div class="hero-text">
                 <p class="hero-greeting" data-tr="Merhaba, ben" data-en="Hi, I'm">Merhaba, ben</p>
                 <h1 class="hero-name">Nur Kumbasar</h1>
                 <div class="hero-title-wrapper">
+                    <i class="typing-icon fas fa-laptop-code" id="typingIcon"></i>
                     <span class="hero-title" id="typingText"></span>
                     <span class="cursor">|</span>
                 </div>
-                <p class="hero-description" data-tr="Bilgisayar Mühendisliği öğrencisi | Kadir Has Üniversitesi" data-en="Computer Engineering Student | Kadir Has University">Bilgisayar Mühendisliği öğrencisi | Kadir Has Üniversitesi</p>
+                <p class="hero-description" data-tr="Bilgisayar Mühendisliği öğrencisi | Kadir Has Üniversitesi"
+                    data-en="Computer Engineering Student | Kadir Has University">Bilgisayar Mühendisliği öğrencisi |
+                    Kadir Has Üniversitesi</p>
 
-                <!-- Sosyal Medya Linkleri -->
                 <div class="hero-socials">
                     <a href="https://github.com/nurkumbasar" target="_blank" aria-label="GitHub" class="social-link">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="https://www.linkedin.com/in/nur-kumbasar" target="_blank" aria-label="LinkedIn" class="social-link">
+                    <a href="https://www.linkedin.com/in/nur-kumbasar" target="_blank" aria-label="LinkedIn"
+                        class="social-link">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
                     <a href="mailto:nurkumbsr@gmail.com" aria-label="Email" class="social-link">
@@ -94,18 +105,10 @@
                     </a>
                 </div>
 
-                <!-- CTA Butonu -->
-                <a href="#contact" class="hero-cta" data-tr="İletişime Geç ✨" data-en="Get in Touch ✨">İletişime Geç ✨</a>
-            </div>
-
-            <!-- Profil Resmi Alanı -->
-            <div class="hero-image">
-                <div class="image-wrapper">
-                    <div class="image-placeholder">
-                        <i class="fas fa-user"></i>
-                        <span data-tr="Fotoğrafınız" data-en="Your Photo">Fotoğrafınız</span>
-                    </div>
-                </div>
+                <a href="#contact" class="hero-cta" data-tr="İletişime Geç" data-en="Get in Touch">
+                    <i class="fas fa-paper-plane"></i>
+                    <span data-tr="İletişime Geç" data-en="Get in Touch">İletişime Geç</span>
+                </a>
             </div>
         </div>
 
@@ -128,8 +131,15 @@
 
             <div class="about-content">
                 <div class="about-card glass-card">
-                    <div class="about-icon"><i class="fas fa-heart"></i></div>
-                    <p class="about-text" data-tr="Bilgisayar Mühendisliği öğrencisiyim. İyi takım çalışması becerilerine sahibim ve proje gruplarında aktif bir katılımcı olarak liderlik becerilerimi geliştirmeye özen gösteriyorum. Dikkatli ve detay odaklı çalışarak verilerin doğruluğunu ve tutarlılığını sağlayabilirim. Zaman yönetimi ve önceliklendirme becerilerim sayesinde yoğun bir iş programında bile etkin bir şekilde çalışabilirim." data-en="I am a Computer Engineering student. I have good teamwork skills and, while being an active participant in project groups, I also take care to improve my leadership skills. By working carefully and detail-oriented, I can ensure the accuracy and consistency of data. Thanks to my skills in time management and prioritization, I can work effectively even in a busy work schedule.">Bilgisayar Mühendisliği öğrencisiyim. İyi takım çalışması becerilerine sahibim ve proje gruplarında aktif bir katılımcı olarak liderlik becerilerimi geliştirmeye özen gösteriyorum. Dikkatli ve detay odaklı çalışarak verilerin doğruluğunu ve tutarlılığını sağlayabilirim. Zaman yönetimi ve önceliklendirme becerilerim sayesinde yoğun bir iş programında bile etkin bir şekilde çalışabilirim.</p>
+                    <div class="about-icon"><i class="fas fa-user"></i></div>
+                    <p class="about-text"
+                        data-tr="Teknolojiye ilgi duyan, kendini sürekli geliştirmeye odaklanan biriyim. Yazılım geliştirme ve problem çözme süreçlerinde analitik düşünmeye ve detaylara dikkat etmeye önem veririm. Takım çalışmasına yatkın, sorumluluk almaktan çekinmeyen ve proje süreçlerinde aktif rol alan bir yapıya sahibim. Zaman yönetimi ve önceliklendirme becerilerim sayesinde yoğun çalışma temposunda düzenli ve verimli çalışabilirim."
+                        data-en="I am passionate about technology and focused on continuous self-improvement. I value analytical thinking and attention to detail in software development and problem-solving processes. I am a team player who is not afraid to take responsibility and actively takes part in project processes. Thanks to my time management and prioritization skills, I can work in an organized and efficient manner even under a heavy workload.">
+                        Teknolojiye ilgi duyan, kendini sürekli geliştirmeye odaklanan biriyim. Yazılım geliştirme ve
+                        problem çözme süreçlerinde analitik düşünmeye ve detaylara dikkat etmeye önem veririm. Takım
+                        çalışmasına yatkın, sorumluluk almaktan çekinmeyen ve proje süreçlerinde aktif rol alan bir
+                        yapıya sahibim. Zaman yönetimi ve önceliklendirme becerilerim sayesinde yoğun çalışma temposunda
+                        düzenli ve verimli çalışabilirim.</p>
                 </div>
 
                 <!-- İstatistik Kutuları -->
@@ -170,11 +180,17 @@
                             <h3 data-tr="QA Stajyeri" data-en="QA Intern">QA Stajyeri</h3>
                             <span class="timeline-date">
                                 <i class="far fa-calendar-alt"></i>
-                                <span data-tr="Şubat 2026 - Devam Ediyor" data-en="February 2026 - Present">Şubat 2026 - Devam Ediyor</span>
+                                <span data-tr="Şubat 2026 - Devam Ediyor" data-en="February 2026 - Present">Şubat 2026 -
+                                    Devam Ediyor</span>
                             </span>
                         </div>
                         <h4 class="timeline-company">Extra360 Technology Solutions</h4>
-                        <p class="timeline-desc" data-tr="Yazılım testi, test senaryosu oluşturma ve hata raporlama odaklı bir QA stajyeri olarak çalıştım. Manuel test süreçlerinde uygulamalı deneyim kazandım, detaylara olan dikkatimi geliştirdim ve işbirlikçi bir ekip ortamında yazılım kalitesine katkıda bulundum." data-en="Worked as a QA intern with a focus on software testing, test case creation, and bug reporting. Gained hands-on experience in manual testing processes, improved attention to detail, and contributed to software quality within a collaborative team environment.">Yazılım testi, test senaryosu oluşturma ve hata raporlama odaklı bir QA stajyeri olarak çalıştım. Manuel test süreçlerinde uygulamalı deneyim kazandım, detaylara olan dikkatimi geliştirdim ve işbirlikçi bir ekip ortamında yazılım kalitesine katkıda bulundum.</p>
+                        <p class="timeline-desc"
+                            data-tr="Yazılım testi, test senaryosu oluşturma ve hata raporlama odaklı bir QA stajyeri olarak çalıştım. Manuel test süreçlerinde uygulamalı deneyim kazandım, detaylara olan dikkatimi geliştirdim ve işbirlikçi bir ekip ortamında yazılım kalitesine katkıda bulundum."
+                            data-en="Worked as a QA intern with a focus on software testing, test case creation, and bug reporting. Gained hands-on experience in manual testing processes, improved attention to detail, and contributed to software quality within a collaborative team environment.">
+                            Yazılım testi, test senaryosu oluşturma ve hata raporlama odaklı bir QA stajyeri olarak
+                            çalıştım. Manuel test süreçlerinde uygulamalı deneyim kazandım, detaylara olan dikkatimi
+                            geliştirdim ve işbirlikçi bir ekip ortamında yazılım kalitesine katkıda bulundum.</p>
                     </div>
                 </div>
 
@@ -183,14 +199,21 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content glass-card">
                         <div class="timeline-header">
-                            <h3 data-tr="Proje Yönetimi Stajyeri" data-en="Project Management Intern">Proje Yönetimi Stajyeri</h3>
+                            <h3 data-tr="Proje Yönetimi Stajyeri" data-en="Project Management Intern">Proje Yönetimi
+                                Stajyeri</h3>
                             <span class="timeline-date">
                                 <i class="far fa-calendar-alt"></i>
-                                <span data-tr="Haziran 2025 - Temmuz 2025" data-en="June 2025 - July 2025">Haziran 2025 - Temmuz 2025</span>
+                                <span data-tr="Haziran 2025 - Temmuz 2025" data-en="June 2025 - July 2025">Haziran 2025
+                                    - Temmuz 2025</span>
                             </span>
                         </div>
                         <h4 class="timeline-company">TNC Group - SCA Social</h4>
-                        <p class="timeline-desc" data-tr="Proje yönetimi, yapay zeka, BT hukuku ve organizasyonel konularda dokümantasyon, planlama ve analize odaklanan projeler yürüttüm. Gantt diyagramları, proje tüzükleri ve organizasyonel dosyalar aracılığıyla teknik ve yönetsel yetkinlik kazandım." data-en="Implemented projects focused on documentation, planning, and analysis in project management, artificial intelligence, IT law, and organizational matters. Gained technical and managerial competence through Gantt charts, project charters, organizational files.">Proje yönetimi, yapay zeka, BT hukuku ve organizasyonel konularda dokümantasyon, planlama ve analize odaklanan projeler yürüttüm. Gantt diyagramları, proje tüzükleri ve organizasyonel dosyalar aracılığıyla teknik ve yönetsel yetkinlik kazandım.</p>
+                        <p class="timeline-desc"
+                            data-tr="Proje yönetimi, yapay zeka, BT hukuku ve organizasyonel konularda dokümantasyon, planlama ve analize odaklanan projeler yürüttüm. Gantt diyagramları, proje tüzükleri ve organizasyonel dosyalar aracılığıyla teknik ve yönetsel yetkinlik kazandım."
+                            data-en="Implemented projects focused on documentation, planning, and analysis in project management, artificial intelligence, IT law, and organizational matters. Gained technical and managerial competence through Gantt charts, project charters, organizational files.">
+                            Proje yönetimi, yapay zeka, BT hukuku ve organizasyonel konularda dokümantasyon, planlama ve
+                            analize odaklanan projeler yürüttüm. Gantt diyagramları, proje tüzükleri ve organizasyonel
+                            dosyalar aracılığıyla teknik ve yönetsel yetkinlik kazandım.</p>
                     </div>
                 </div>
 
@@ -199,14 +222,20 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content glass-card">
                         <div class="timeline-header">
-                            <h3 data-tr="Bilgi Teknolojileri Stajyeri" data-en="Information Technology Intern">Bilgi Teknolojileri Stajyeri</h3>
+                            <h3 data-tr="Bilgi Teknolojileri Stajyeri" data-en="Information Technology Intern">Bilgi
+                                Teknolojileri Stajyeri</h3>
                             <span class="timeline-date">
                                 <i class="far fa-calendar-alt"></i>
-                                <span data-tr="Haziran 2025 - Temmuz 2025" data-en="June 2025 - July 2025">Haziran 2025 - Temmuz 2025</span>
+                                <span data-tr="Haziran 2025 - Temmuz 2025" data-en="June 2025 - July 2025">Haziran 2025
+                                    - Temmuz 2025</span>
                             </span>
                         </div>
                         <h4 class="timeline-company">TNC Group - Social Office</h4>
-                        <p class="timeline-desc" data-tr="Excel, AutoCAD, Python, Photoshop bilgimi geliştirdim ve temel konsol projeleri oluşturdum." data-en="Improved my knowledge of Excel, AutoCAD, Python, Photoshop and created basic console projects.">Excel, AutoCAD, Python, Photoshop bilgimi geliştirdim ve temel konsol projeleri oluşturdum.</p>
+                        <p class="timeline-desc"
+                            data-tr="Excel, AutoCAD, Python, Photoshop bilgimi geliştirdim ve temel konsol projeleri oluşturdum."
+                            data-en="Improved my knowledge of Excel, AutoCAD, Python, Photoshop and created basic console projects.">
+                            Excel, AutoCAD, Python, Photoshop bilgimi geliştirdim ve temel konsol projeleri oluşturdum.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -227,7 +256,8 @@
                 <div class="edu-card glass-card">
                     <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
                     <div class="edu-info">
-                        <h3 data-tr="Bilgisayar Mühendisliği Lisans" data-en="Undergraduate Computer Engineering">Bilgisayar Mühendisliği Lisans</h3>
+                        <h3 data-tr="Bilgisayar Mühendisliği Lisans" data-en="Undergraduate Computer Engineering">
+                            Bilgisayar Mühendisliği Lisans</h3>
                         <h4>Kadir Has University - İstanbul</h4>
                         <span class="edu-date">2023 - 2027</span>
                     </div>
@@ -285,7 +315,8 @@
                     <div class="skill-tags">
                         <span class="skill-tag">Git / GitHub</span>
                         <span class="skill-tag">MySQL</span>
-                        <span class="skill-tag">MATLAB / Simulink</span>
+                        <span class="skill-tag">MATLAB</span>
+                        <span class="skill-tag">Simulink</span>
                         <span class="skill-tag">Wireshark</span>
                     </div>
                 </div>
@@ -306,9 +337,11 @@
                     <div class="skill-cat-icon"><i class="fas fa-brain"></i></div>
                     <h3 data-tr="Kavramlar" data-en="Concepts">Kavramlar</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag" data-tr="Nesne Yönelimli Programlama" data-en="Object Oriented Programming">Nesne Yönelimli Programlama</span>
+                        <span class="skill-tag" data-tr="Nesne Yönelimli Programlama"
+                            data-en="Object Oriented Programming">Nesne Yönelimli Programlama</span>
                         <span class="skill-tag" data-tr="Yazılım Testi" data-en="Software Testing">Yazılım Testi</span>
-                        <span class="skill-tag" data-tr="Proje Yönetimi" data-en="Project Management">Proje Yönetimi</span>
+                        <span class="skill-tag" data-tr="Proje Yönetimi" data-en="Project Management">Proje
+                            Yönetimi</span>
                     </div>
                 </div>
 
@@ -317,8 +350,10 @@
                     <div class="skill-cat-icon"><i class="fas fa-globe"></i></div>
                     <h3 data-tr="Diller" data-en="Languages">Diller</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag" data-tr="Türkçe — Anadil" data-en="Turkish — Native">Türkçe — Anadil</span>
-                        <span class="skill-tag" data-tr="İngilizce — İleri Seviye" data-en="English — Advanced">İngilizce — İleri Seviye</span>
+                        <span class="skill-tag" data-tr="Türkçe — Anadil" data-en="Turkish — Native">Türkçe —
+                            Anadil</span>
+                        <span class="skill-tag" data-tr="İngilizce — İleri Seviye"
+                            data-en="English — Advanced">İngilizce — İleri Seviye</span>
                     </div>
                 </div>
             </div>
@@ -335,7 +370,12 @@
             <div class="section-line"></div>
 
             <div class="contact-content">
-                <p class="contact-intro" data-tr="Benimle iletişime geçmek ister misiniz? Aşağıdaki kanallardan ulaşabilirsiniz! 💌" data-en="Want to get in touch? You can reach me through the channels below! 💌">Benimle iletişime geçmek ister misiniz? Aşağıdaki kanallardan ulaşabilirsiniz! 💌</p>
+                <p class="contact-intro">
+                    <i class="fas fa-comment-dots contact-intro-icon"></i>
+                    <span data-tr="Benimle iletişime geçmek ister misiniz? Aşağıdaki kanallardan ulaşabilirsiniz."
+                        data-en="Want to get in touch? You can reach me through the channels below.">Benimle iletişime
+                        geçmek ister misiniz? Aşağıdaki kanallardan ulaşabilirsiniz.</span>
+                </p>
 
                 <div class="contact-grid">
                     <a href="mailto:nurkumbsr@gmail.com" class="contact-card glass-card">
@@ -378,11 +418,13 @@
          ============================================ -->
     <footer class="footer">
         <div class="container">
-            <p data-tr="© 2026 Nur Kumbasar. Tüm hakları saklıdır. 🌸" data-en="© 2026 Nur Kumbasar. All rights reserved. 🌸">© 2026 Nur Kumbasar. Tüm hakları saklıdır. 🌸</p>
+            <p data-tr="© 2026 Nur Kumbasar. Tüm hakları saklıdır." data-en="© 2026 Nur Kumbasar. All rights reserved.">
+                © 2026 Nur Kumbasar. Tüm hakları saklıdır.</p>
         </div>
     </footer>
 
     <!-- JavaScript dosyamız -->
     <script src="script.js"></script>
 </body>
+
 </html>
