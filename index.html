@@ -52,14 +52,32 @@
                 <span class="logo-path">~/nur-kumbasar</span>
             </a>
 
-            <!-- Navigation Links -->
+            <!-- Navigation — IDE File Tabs -->
             <ul class="nav-links" id="navLinks">
-                <li><a href="#about" data-tr="#Hakkımda" data-en="#About">#Hakkımda</a></li>
-                <li><a href="#experience" data-tr="#Deneyim" data-en="#Experience">#Deneyim</a></li>
-                <li><a href="#education" data-tr="#Eğitim" data-en="#Education">#Eğitim</a></li>
-                <li><a href="#skills" data-tr="#Yetenekler" data-en="#Skills">#Yetenekler</a></li>
-                <li><a href="#projects" data-tr="#Projeler" data-en="#Projects">#Projeler</a></li>
-                <li><a href="#contact" data-tr="#İletişim" data-en="#Contact">#İletişim</a></li>
+                <li><a href="#about" class="nav-tab" data-tr="#Hakkımda" data-en="#About">
+                    <span class="nav-tab-icon">📄</span>
+                    <span data-tr="hakkimda.ts" data-en="about.ts">hakkimda.ts</span>
+                </a></li>
+                <li><a href="#experience" class="nav-tab" data-tr="#Deneyim" data-en="#Experience">
+                    <span class="nav-tab-icon">📄</span>
+                    <span data-tr="deneyim.json" data-en="experience.json">deneyim.json</span>
+                </a></li>
+                <li><a href="#education" class="nav-tab" data-tr="#Eğitim" data-en="#Education">
+                    <span class="nav-tab-icon">📄</span>
+                    <span data-tr="egitim.md" data-en="education.md">egitim.md</span>
+                </a></li>
+                <li><a href="#skills" class="nav-tab" data-tr="#Yetenekler" data-en="#Skills">
+                    <span class="nav-tab-icon">📄</span>
+                    <span data-tr="yetenekler.ts" data-en="skills.ts">yetenekler.ts</span>
+                </a></li>
+                <li><a href="#projects" class="nav-tab" data-tr="#Projeler" data-en="#Projects">
+                    <span class="nav-tab-icon">📄</span>
+                    <span data-tr="projeler.ts" data-en="projects.ts">projeler.ts</span>
+                </a></li>
+                <li><a href="#contact" class="nav-tab" data-tr="#İletişim" data-en="#Contact">
+                    <span class="nav-tab-icon">📄</span>
+                    <span data-tr="iletisim.sh" data-en="contact.sh">iletisim.sh</span>
+                </a></li>
             </ul>
 
             <!-- Right Controls -->
@@ -79,73 +97,45 @@
     </nav>
 
     <!-- ============================================
-         HERO SECTION — Browser Window Theme
+         HERO SECTION
          ============================================ -->
     <section class="hero" id="hero">
 
-        <!-- Browser Chrome: Traffic Lights + Tabs -->
-        <div class="browser-chrome">
-            <div class="browser-traffic-lights">
-                <span class="traffic-red"></span>
-                <span class="traffic-yellow"></span>
-                <span class="traffic-green"></span>
+        <div class="hero-content">
+            <div class="hero-avatar-wrapper">
+                <img src="Avatar_Nur.png" alt="Nur Kumbasar" class="hero-avatar">
+                <div class="hero-avatar-ring"></div>
             </div>
-            <div class="browser-tabs">
-                <div class="browser-tab active">
-                    <span class="tab-icon">🔮</span>
-                    <span class="tab-title">nurkumbasar.com</span>
-                    <span class="tab-close">×</span>
-                </div>
-                <div class="browser-tab">
-                    <span class="tab-title" data-tr="Hakkımda" data-en="About">Hakkımda</span>
-                    <span class="tab-close">×</span>
-                </div>
-                <button class="tab-new" aria-label="New tab">+</button>
-            </div>
-        </div>
 
-        <!-- Browser Toolbar: Address Bar -->
-        <div class="browser-toolbar">
-            <div class="browser-nav-btns">
-                <button class="browser-nav-btn" aria-label="Back">&#8592;</button>
-                <button class="browser-nav-btn" aria-label="Forward">&#8594;</button>
-                <button class="browser-nav-btn" aria-label="Refresh">&#8635;</button>
-            </div>
-            <div class="browser-address-bar" id="browserAddressBar">
-                <i class="fas fa-lock browser-lock-icon"></i>
-                <span class="url-protocol">https://</span><span class="url-domain" id="urlDomain"></span><span
-                    class="url-blink-cursor" id="urlCursor">▋</span>
-            </div>
-            <div class="browser-toolbar-right">
-                <button class="browser-action-btn" aria-label="Bookmark"><i class="fas fa-star"></i></button>
-            </div>
-        </div>
-
-        <!-- Browser Viewport: Page Content -->
-        <div class="browser-viewport">
-            <div class="hero-content">
-                <div class="hero-avatar-wrapper">
-                    <img src="Avatar_Nur.png" alt="Nur Kumbasar" class="hero-avatar">
-                </div>
+            <div class="hero-text">
+                <p class="hero-greeting">
+                    <span class="vsc-comment">// </span><span data-tr="merhaba, ben" data-en="hi, i'm">merhaba, ben</span>
+                </p>
                 <h1 class="hero-name">Nur Kumbasar</h1>
-                <div class="hero-typewriter">
-                    <span class="typewriter-text" id="typingText"></span>
-                    <span class="typewriter-cursor">|</span>
+                <div class="hero-role-row">
+                    <span class="vsc-keyword">const</span>
+                    <span class="vsc-var"> role</span>
+                    <span class="vsc-punct"> = </span>
+                    <span class="vsc-string">"<span class="typewriter-text" id="typingText"></span><span class="typewriter-cursor">|</span>"</span>
                 </div>
                 <p class="hero-sub" data-tr="Kadir Has Üniversitesi · Bilgisayar Mühendisliği"
-                    data-en="Kadir Has University · Computer Engineering">Kadir Has Üniversitesi · Bilgisayar
-                    Mühendisliği</p>
+                    data-en="Kadir Has University · Computer Engineering">
+                    Kadir Has Üniversitesi · Bilgisayar Mühendisliği
+                </p>
             </div>
-            <a href="#about" class="scroll-indicator" id="scrollIndicator">
-                <i class="fas fa-chevron-down"></i>
-            </a>
         </div>
+
+        <a href="#about" class="scroll-indicator" id="scrollIndicator">
+            <i class="fas fa-chevron-down"></i>
+        </a>
 
     </section>
 
     <!-- ============================================
          ABOUT SECTION
          ============================================ -->
+
+
     <section class="section" id="about">
         <div class="container">
             <div class="section-header">

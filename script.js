@@ -465,14 +465,13 @@ function initDinoGame() {
     function isDark() { return document.documentElement.getAttribute('data-theme') === 'dark'; }
 
     function getColors() {
-        var dark = isDark();
         return {
-            bg:       dark ? '#0f0c1e' : '#f5f0ff',
-            ground:   dark ? '#3b3060' : '#c4b5fd',
-            dino:     dino.dead ? '#ef4444' : '#a855f7',
-            cactus:   '#7c3aed',
-            text:     dark ? '#e9d5ff' : '#4c1d95',
-            muted:    dark ? '#7c3aed' : '#a78bfa',
+            bg:       '#0f172a',
+            ground:   'rgba(255, 255, 255, 0.1)',
+            dino:     dino.dead ? '#ef4444' : '#10b981',
+            cactus:   '#10b981',
+            text:     '#22d3ee',
+            muted:    'rgba(255, 255, 255, 0.4)',
         };
     }
 
@@ -485,8 +484,9 @@ function initDinoGame() {
         DINO_RECTS.forEach(function(r) {
             ctx.fillRect(ox + r[0] + (isD ? 4 : 0), oy + r[1] + (isD ? 10 : 0), r[2], r[3]);
         });
-        ctx.fillStyle = isDark() ? '#0f0c1e' : '#fff'; // eye
-        ctx.fillRect(ox + (isD ? 20 : 21), oy + (isD ? 12 : 3), 4, 4);
+        // Eye (hole in head)
+        ctx.fillStyle = '#0f172a'; // eye matches terminal bg
+        ctx.fillRect(ox + (isD ? 24 : 25), oy + (isD ? 12 : 3), 4, 4);
     }
 
     function drawCactus(c) {
