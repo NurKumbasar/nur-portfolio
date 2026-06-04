@@ -2,58 +2,72 @@
 <html lang="tr">
 
 <head>
-    <!-- ============================================
-         META TAGS - Tarayıcıya sayfamız hakkında bilgi verir
-         ============================================ -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline';">
     <meta name="description" content="Nur Kumbasar - Computer Engineering Student | Personal Portfolio">
     <title>Nur Kumbasar</title>
-    <link rel="icon" type="image/png" href="nk-favicon.png">
-    <link rel="apple-touch-icon" href="nk-favicon.png">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23a855f7'/><text x='16' y='22' font-family='monospace' font-size='16' font-weight='bold' fill='white' text-anchor='middle'>NK</text></svg>">
 
-    <!-- ============================================
-         HARICI KAYNAKLAR
-         - Google Fonts: "Poppins" fontu (tatlı ve modern bir font)
-         - Font Awesome: İkonlar için (GitHub, LinkedIn vs.)
-         - style.css: Kendi stil dosyamız
-         ============================================ -->
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nurkumbasar.com/">
+    <meta property="og:title" content="Nur Kumbasar | Personal Portfolio">
+    <meta property="og:description"
+        content="Kadir Has University Computer Engineering Student & QA Intern Portfolio. Showcase of projects, experience, and skills.">
+    <meta property="og:image" content="Avatar_Nur.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://nurkumbasar.com/">
+    <meta property="twitter:title" content="Nur Kumbasar | Personal Portfolio">
+    <meta property="twitter:description"
+        content="Kadir Has University Computer Engineering Student & QA Intern Portfolio. Showcase of projects, experience, and skills.">
+    <meta property="twitter:image" content="Avatar_Nur.png">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <!-- Aurora blob background -->
+    <div class="aurora-bg" aria-hidden="true">
+        <div class="aurora-blob aurora-blob-1"></div>
+        <div class="aurora-blob aurora-blob-2"></div>
+        <div class="aurora-blob aurora-blob-3"></div>
+    </div>
 
     <!-- ============================================
-         NAVİGASYON BARI
-         Sayfanın en üstünde duran menü çubuğu.
-         "nav" etiketi semantik HTML5 - tarayıcıya
-         bunun bir navigasyon menüsü olduğunu söyler.
+         NAVIGATION BAR
          ============================================ -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <!-- Logo / İsim -->
-            <a href="#hero" class="nav-logo">NK<span class="dot">.</span></a>
+            <!-- Logo -->
+            <a href="#hero" class="nav-logo">
+                <span class="logo-mark">NK</span>
+                <span class="logo-path">~/nur-kumbasar</span>
+            </a>
 
-            <!-- Menü Linkleri -->
+            <!-- Navigation Links -->
             <ul class="nav-links" id="navLinks">
-                <li><a href="#about" data-tr="Hakkımda" data-en="About">Hakkımda</a></li>
-                <li><a href="#experience" data-tr="Deneyim" data-en="Experience">Deneyim</a></li>
-                <li><a href="#education" data-tr="Eğitim" data-en="Education">Eğitim</a></li>
-                <li><a href="#skills" data-tr="Yetenekler" data-en="Skills">Yetenekler</a></li>
-                <li><a href="#contact" data-tr="İletişim" data-en="Contact">İletişim</a></li>
+                <li><a href="#about" data-tr="#Hakkımda" data-en="#About">#Hakkımda</a></li>
+                <li><a href="#experience" data-tr="#Deneyim" data-en="#Experience">#Deneyim</a></li>
+                <li><a href="#education" data-tr="#Eğitim" data-en="#Education">#Eğitim</a></li>
+                <li><a href="#skills" data-tr="#Yetenekler" data-en="#Skills">#Yetenekler</a></li>
+                <li><a href="#projects" data-tr="#Projeler" data-en="#Projects">#Projeler</a></li>
+                <li><a href="#contact" data-tr="#İletişim" data-en="#Contact">#İletişim</a></li>
             </ul>
 
-            <!-- Dil Seçici ve Mobil Menü -->
+            <!-- Right Controls -->
             <div class="nav-right">
-                <button class="lang-toggle" id="langToggle" title="Switch Language">
-                    <span class="lang-active">TR</span> / <span class="lang-inactive">EN</span>
+                <button class="lang-toggle" id="langToggle" title="Switch Language"
+                    aria-label="Switch Language">TR</button>
+                <button class="theme-toggle" id="themeToggle" title="Toggle Theme" aria-label="Toggle Theme">
+                    <i class="fas fa-sun"></i>
                 </button>
                 <button class="hamburger" id="hamburger" aria-label="Menu">
                     <span></span>
@@ -65,76 +79,109 @@
     </nav>
 
     <!-- ============================================
-         HERO BÖLÜMÜ
-         Sayfayı açtığında ilk görünen büyük alan.
-         İsim, unvan ve sosyal medya linkleri burada.
+         HERO SECTION — Browser Window Theme
          ============================================ -->
     <section class="hero" id="hero">
-        <!-- Dekoratif arka plan -->
-        <div class="hero-shapes">
-            <div class="shape shape-1"></div>
-            <div class="shape shape-2"></div>
+
+        <!-- Browser Chrome: Traffic Lights + Tabs -->
+        <div class="browser-chrome">
+            <div class="browser-traffic-lights">
+                <span class="traffic-red"></span>
+                <span class="traffic-yellow"></span>
+                <span class="traffic-green"></span>
+            </div>
+            <div class="browser-tabs">
+                <div class="browser-tab active">
+                    <span class="tab-icon">🔮</span>
+                    <span class="tab-title">nurkumbasar.com</span>
+                    <span class="tab-close">×</span>
+                </div>
+                <div class="browser-tab">
+                    <span class="tab-title" data-tr="Hakkımda" data-en="About">Hakkımda</span>
+                    <span class="tab-close">×</span>
+                </div>
+                <button class="tab-new" aria-label="New tab">+</button>
+            </div>
         </div>
 
-        <div class="hero-content">
-            <!-- Sol: Avatar İllüstrasyonu -->
-            <div class="hero-image">
-                <img src="Avatar_Nur.png" alt="Nur Kumbasar" class="profile-avatar">
+        <!-- Browser Toolbar: Address Bar -->
+        <div class="browser-toolbar">
+            <div class="browser-nav-btns">
+                <button class="browser-nav-btn" aria-label="Back">&#8592;</button>
+                <button class="browser-nav-btn" aria-label="Forward">&#8594;</button>
+                <button class="browser-nav-btn" aria-label="Refresh">&#8635;</button>
             </div>
+            <div class="browser-address-bar" id="browserAddressBar">
+                <i class="fas fa-lock browser-lock-icon"></i>
+                <span class="url-protocol">https://</span><span class="url-domain" id="urlDomain"></span><span
+                    class="url-blink-cursor" id="urlCursor">▋</span>
+            </div>
+            <div class="browser-toolbar-right">
+                <button class="browser-action-btn" aria-label="Bookmark"><i class="fas fa-star"></i></button>
+            </div>
+        </div>
 
-            <!-- Sağ: Metin -->
-            <div class="hero-text">
-                <p class="hero-greeting" data-tr="Merhaba, ben" data-en="Hi, I'm">Merhaba, ben</p>
+        <!-- Browser Viewport: Page Content -->
+        <div class="browser-viewport">
+            <div class="hero-content">
+                <div class="hero-avatar-wrapper">
+                    <img src="Avatar_Nur.png" alt="Nur Kumbasar" class="hero-avatar">
+                </div>
                 <h1 class="hero-name">Nur Kumbasar</h1>
-                <div class="hero-title-wrapper">
-                    <i class="typing-icon fas fa-laptop-code" id="typingIcon"></i>
-                    <span class="hero-title" id="typingText"></span>
-                    <span class="cursor">|</span>
+                <div class="hero-typewriter">
+                    <span class="typewriter-text" id="typingText"></span>
+                    <span class="typewriter-cursor">|</span>
                 </div>
-                <p class="hero-description" data-tr="Bilgisayar Mühendisliği öğrencisi | Kadir Has Üniversitesi"
-                    data-en="Computer Engineering Student | Kadir Has University">Bilgisayar Mühendisliği öğrencisi |
-                    Kadir Has Üniversitesi</p>
-
-                <div class="hero-socials">
-                    <a href="https://github.com/nurkumbasar" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="social-link">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/nur-kumbasar" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-                        class="social-link">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="mailto:nurkumbsr@gmail.com" aria-label="Email" class="social-link">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-
-                <a href="#contact" class="hero-cta" data-tr="İletişime Geç" data-en="Get in Touch">
-                    <i class="fas fa-paper-plane"></i>
-                    <span data-tr="İletişime Geç" data-en="Get in Touch">İletişime Geç</span>
-                </a>
+                <p class="hero-sub" data-tr="Kadir Has Üniversitesi · Bilgisayar Mühendisliği"
+                    data-en="Kadir Has University · Computer Engineering">Kadir Has Üniversitesi · Bilgisayar
+                    Mühendisliği</p>
             </div>
+            <a href="#about" class="scroll-indicator" id="scrollIndicator">
+                <i class="fas fa-chevron-down"></i>
+            </a>
         </div>
 
-        <!-- Aşağı kaydır göstergesi -->
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="wheel"></div>
-            </div>
-        </div>
     </section>
 
     <!-- ============================================
-         HAKKIMDA BÖLÜMÜ
-         CV'deki profil açıklamasını buraya koyuyoruz.
+         ABOUT SECTION
          ============================================ -->
     <section class="section" id="about">
         <div class="container">
-            <h2 class="section-title" data-tr="Hakkımda" data-en="About Me">Hakkımda</h2>
+            <div class="section-header">
+                <h2 class="section-hash">##</h2>
+                <h2 class="section-title" data-tr="Hakkımda" data-en="About Me">Hakkımda</h2>
+            </div>
+            <p class="section-subtitle mono" data-tr="cat ~/hakkimda.md" data-en="cat ~/about.md">cat ~/hakkimda.md</p>
             <div class="section-line"></div>
 
-            <div class="about-content">
-                <div class="about-card glass-card">
-                    <div class="about-icon"><i class="fas fa-user"></i></div>
+            <div class="about-grid">
+                <!-- Left: Terminal Window -->
+                <div class="terminal-window">
+                    <div class="terminal-bar">
+                        <div class="terminal-dots">
+                            <span class="dot-red"></span>
+                            <span class="dot-yellow"></span>
+                            <span class="dot-green"></span>
+                        </div>
+                        <span class="terminal-bar-title">visitor@nurkumbasar — bash</span>
+                    </div>
+                    <div class="terminal-body" id="terminalBody">
+                        <div class="terminal-line text-cyan" data-tr="# Hoş geldiniz! 'help' yazın → komut listesi, 'hack' yazın → sürpriz 🦖" data-en="# Welcome! Type 'help' for commands, 'hack' for a surprise 🦖"># Hoş geldiniz! 'help' yazın → komut listesi, 'hack' yazın → sürpriz 🦖</div>
+                        <div class="terminal-input-row">
+                            <span class="terminal-prompt" data-tr="visitor@nurkumbasar:~$" data-en="visitor@nurkumbasar:~$">visitor@nurkumbasar:~$</span>
+                            <input type="text" id="terminalInput" class="terminal-input" autocomplete="off" spellcheck="false" aria-label="Terminal Input">
+                        </div>
+                        <!-- Dino game - hidden until 'hack' is typed -->
+                        <div id="dinoGameWrapper" style="display:none; margin-top:12px;">
+                            <div style="font-size:0.75rem; color:#a855f7; margin-bottom:6px;">🦖 &gt; launching no-internet.exe... [ SPACE ] zıpla &nbsp;·&nbsp; [↓] eğil &nbsp;·&nbsp; [ESC] kapat</div>
+                            <canvas id="dinoCanvas" style="display:block; width:100%; height:160px; border-radius:6px; cursor:pointer;"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Bio Text -->
+                <div class="about-text-block">
                     <p class="about-text"
                         data-tr="Teknolojiye ilgi duyan, kendini sürekli geliştirmeye odaklanan biriyim. Yazılım geliştirme ve problem çözme süreçlerinde analitik düşünmeye ve detaylara dikkat etmeye önem veririm. Takım çalışmasına yatkın, sorumluluk almaktan çekinmeyen ve proje süreçlerinde aktif rol alan bir yapıya sahibim. Zaman yönetimi ve önceliklendirme becerilerim sayesinde yoğun çalışma temposunda düzenli ve verimli çalışabilirim."
                         data-en="I am passionate about technology and focused on continuous self-improvement. I value analytical thinking and attention to detail in software development and problem-solving processes. I am a team player who is not afraid to take responsibility and actively takes part in project processes. Thanks to my time management and prioritization skills, I can work in an organized and efficient manner even under a heavy workload.">
@@ -142,22 +189,38 @@
                         problem çözme süreçlerinde analitik düşünmeye ve detaylara dikkat etmeye önem veririm. Takım
                         çalışmasına yatkın, sorumluluk almaktan çekinmeyen ve proje süreçlerinde aktif rol alan bir
                         yapıya sahibim. Zaman yönetimi ve önceliklendirme becerilerim sayesinde yoğun çalışma temposunda
-                        düzenli ve verimli çalışabilirim.</p>
-                </div>
+                        düzenli ve verimli çalışabilirim.
+                    </p>
 
-                <!-- İstatistik Kutuları -->
-                <div class="about-stats">
-                    <div class="stat-card glass-card">
-                        <div class="stat-number">3+</div>
-                        <div class="stat-label" data-tr="Staj Deneyimi" data-en="Internships">Staj Deneyimi</div>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">3+</span>
+                            <span class="stat-label" data-tr="Staj Deneyimi" data-en="Internships">Staj Deneyimi</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">10+</span>
+                            <span class="stat-label" data-tr="Teknik Yetenek" data-en="Technical Skills">Teknik
+                                Yetenek</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">2</span>
+                            <span class="stat-label" data-tr="Dil" data-en="Languages">Dil</span>
+                        </div>
                     </div>
-                    <div class="stat-card glass-card">
-                        <div class="stat-number">10+</div>
-                        <div class="stat-label" data-tr="Teknik Yetenek" data-en="Technical Skills">Teknik Yetenek</div>
-                    </div>
-                    <div class="stat-card glass-card">
-                        <div class="stat-number">2</div>
-                        <div class="stat-label" data-tr="Dil" data-en="Languages">Dil</div>
+
+                    <div class="about-actions">
+                        <a href="Nur_Kumbasar_CV.pdf" download class="btn-terminal">
+                            <i class="fas fa-download"></i>
+                            <span data-tr="./cv-indir.sh" data-en="./download-cv.sh">./cv-indir.sh</span>
+                        </a>
+                        <div class="social-links">
+                            <a href="https://github.com/nurkumbasar" target="_blank" rel="noopener noreferrer"
+                                aria-label="GitHub" class="social-link"><i class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/nur-kumbasar" target="_blank" rel="noopener noreferrer"
+                                aria-label="LinkedIn" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="mailto:nurkumbsr@gmail.com" aria-label="Email" class="social-link"><i
+                                    class="fas fa-envelope"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -165,75 +228,86 @@
     </section>
 
     <!-- ============================================
-         DENEYİM BÖLÜMÜ
-         Timeline (zaman çizelgesi) formatında iş deneyimleri.
-         Her deneyim bir "timeline-item" kartında gösteriliyor.
+         EXPERIENCE SECTION
          ============================================ -->
-    <section class="section section-alt" id="experience">
+    <section class="section" id="experience">
         <div class="container">
-            <h2 class="section-title" data-tr="Deneyim" data-en="Experience">Deneyim</h2>
+            <div class="section-header">
+                <h2 class="section-hash">##</h2>
+                <h2 class="section-title" data-tr="Deneyim" data-en="Experience">Deneyim</h2>
+            </div>
+            <p class="section-subtitle mono" data-tr="ls -la ~/deneyim" data-en="ls -la ~/experience">ls -la ~/deneyim
+            </p>
             <div class="section-line"></div>
 
             <div class="timeline">
-                <!-- Deneyim 1: Extra360 -->
+                <!-- Experience 1: Extra360 -->
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-content glass-card">
+                    <div class="timeline-content">
                         <div class="timeline-header">
-                            <h3 data-tr="QA Stajyeri" data-en="QA Intern">QA Stajyeri</h3>
-                            <span class="timeline-date">
-                                <i class="far fa-calendar-alt"></i>
-                                <span data-tr="Şubat 2026 - Devam Ediyor" data-en="February 2026 - Present">Şubat 2026 -
-                                    Devam Ediyor</span>
-                            </span>
+                            <div class="timeline-title-group">
+                                <i class="fas fa-briefcase timeline-icon"></i>
+                                <h3 data-tr="QA Stajyeri" data-en="QA Intern">QA Stajyeri</h3>
+                            </div>
+                            <div class="timeline-meta">
+                                <span class="timeline-date" data-tr="Şub 2026 — Devam Ediyor"
+                                    data-en="Feb 2026 — Present">Şub 2026 — Devam Ediyor</span>
+                                <span class="badge-active" data-tr="Devam Ediyor" data-en="Present">Devam Ediyor</span>
+                            </div>
                         </div>
-                        <h4 class="timeline-company">Extra360 Technology Solutions</h4>
+                        <a href="#" class="timeline-company">Extra360 Technology Solutions</a>
+                        <span class="timeline-location">◉ İstanbul, Türkiye</span>
                         <p class="timeline-desc"
                             data-tr="Yazılım testi, test senaryosu oluşturma ve hata raporlama odaklı bir QA stajyeri olarak çalıştım. Manuel test süreçlerinde uygulamalı deneyim kazandım, detaylara olan dikkatimi geliştirdim ve işbirlikçi bir ekip ortamında yazılım kalitesine katkıda bulundum."
                             data-en="Worked as a QA intern with a focus on software testing, test case creation, and bug reporting. Gained hands-on experience in manual testing processes, improved attention to detail, and contributed to software quality within a collaborative team environment.">
                             Yazılım testi, test senaryosu oluşturma ve hata raporlama odaklı bir QA stajyeri olarak
                             çalıştım. Manuel test süreçlerinde uygulamalı deneyim kazandım, detaylara olan dikkatimi
-                            geliştirdim ve işbirlikçi bir ekip ortamında yazılım kalitesine katkıda bulundum.</p>
+                            geliştirdim ve işbirlikçi bir ekip ortamında yazılım kalitesine katkıda bulundum.
+                        </p>
                     </div>
                 </div>
 
-                <!-- Deneyim 2: TNC Group - SCA Social -->
+                <!-- Experience 2: TNC Group - SCA Social -->
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-content glass-card">
+                    <div class="timeline-content">
                         <div class="timeline-header">
-                            <h3 data-tr="Proje Yönetimi Stajyeri" data-en="Project Management Intern">Proje Yönetimi
-                                Stajyeri</h3>
-                            <span class="timeline-date">
-                                <i class="far fa-calendar-alt"></i>
-                                <span data-tr="Haziran 2025 - Temmuz 2025" data-en="June 2025 - July 2025">Haziran 2025
-                                    - Temmuz 2025</span>
-                            </span>
+                            <div class="timeline-title-group">
+                                <i class="fas fa-briefcase timeline-icon"></i>
+                                <h3 data-tr="Proje Yönetimi Stajyeri" data-en="Project Management Intern">Proje Yönetimi
+                                    Stajyeri</h3>
+                            </div>
+                            <span class="timeline-date" data-tr="Haz 2025 — Tem 2025" data-en="Jun 2025 — Jul 2025">Haz
+                                2025 — Tem 2025</span>
                         </div>
-                        <h4 class="timeline-company">TNC Group - SCA Social</h4>
+                        <a href="#" class="timeline-company">TNC Group - SCA Social</a>
+                        <span class="timeline-location">◉ İstanbul, Türkiye</span>
                         <p class="timeline-desc"
                             data-tr="Proje yönetimi, yapay zeka, BT hukuku ve organizasyonel konularda dokümantasyon, planlama ve analize odaklanan projeler yürüttüm. Gantt diyagramları, proje tüzükleri ve organizasyonel dosyalar aracılığıyla teknik ve yönetsel yetkinlik kazandım."
                             data-en="Implemented projects focused on documentation, planning, and analysis in project management, artificial intelligence, IT law, and organizational matters. Gained technical and managerial competence through Gantt charts, project charters, organizational files.">
                             Proje yönetimi, yapay zeka, BT hukuku ve organizasyonel konularda dokümantasyon, planlama ve
                             analize odaklanan projeler yürüttüm. Gantt diyagramları, proje tüzükleri ve organizasyonel
-                            dosyalar aracılığıyla teknik ve yönetsel yetkinlik kazandım.</p>
+                            dosyalar aracılığıyla teknik ve yönetsel yetkinlik kazandım.
+                        </p>
                     </div>
                 </div>
 
-                <!-- Deneyim 3: TNC Group - Social Office -->
+                <!-- Experience 3: TNC Group - Social Office -->
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-content glass-card">
+                    <div class="timeline-content">
                         <div class="timeline-header">
-                            <h3 data-tr="Bilgi Teknolojileri Stajyeri" data-en="Information Technology Intern">Bilgi
-                                Teknolojileri Stajyeri</h3>
-                            <span class="timeline-date">
-                                <i class="far fa-calendar-alt"></i>
-                                <span data-tr="Haziran 2025 - Temmuz 2025" data-en="June 2025 - July 2025">Haziran 2025
-                                    - Temmuz 2025</span>
-                            </span>
+                            <div class="timeline-title-group">
+                                <i class="fas fa-briefcase timeline-icon"></i>
+                                <h3 data-tr="Bilgi Teknolojileri Stajyeri" data-en="Information Technology Intern">Bilgi
+                                    Teknolojileri Stajyeri</h3>
+                            </div>
+                            <span class="timeline-date" data-tr="Haz 2025 — Tem 2025" data-en="Jun 2025 — Jul 2025">Haz
+                                2025 — Tem 2025</span>
                         </div>
-                        <h4 class="timeline-company">TNC Group - Social Office</h4>
+                        <a href="#" class="timeline-company">TNC Group - Social Office</a>
+                        <span class="timeline-location">◉ İstanbul, Türkiye</span>
                         <p class="timeline-desc"
                             data-tr="Excel, AutoCAD, Python, Photoshop bilgimi geliştirdim ve temel konsol projeleri oluşturdum."
                             data-en="Improved my knowledge of Excel, AutoCAD, Python, Photoshop and created basic console projects.">
@@ -246,43 +320,63 @@
     </section>
 
     <!-- ============================================
-         EĞİTİM BÖLÜMÜ
-         Eğitim geçmişini kartlar halinde gösteriyoruz.
+         EDUCATION SECTION
          ============================================ -->
     <section class="section" id="education">
         <div class="container">
-            <h2 class="section-title" data-tr="Eğitim" data-en="Education">Eğitim</h2>
+            <div class="section-header">
+                <h2 class="section-hash">##</h2>
+                <h2 class="section-title" data-tr="Eğitim" data-en="Education">Eğitim</h2>
+            </div>
+            <p class="section-subtitle mono" data-tr="ls -la ~/egitim" data-en="ls -la ~/education">ls -la ~/egitim</p>
             <div class="section-line"></div>
 
-            <div class="education-grid">
-                <!-- Eğitim 1: Üniversite -->
-                <div class="edu-card glass-card">
-                    <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
-                    <div class="edu-info">
-                        <h3 data-tr="Bilgisayar Mühendisliği Lisans" data-en="Undergraduate Computer Engineering">
-                            Bilgisayar Mühendisliği Lisans</h3>
-                        <h4>Kadir Has University - İstanbul</h4>
-                        <span class="edu-date">2023 - 2027</span>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div class="timeline-title-group">
+                                <i class="fas fa-graduation-cap timeline-icon"></i>
+                                <h3 data-tr="Bilgisayar Mühendisliği Lisans" data-en="B.Sc. Computer Engineering">
+                                    Bilgisayar Mühendisliği Lisans</h3>
+                            </div>
+                            <span class="timeline-date">2023 — 2027</span>
+                        </div>
+                        <a href="#" class="timeline-company" data-tr="Kadir Has Üniversitesi" data-en="Kadir Has University">Kadir Has Üniversitesi</a>
+                        <span class="timeline-location">◉ İstanbul, Türkiye</span>
                     </div>
                 </div>
 
-                <!-- Eğitim 2: İngilizce Hazırlık -->
-                <div class="edu-card glass-card">
-                    <div class="edu-icon"><i class="fas fa-language"></i></div>
-                    <div class="edu-info">
-                        <h3 data-tr="İngilizce Hazırlık" data-en="English Preparation">İngilizce Hazırlık</h3>
-                        <h4>Kadir Has University - İstanbul</h4>
-                        <span class="edu-date">2022</span>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div class="timeline-title-group">
+                                <i class="fas fa-language timeline-icon"></i>
+                                <h3 data-tr="İngilizce Hazırlık Programı" data-en="English Preparation Program">
+                                    İngilizce Hazırlık</h3>
+                            </div>
+                            <span class="timeline-date">2022 - 2023</span>
+                        </div>
+                        <a href="#" class="timeline-company" data-tr="Kadir Has Üniversitesi" data-en="Kadir Has University">Kadir Has Üniversitesi</a>
+                        <span class="timeline-location">◉ İstanbul, Türkiye</span>
                     </div>
                 </div>
 
-                <!-- Eğitim 3: Lise -->
-                <div class="edu-card glass-card">
-                    <div class="edu-icon"><i class="fas fa-school"></i></div>
-                    <div class="edu-info">
-                        <h3 data-tr="Fen Lisesi" data-en="Science High School">Fen Lisesi</h3>
-                        <h4>Çiğli Science High School - İzmir</h4>
-                        <span class="edu-date">2019 - 2022</span>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div class="timeline-title-group">
+                                <i class="fas fa-school timeline-icon"></i>
+                                <h3 data-tr="Fen Lisesi" data-en="Science High School">Fen Lisesi</h3>
+                            </div>
+                            <span class="timeline-date">2019 — 2022</span>
+                        </div>
+                        <a href="#" class="timeline-company" data-tr="Çiğli Fen Lisesi"
+                            data-en="Çiğli Science High School">Çiğli Fen Lisesi</a>
+                        <span class="timeline-location">◉ İzmir, Türkiye</span>
                     </div>
                 </div>
             </div>
@@ -290,20 +384,25 @@
     </section>
 
     <!-- ============================================
-         YETENEKLER BÖLÜMÜ
-         Teknik yetenekleri kategorilere ayırıp
-         animasyonlu kartlar halinde gösteriyoruz.
+         SKILLS SECTION
          ============================================ -->
-    <section class="section section-alt" id="skills">
+    <section class="section" id="skills">
         <div class="container">
-            <h2 class="section-title" data-tr="Yetenekler" data-en="Skills">Yetenekler</h2>
+            <div class="section-header">
+                <h2 class="section-hash">##</h2>
+                <h2 class="section-title" data-tr="Yetenekler" data-en="Skills">Yetenekler</h2>
+            </div>
+            <p class="section-subtitle mono" data-tr="cat ~/yetenekler.json" data-en="cat ~/skills.json">cat
+                ~/yetenekler.json</p>
             <div class="section-line"></div>
 
             <div class="skills-grid">
-                <!-- Programlama Dilleri -->
-                <div class="skill-category glass-card">
-                    <div class="skill-cat-icon"><i class="fas fa-code"></i></div>
-                    <h3 data-tr="Programlama Dilleri" data-en="Programming Languages">Programlama Dilleri</h3>
+                <!-- Programming Languages -->
+                <div class="skill-card">
+                    <h3 class="skill-card-title">
+                        <span class="skill-prefix">&gt;</span>
+                        <span data-tr="Programlama Dilleri" data-en="Programming Languages">Programlama Dilleri</span>
+                    </h3>
                     <div class="skill-tags">
                         <span class="skill-tag">C++</span>
                         <span class="skill-tag">Java</span>
@@ -311,10 +410,13 @@
                     </div>
                 </div>
 
-                <!-- Araçlar & Teknolojiler -->
-                <div class="skill-category glass-card">
-                    <div class="skill-cat-icon"><i class="fas fa-tools"></i></div>
-                    <h3 data-tr="Araçlar & Teknolojiler" data-en="Tools & Technologies">Araçlar & Teknolojiler</h3>
+                <!-- Tools & Technologies -->
+                <div class="skill-card">
+                    <h3 class="skill-card-title">
+                        <span class="skill-prefix">&gt;</span>
+                        <span data-tr="Araçlar & Teknolojiler" data-en="Tools & Technologies">Araçlar &
+                            Teknolojiler</span>
+                    </h3>
                     <div class="skill-tags">
                         <span class="skill-tag">Git / GitHub</span>
                         <span class="skill-tag">MySQL</span>
@@ -324,21 +426,26 @@
                     </div>
                 </div>
 
-                <!-- Yazılım & Tasarım -->
-                <div class="skill-category glass-card">
-                    <div class="skill-cat-icon"><i class="fas fa-palette"></i></div>
-                    <h3 data-tr="Yazılım & Tasarım" data-en="Software & Design">Yazılım & Tasarım</h3>
+                <!-- Software & Design -->
+                <div class="skill-card">
+                    <h3 class="skill-card-title">
+                        <span class="skill-prefix">&gt;</span>
+                        <span data-tr="Yazılım & Tasarım" data-en="Software & Design">Yazılım & Tasarım</span>
+                    </h3>
                     <div class="skill-tags">
                         <span class="skill-tag">Microsoft 365</span>
                         <span class="skill-tag">AutoCAD</span>
                         <span class="skill-tag">Photoshop</span>
+                        <span class="skill-tag">HTML / CSS / JS</span>
                     </div>
                 </div>
 
-                <!-- Kavramlar -->
-                <div class="skill-category glass-card">
-                    <div class="skill-cat-icon"><i class="fas fa-brain"></i></div>
-                    <h3 data-tr="Kavramlar" data-en="Concepts">Kavramlar</h3>
+                <!-- Concepts -->
+                <div class="skill-card">
+                    <h3 class="skill-card-title">
+                        <span class="skill-prefix">&gt;</span>
+                        <span data-tr="Kavramlar" data-en="Concepts">Kavramlar</span>
+                    </h3>
                     <div class="skill-tags">
                         <span class="skill-tag" data-tr="Nesne Yönelimli Programlama"
                             data-en="Object Oriented Programming">Nesne Yönelimli Programlama</span>
@@ -347,68 +454,162 @@
                             Yönetimi</span>
                     </div>
                 </div>
-
-                <!-- Diller -->
-                <div class="skill-category glass-card">
-                    <div class="skill-cat-icon"><i class="fas fa-globe"></i></div>
-                    <h3 data-tr="Diller" data-en="Languages">Diller</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag" data-tr="Türkçe — Anadil" data-en="Turkish — Native">Türkçe —
-                            Anadil</span>
-                        <span class="skill-tag" data-tr="İngilizce — İleri Seviye"
-                            data-en="English — Advanced">İngilizce — İleri Seviye</span>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
     <!-- ============================================
-         İLETİŞİM BÖLÜMÜ
-         İletişim bilgileri ve sosyal medya linkleri.
+         PROJECTS SECTION
          ============================================ -->
-    <section class="section" id="contact">
+    <section class="section" id="projects">
         <div class="container">
-            <h2 class="section-title" data-tr="İletişim" data-en="Contact">İletişim</h2>
+            <div class="section-header">
+                <h2 class="section-hash">##</h2>
+                <h2 class="section-title" data-tr="Projeler" data-en="Projects">Projeler</h2>
+            </div>
+            <p class="section-subtitle mono" data-tr="ls -la ~/projeler" data-en="ls -la ~/projects">ls -la ~/projeler
+            </p>
             <div class="section-line"></div>
 
-            <div class="contact-content">
-                <p class="contact-intro">
-                    <i class="fas fa-comment-dots contact-intro-icon"></i>
-                    <span data-tr="Benimle iletişime geçmek ister misiniz? Aşağıdaki kanallardan ulaşabilirsiniz."
-                        data-en="Want to get in touch? You can reach me through the channels below.">Benimle iletişime
-                        geçmek ister misiniz? Aşağıdaki kanallardan ulaşabilirsiniz.</span>
-                </p>
+            <!-- Project Tabs -->
+            <div class="project-tabs" id="projectTabs">
+                <button class="project-tab active" data-index="0">
+                    <i class="fas fa-store"></i> GreenGrocer
+                </button>
+                <button class="project-tab" data-index="1">
+                    <i class="fas fa-microchip"></i> RAM Design
+                </button>
+                <button class="project-tab" data-index="2">
+                    <i class="fas fa-code-branch"></i> DSA
+                </button>
+            </div>
 
-                <div class="contact-grid">
-                    <a href="mailto:nurkumbsr@gmail.com" class="contact-card glass-card">
-                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                        <h3>E-mail</h3>
-                        <p>nurkumbsr@gmail.com</p>
-                    </a>
+            <!-- Project Detail Panels -->
+            <div class="project-panels">
+                <!-- Project 1: GreenGrocer -->
+                <div class="project-panel active" data-panel="0">
+                    <div class="project-panel-left">
+                        <div class="project-mock-window">
+                            <div class="mock-window-bar">
+                                <span class="dot-red"></span>
+                                <span class="dot-yellow"></span>
+                                <span class="dot-green"></span>
+                            </div>
+                            <div class="mock-window-body greengrocer-mock">
+                                <div class="mock-shelf">
+                                    <div class="mock-product anim-float" style="--delay:0s"><i class="fas fa-apple-alt"></i></div>
+                                    <div class="mock-product anim-float" style="--delay:0.3s"><i class="fas fa-carrot"></i></div>
+                                    <div class="mock-product anim-float" style="--delay:0.6s"><i class="fas fa-lemon"></i></div>
+                                    <div class="mock-product anim-float" style="--delay:0.9s"><i class="fas fa-pepper-hot"></i></div>
+                                </div>
+                                <div class="mock-cart">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span class="mock-cart-badge anim-count">3</span>
+                                </div>
+                                <div class="mock-scan-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-panel-right">
+                        <h3 class="project-name">GreenGrocer</h3>
+                        <p class="project-desc"
+                            data-tr="Java, JavaFX ve MySQL kullanılarak geliştirilmiş masaüstü market yönetim uygulaması. Kullanıcı yetkilendirme, ürün yönetimi, alışveriş sepeti, barkod takibi ve PDF fatura üretimi özelliklerine sahiptir."
+                            data-en="Desktop-based grocery management application built with Java, JavaFX, and MySQL. Features user authentication, product management, shopping cart, barcode tracking, and PDF invoice generation.">
+                            Java, JavaFX ve MySQL kullanılarak geliştirilmiş masaüstü market yönetim uygulaması.
+                            Kullanıcı yetkilendirme, ürün yönetimi, alışveriş sepeti, barkod takibi ve PDF fatura
+                            üretimi özelliklerine sahiptir.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Java</span>
+                            <span class="project-tag">JavaFX</span>
+                            <span class="project-tag">MySQL</span>
+                        </div>
 
-                    <a href="mailto:nur.kumbasar@stu.khas.edu.tr" class="contact-card glass-card">
-                        <div class="contact-icon"><i class="fas fa-university"></i></div>
-                        <h3 data-tr="Üniversite E-mail" data-en="University Email">Üniversite E-mail</h3>
-                        <p>nur.kumbasar@stu.khas.edu.tr</p>
-                    </a>
+                    </div>
+                </div>
 
-                    <a href="https://github.com/nurkumbasar" target="_blank" rel="noopener noreferrer" class="contact-card glass-card">
-                        <div class="contact-icon"><i class="fab fa-github"></i></div>
-                        <h3>GitHub</h3>
-                        <p>nurkumbasar</p>
-                    </a>
+                <!-- Project 2: RAM Design -->
+                <div class="project-panel" data-panel="1">
+                    <div class="project-panel-left">
+                        <div class="project-mock-window">
+                            <div class="mock-window-bar">
+                                <span class="dot-red"></span>
+                                <span class="dot-yellow"></span>
+                                <span class="dot-green"></span>
+                            </div>
+                            <div class="mock-window-body ram-mock">
+                                <div class="ram-circuit">
+                                    <span class="ram-gate anim-gate">DEC</span>
+                                    <span class="ram-arrow anim-signal">→</span>
+                                    <span class="ram-gate anim-gate" style="--g-delay:0.4s">MUX</span>
+                                    <span class="ram-arrow anim-signal" style="--s-delay:0.4s">→</span>
+                                    <span class="ram-gate anim-gate" style="--g-delay:0.8s">FF</span>
+                                </div>
+                                <div class="ram-signal-line anim-signal-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-panel-right">
+                        <h3 class="project-name">RAM Design & Simulation</h3>
+                        <p class="project-desc"
+                            data-tr="MATLAB & Simulink üzerinde tasarlanmış Flip-Flop tabanlı RAM mimarisi. Bellek adresleme, kod çözücü (decoder), çoklayıcı (multiplexer) yapıları, okuma/yazma işlemleri ve yedi parçalı gösterge (seven-segment display) çıktılarını içerir."
+                            data-en="Flip-Flop based RAM architecture designed and simulated on MATLAB & Simulink. Includes memory addressing, decoder, multiplexer structures, read/write operations, and seven-segment display outputs.">
+                            MATLAB & Simulink üzerinde tasarlanmış Flip-Flop tabanlı RAM mimarisi. Bellek adresleme, kod
+                            çözücü (decoder), çoklayıcı (multiplexer) yapıları, okuma/yazma işlemleri ve yedi parçalı
+                            gösterge (seven-segment display) çıktılarını içerir.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">MATLAB</span>
+                            <span class="project-tag">Simulink</span>
+                        </div>
 
-                    <a href="https://www.linkedin.com/in/nur-kumbasar" target="_blank" rel="noopener noreferrer" class="contact-card glass-card">
-                        <div class="contact-icon"><i class="fab fa-linkedin-in"></i></div>
-                        <h3>LinkedIn</h3>
-                        <p>nur-kumbasar</p>
-                    </a>
+                    </div>
+                </div>
 
-                    <div class="contact-card glass-card">
-                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <h3 data-tr="Konum" data-en="Location">Konum</h3>
-                        <p>İstanbul & İzmir, Turkey</p>
+                <!-- Project 3: DSA -->
+                <div class="project-panel" data-panel="2">
+                    <div class="project-panel-left">
+                        <div class="project-mock-window">
+                            <div class="mock-window-bar">
+                                <span class="dot-red"></span>
+                                <span class="dot-yellow"></span>
+                                <span class="dot-green"></span>
+                            </div>
+                            <div class="mock-window-body dsa-mock">
+                                <svg class="dsa-tree" viewBox="0 0 200 130">
+                                    <line x1="100" y1="25" x2="55" y2="65" class="tree-line anim-tree-line" />
+                                    <line x1="100" y1="25" x2="145" y2="65" class="tree-line anim-tree-line" style="--l-delay:0.3s" />
+                                    <line x1="55" y1="65" x2="30" y2="105" class="tree-line anim-tree-line" style="--l-delay:0.6s" />
+                                    <line x1="55" y1="65" x2="80" y2="105" class="tree-line anim-tree-line" style="--l-delay:0.9s" />
+                                    <circle cx="100" cy="25" r="12" class="tree-node anim-node" />
+                                    <circle cx="55" cy="65" r="12" class="tree-node anim-node" style="--n-delay:0.5s" />
+                                    <circle cx="145" cy="65" r="12" class="tree-node anim-node" style="--n-delay:1s" />
+                                    <circle cx="30" cy="105" r="12" class="tree-node anim-node" style="--n-delay:1.5s" />
+                                    <circle cx="80" cy="105" r="12" class="tree-node anim-node" style="--n-delay:2s" />
+                                    <text x="100" y="30" class="node-text">8</text>
+                                    <text x="55" y="70" class="node-text">3</text>
+                                    <text x="145" y="70" class="node-text">10</text>
+                                    <text x="30" y="110" class="node-text">1</text>
+                                    <text x="80" y="110" class="node-text">6</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-panel-right">
+                        <h3 class="project-name">Data Structures & Algorithms</h3>
+                        <p class="project-desc"
+                            data-tr="C++ dili ile veri yapıları ve algoritmaların gerçeklenmesi ve karmaşıklık optimizasyonu çalışmaları. Bağlı listeler, yığınlar, kuyruklar, ağaçlar, graf algoritmaları ve LeetCode çözümlerini kapsar."
+                            data-en="Implementation, analysis, and complexity optimization of data structures and algorithms using C++. Includes Linked Lists, Stacks, Queues, Trees, Graph Algorithms, and LeetCode problem solutions.">
+                            C++ dili ile veri yapıları ve algoritmaların gerçeklenmesi ve karmaşıklık optimizasyonu
+                            çalışmaları. Bağlı listeler, yığınlar, kuyruklar, ağaçlar, graf algoritmaları ve LeetCode
+                            çözümlerini kapsar.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">C++</span>
+                            <span class="project-tag">Algorithms</span>
+                            <span class="project-tag">Data Structures</span>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -416,17 +617,148 @@
     </section>
 
     <!-- ============================================
-         FOOTER (Alt Bilgi)
-         Telif hakkı ve son bilgiler.
+         LANGUAGES SECTION
+         ============================================ -->
+    <section class="section" id="languages">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-hash">##</h2>
+                <h2 class="section-title" data-tr="Diller" data-en="Languages">Diller</h2>
+            </div>
+            <p class="section-subtitle mono">locale</p>
+            <div class="section-line"></div>
+
+            <div class="languages-grid">
+                <div class="lang-card">
+                    <i class="fas fa-language lang-card-icon"></i>
+                    <div class="lang-card-info">
+                        <h3 data-tr="Türkçe" data-en="Turkish">Türkçe</h3>
+                        <span data-tr="Ana Dil" data-en="Native">Ana Dil</span>
+                    </div>
+                    <div class="lang-dots">
+                        <span class="lang-dot filled"></span>
+                        <span class="lang-dot filled"></span>
+                        <span class="lang-dot filled"></span>
+                        <span class="lang-dot filled"></span>
+                        <span class="lang-dot filled"></span>
+                    </div>
+                </div>
+                <div class="lang-card">
+                    <i class="fas fa-language lang-card-icon"></i>
+                    <div class="lang-card-info">
+                        <h3 data-tr="İngilizce" data-en="English">İngilizce</h3>
+                        <span data-tr="İleri Seviye" data-en="Advanced">İleri Seviye</span>
+                    </div>
+                    <div class="lang-dots">
+                        <span class="lang-dot filled"></span>
+                        <span class="lang-dot filled"></span>
+                        <span class="lang-dot filled"></span>
+                        <span class="lang-dot filled"></span>
+                        <span class="lang-dot"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CONTACT SECTION
+         ============================================ -->
+    <section class="section contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-hash">##</h2>
+                <h2 class="section-title" data-tr="İletişim" data-en="Contact">İletişim</h2>
+            </div>
+            <p class="section-subtitle mono" data-tr="mail --compose" data-en="mail --compose">mail --compose</p>
+            <div class="section-line"></div>
+
+            <!-- Terminal-styled Contact Form -->
+            <div class="contact-terminal">
+                <div class="terminal-bar">
+                    <div class="terminal-dots">
+                        <span class="dot-red"></span>
+                        <span class="dot-yellow"></span>
+                        <span class="dot-green"></span>
+                    </div>
+                    <span class="terminal-bar-title" data-tr="ziyaretci@iletisim — bash"
+                        data-en="visitor@contact — bash">ziyaretci@iletisim — bash</span>
+                </div>
+                <div class="contact-form-body">
+                    <p class="form-comment" data-tr="# mesajınızı aşağıya yazın" data-en="# write your message below">#
+                        mesajınızı aşağıya yazın</p>
+
+                    <form action="https://formspree.io/f/your-form-id" method="POST" class="contact-form">
+                        <div class="form-row">
+                            <span class="form-prompt" data-tr="ziyaretci@iletisim:~$"
+                                data-en="visitor@contact:~$">ziyaretci@iletisim:~$</span>
+                            <span class="form-flag" data-tr="--ad" data-en="--name">--ad</span>
+                        </div>
+                        <input type="text" name="name" required placeholder="Ad Soyad" data-placeholder-tr="Ad Soyad"
+                            data-placeholder-en="Full Name" class="form-input" id="contactName">
+
+                        <div class="form-row">
+                            <span class="form-prompt" data-tr="ziyaretci@iletisim:~$"
+                                data-en="visitor@contact:~$">ziyaretci@iletisim:~$</span>
+                            <span class="form-flag" data-tr="--e-posta" data-en="--email">--e-posta</span>
+                        </div>
+                        <input type="email" name="_replyto" required placeholder="email@example.com"
+                            data-placeholder-tr="email@example.com" data-placeholder-en="email@example.com"
+                            class="form-input" id="contactEmail">
+
+                        <div class="form-row">
+                            <span class="form-prompt" data-tr="ziyaretci@iletisim:~$"
+                                data-en="visitor@contact:~$">ziyaretci@iletisim:~$</span>
+                            <span class="form-flag" data-tr="--konu" data-en="--subject">--konu</span>
+                        </div>
+                        <input type="text" name="subject" required placeholder="Konu" data-placeholder-tr="Konu"
+                            data-placeholder-en="Subject" class="form-input" id="contactSubject">
+
+                        <div class="form-row">
+                            <span class="form-prompt" data-tr="ziyaretci@iletisim:~$"
+                                data-en="visitor@contact:~$">ziyaretci@iletisim:~$</span>
+                            <span class="form-flag" data-tr="--mesaj" data-en="--message">--mesaj</span>
+                        </div>
+                        <textarea name="message" rows="4" required placeholder="Mesajınız..."
+                            data-placeholder-tr="Mesajınız..." data-placeholder-en="Your message..."
+                            class="form-input form-textarea" id="contactMessage"></textarea>
+
+                        <input type="hidden" name="_subject" value="New Portfolio Message from nurkumbasar.com">
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-terminal form-submit">
+                                <span data-tr="./gonder.sh" data-en="./send.sh">./gonder.sh</span>
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                            <button type="reset" class="btn-terminal btn-reset" id="contactReset">
+                                <span data-tr="./temizle.sh" data-en="./reset.sh">./temizle.sh</span>
+                                <i class="fas fa-undo"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
          ============================================ -->
     <footer class="footer">
-        <div class="container">
+        <div class="container footer-content">
             <p data-tr="© 2026 Nur Kumbasar. Tüm hakları saklıdır." data-en="© 2026 Nur Kumbasar. All rights reserved.">
-                © 2026 Nur Kumbasar. Tüm hakları saklıdır.</p>
+                © 2026 Nur Kumbasar. Tüm hakları saklıdır.
+            </p>
+            <div class="footer-socials">
+                <a href="https://github.com/nurkumbasar" target="_blank" rel="noopener noreferrer"
+                    aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/nur-kumbasar" target="_blank" rel="noopener noreferrer"
+                    aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:nurkumbsr@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
         </div>
     </footer>
 
-    <!-- JavaScript dosyamız -->
     <script src="script.js" defer></script>
 </body>
 
