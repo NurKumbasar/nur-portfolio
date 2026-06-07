@@ -101,27 +101,50 @@
          ============================================ -->
     <section class="hero" id="hero">
 
-        <div class="hero-content">
-            <div class="hero-avatar-wrapper">
-                <img src="Avatar_Nur.png" alt="Nur Kumbasar" class="hero-avatar">
-                <div class="hero-avatar-ring"></div>
+        <div class="hero-content floating-hero">
+            <!-- Background Circles -->
+            <div class="hero-circles">
+                <div class="hero-circle circle-1"></div>
+                <div class="hero-circle circle-2"></div>
+                <div class="hero-circle circle-3"></div>
             </div>
-
-            <div class="hero-text">
-                <p class="hero-greeting">
-                    <span class="vsc-comment">// </span><span data-tr="merhaba, ben" data-en="hi, i'm">merhaba, ben</span>
-                </p>
-                <h1 class="hero-name">Nur Kumbasar</h1>
-                <div class="hero-role-row">
-                    <span class="vsc-keyword">const</span>
-                    <span class="vsc-var"> role</span>
-                    <span class="vsc-punct"> = </span>
-                    <span class="vsc-string">"<span class="typewriter-text" id="typingText"></span><span class="typewriter-cursor">|</span>"</span>
+            
+            <div class="hero-avatar-center">
+                <img src="Avatar_Nur.png" alt="Nur Kumbasar" class="hero-avatar-main">
+                
+                <!-- Floating Badges -->
+                <div class="floating-badge badge-verified">
+                    <svg width="42" height="42" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M24 1.5L29.1 5.9L35.8 5.2L38.2 11.4L44.3 14.3L42.5 20.8L45.7 26.6L41 31.4L41.5 38.2L34.8 39.8L31.4 45.4L25.2 43L24 47.4L18.9 43L12.2 43.7L9.8 37.5L3.7 34.6L5.5 28.1L2.3 22.3L7 17.5L6.5 10.7L13.2 9.1L16.6 3.5L22.8 5.9L24 1.5Z" fill="#a855f7"/>
+                        <path d="M20.5 31.5L13.5 24.5L16.3 21.7L20.5 25.9L31.7 14.7L34.5 17.5L20.5 31.5Z" fill="white"/>
+                    </svg>
                 </div>
-                <p class="hero-sub" data-tr="Kadir Has Üniversitesi · Bilgisayar Mühendisliği"
-                    data-en="Kadir Has University · Computer Engineering">
-                    Kadir Has Üniversitesi · Bilgisayar Mühendisliği
-                </p>
+                
+                <div class="floating-badge badge-greeting">
+                    <span data-tr="Merhaba, ben Nur! 👋" data-en="Hi, I'm Nur! 👋">Merhaba, ben Nur! 👋</span>
+                </div>
+                
+                <div class="floating-badge badge-role">
+                    <i class="fas fa-briefcase role-icon"></i>
+                    <span data-tr="QA Intern & CS Student" data-en="QA Intern & CS Student">QA Intern & CS Student</span>
+                </div>
+                
+                <div class="floating-badge badge-projects">
+                    <div class="projects-title" data-tr="Projelerim" data-en="My Projects">Projelerim</div>
+                    <div class="projects-dropdown">
+                        <i id="heroProjectIcon" class="fas fa-store proj-icon"></i>
+                        <span id="heroProjectText" data-tr="GreenGrocer Project" data-en="GreenGrocer Project">GreenGrocer Project</span>
+                        <i class="fas fa-chevron-down drop-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="floating-badge badge-tech-stack">
+                    <div class="tech-icon"><i class="fab fa-python" style="color: #3776AB;"></i></div>
+                    <div class="tech-icon"><i class="fab fa-java" style="color: #f89820;"></i></div>
+                    <div class="tech-icon c-bg"><i class="fas fa-code" style="color: #00599C;"></i></div>
+                    <div class="tech-icon db-bg"><i class="fas fa-database" style="color: #4479A1;"></i></div>
+                    <div class="tech-icon gh-bg"><i class="fab fa-github" style="color: #181717;"></i></div>
+                </div>
             </div>
         </div>
 

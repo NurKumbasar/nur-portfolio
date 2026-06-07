@@ -421,6 +421,48 @@ function initProjectTabs() {
     });
 }
 
+/* ===================================================
+   10. HERO PROJECT CYCLING
+   =================================================== */
+function initHeroProjectCycling() {
+    const projectTextEl = document.getElementById('heroProjectText');
+    const projectIconEl = document.getElementById('heroProjectIcon');
+    if (!projectTextEl) return;
+
+    const projects = [
+        { icon: 'fas fa-store', tr: 'GreenGrocer Project', en: 'GreenGrocer Project' },
+        { icon: 'fas fa-microchip', tr: 'RAM Design', en: 'RAM Design' },
+        { icon: 'fas fa-code-branch', tr: 'DSA Algorithms', en: 'DSA Algorithms' }
+    ];
+
+    let currentIndex = 0;
+
+    setInterval(function() {
+        // Fade out
+        projectTextEl.style.opacity = '0';
+        if (projectIconEl) projectIconEl.style.opacity = '0';
+        
+        setTimeout(function() {
+            currentIndex = (currentIndex + 1) % projects.length;
+            const proj = projects[currentIndex];
+            
+            projectTextEl.setAttribute('data-tr', proj.tr);
+            projectTextEl.setAttribute('data-en', proj.en);
+            // Assuming currentLang is globally available
+            const lang = typeof currentLang !== 'undefined' ? currentLang : 'tr';
+            projectTextEl.textContent = lang === 'tr' ? proj.tr : proj.en;
+            
+            if (projectIconEl) {
+                projectIconEl.className = proj.icon + ' proj-icon';
+            }
+            
+            // Fade in
+            projectTextEl.style.opacity = '1';
+            if (projectIconEl) projectIconEl.style.opacity = '1';
+        }, 400); // Wait for fade out
+    }, 3500); // Cycle every 3.5 seconds
+}
+
 
 /* ===================================================
    INIT ON DOM READY
@@ -428,10 +470,10 @@ function initProjectTabs() {
 document.addEventListener('DOMContentLoaded', function () {
     setTimeout(typeText, 1200);
     initTheme();
-    // initInteractiveGrid removed (aurora CSS background used instead)
     animateUrlBar();
     initTerminal();
     initProjectTabs();
+    initHeroProjectCycling();
     initDinoGame();
 });
 

@@ -580,124 +580,228 @@ body {
     padding: 40px 24px 60px;
 }
 
-.hero-content {
+/* ===================================================
+   HERO SECTION — FLOATING LAYOUT
+   =================================================== */
+.hero-content.floating-hero {
     position: relative;
     z-index: 1;
-}
-
-/* Gradient name */
-.hero-name {
-    font-family: 'Geist Mono', 'Menlo', 'Monaco', monospace;
-    font-size: clamp(1.6rem, 4vw, 2.6rem);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.5px;
-    margin-bottom: 20px;
-    animation: fadeInUp 0.8s ease 0.2s both;
-    background: linear-gradient(
-        135deg,
-        var(--text-primary) 20%,
-        var(--accent) 70%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.hero-typewriter {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    font-family: 'Geist Mono', 'Menlo', 'Monaco', monospace;
-    font-size: clamp(0.8rem, 1.8vw, 1rem);
-    color: var(--accent);
-    font-weight: 500;
-    margin-bottom: 10px;
-    animation: fadeInUp 0.8s ease 0.4s both;
+    min-height: 60vh;
+    padding: 60px 0;
 }
 
-.typewriter-cursor {
-    color: var(--accent);
-    font-weight: 300;
-    animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-    50% { opacity: 0; }
-}
-
-/* Scroll Indicator */
-.scroll-indicator {
+.hero-circles {
     position: absolute;
-    bottom: 40px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    color: var(--text-muted);
-    font-size: 1.2rem;
-    text-decoration: none;
-    animation: scrollBounce 2s infinite;
-    transition: opacity 0.4s ease;
-}
-
-.scroll-indicator.hidden {
-    opacity: 0;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
     pointer-events: none;
 }
 
-@keyframes scrollBounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(10px); }
-}
-
-/* Hero Avatar — unique feature */
-.hero-avatar-wrapper {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 28px;
-    animation: fadeInUp 0.8s ease both;
-}
-
-.hero-avatar {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-    position: relative;
-    z-index: 1;
-    border: 3px solid rgba(168, 85, 247, 0.3);
-    mix-blend-mode: multiply;
-}
-
-[data-theme="dark"] .hero-avatar {
-    mix-blend-mode: normal;
-    border-color: rgba(192, 132, 252, 0.4);
-}
-
-.hero-avatar-ring {
+.hero-circle {
     position: absolute;
-    inset: -8px;
     border-radius: 50%;
-    border: 2px dashed rgba(168, 85, 247, 0.3);
-    animation: ringRotate 12s linear infinite;
-    z-index: 0;
+    border: 1px solid var(--accent);
+    opacity: 0.2;
+}
+
+.circle-1 { width: 400px; height: 400px; animation: pulse 4s infinite alternate; }
+.circle-2 { width: 600px; height: 600px; opacity: 0.15; border-style: dashed; animation: ringRotate 20s linear infinite; }
+.circle-3 { width: 800px; height: 800px; opacity: 0.1; }
+
+@keyframes pulse {
+    0% { transform: scale(0.95); opacity: 0.1; }
+    100% { transform: scale(1.05); opacity: 0.3; }
 }
 
 @keyframes ringRotate {
     to { transform: rotate(360deg); }
 }
 
-/* Hero Sub Text */
-.hero-sub {
-    font-family: 'Geist Mono', 'Menlo', 'Monaco', monospace;
-    font-size: 0.85rem;
+.hero-avatar-center {
+    position: relative;
+    z-index: 2;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeInUp 0.8s ease both;
+}
+
+.hero-avatar-main {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    z-index: 5;
+    position: relative;
+    border: 4px solid var(--bg-primary);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+[data-theme="dark"] .hero-avatar-main {
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+
+/* Common badge styles */
+.floating-badge {
+    position: absolute;
+    background: rgba(250, 248, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 12px 30px rgba(100, 50, 200, 0.08);
+    border-radius: 18px;
+    padding: 12px 20px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    z-index: 10;
+    animation: float 6s ease-in-out infinite;
+    transition: transform 0.3s ease;
+}
+
+[data-theme="dark"] .floating-badge {
+    background: rgba(30, 25, 45, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.floating-badge:hover {
+    transform: scale(1.05);
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Individual badges positioning */
+.badge-verified {
+    top: -30px;
+    left: -50px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    animation-delay: 0s;
+}
+
+.badge-greeting {
+    top: 10px;
+    right: -170px;
+    border-radius: 20px 20px 20px 4px;
+    font-weight: 500;
+    animation-delay: 1s;
+}
+
+.badge-role {
+    bottom: 60px;
+    left: -200px;
+    animation-delay: 2s;
+}
+.role-icon { color: var(--accent); }
+
+.badge-projects {
+    bottom: -40px;
+    right: -150px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px;
+    gap: 8px;
+    animation-delay: 3s;
+}
+.projects-title {
+    font-size: 0.8rem;
     color: var(--text-muted);
-    margin-top: 12px;
-    margin-bottom: 28px;
-    letter-spacing: 0.3px;
-    animation: fadeInUp 0.8s ease 0.6s both;
+}
+.projects-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-secondary);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+#heroProjectText, #heroProjectIcon {
+    transition: opacity 0.4s ease;
+}
+.proj-icon { color: var(--text-secondary); }
+.drop-icon { font-size: 0.7rem; color: var(--text-muted); margin-left: 4px; }
+
+.badge-tech-stack {
+    bottom: -130px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    padding: 12px 20px;
+    border-radius: 24px;
+    animation-delay: 1.5s;
+    animation: floatCenter 6s ease-in-out infinite;
+    animation-delay: 1.5s;
+}
+
+@keyframes floatCenter {
+    0% { transform: translateX(-50%) translateY(0px); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+    100% { transform: translateX(-50%) translateY(0px); }
+}
+
+.badge-tech-stack:hover {
+    transform: translateX(-50%) scale(1.05);
+}
+
+.tech-icon {
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.tech-icon.dark-bg { background: #222; }
+.tech-icon.light-bg { background: #fff; }
+.tech-icon.js-bg { background: #F7DF1E; color: #000; }
+.tech-icon.c-bg { background: #fff; }
+.tech-icon.db-bg { background: #fff; }
+.tech-icon.gh-bg { background: #fff; }
+
+@media (max-width: 768px) {
+    .hero-content.floating-hero { padding: 120px 0; }
+    .hero-avatar-center { width: 150px; height: 150px; }
+    .hero-circles { width: 400px; height: 400px; }
+    .circle-1 { width: 250px; height: 250px; }
+    .circle-2 { width: 350px; height: 350px; }
+    .circle-3 { width: 450px; height: 450px; }
+    
+    .badge-greeting { top: -20px; right: -60px; font-size: 0.8rem; padding: 8px 14px; }
+    .badge-role { bottom: 40px; left: -80px; font-size: 0.8rem; padding: 8px 14px; }
+    .badge-projects { bottom: -60px; right: -80px; transform: scale(0.9); }
+    .badge-verified { top: -10px; left: -20px; transform: scale(0.85); }
+    .badge-tech-stack { bottom: -110px; gap: 8px; padding: 10px 14px; }
+    .tech-icon { width: 30px; height: 30px; font-size: 1rem; }
 }
 
 /* Hero Action Buttons */
