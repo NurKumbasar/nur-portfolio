@@ -458,7 +458,7 @@ html {
    (blink) küçük bir karaktere çeviriyor. Gövde ve göz grubu ayrı ayrı
    animasyonlanıyor, ikisi de aynı SVG içinde farklı class'larla. */
 .mascot {
-  width: clamp(110px, 13vw, 170px);
+  width: clamp(56px, 6vw, 84px);
   aspect-ratio: 1;
   flex-shrink: 0;
   animation: mascot-float 4.5s ease-in-out infinite;

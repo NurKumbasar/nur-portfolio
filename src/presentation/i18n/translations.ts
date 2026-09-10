@@ -7,6 +7,10 @@ import type { Locale } from '../../domain/entities/Locale'
 // hangi alana erişileceği ÇALIŞMA ZAMANINDA belirleniyor.
 export const translations = {
   heroStatus: { tr: 'Yeni fırsatlara açığım', en: 'Open to new opportunities' },
+  heroTagline: {
+    tr: 'Merhaba dünya! Kod yazan, kahve içen, öğrenmeyi hiç bırakmayan bir mühendislik öğrencisiyim.',
+    en: "Hello world! I'm an engineering student who codes, drinks too much coffee, and never stops learning.",
+  },
   heroContactCta: { tr: 'İletişime Geç', en: 'Get in Touch' },
   servicesTitle: { tr: 'Hizmetler', en: 'Services' },
   servicesSubtitle: {
