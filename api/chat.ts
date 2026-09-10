@@ -14,7 +14,12 @@ const MAX_MESSAGE_LENGTH = 500
 
 // Sadece kendi sitenden gelen isteklere izin ver — rastgele bir bot bu
 // adrese direkt istek atarsa Origin header'ı eşleşmeyeceği için reddedilir.
-const ALLOWED_ORIGINS = new Set(['https://nurkumbasar.com', 'https://www.nurkumbasar.com', 'http://localhost:5173'])
+const ALLOWED_ORIGINS = new Set([
+  'https://nurkumbasar.com',
+  'https://www.nurkumbasar.com',
+  'https://nur-portfolio-mu.vercel.app',
+  'http://localhost:5173',
+])
 
 // Dakikada IP başına kaç istek. Fonksiyon "soğuk" başladığında bu liste
 // sıfırlanır, yani mükemmel bir koruma değil — ama ucuz bir ilk savunma
