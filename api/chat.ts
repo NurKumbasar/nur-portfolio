@@ -21,6 +21,17 @@ const ALLOWED_ORIGINS = new Set([
   'http://localhost:5173',
 ])
 
+// Vercel her deploy'da farklı bir önizleme adresi üretiyor
+// (nur-portfolio-<rastgele>-nur-05d1.vercel.app gibi) — hepsini tek tek
+// listeye eklemek yerine, kendi takım alanının altındaki her adrese izin
+// veriyoruz. Başka biri bu adı taklit edemez, çünkü *.vercel.app'in bu
+// alt kısmı Vercel tarafından sadece bu takıma ayrılmış.
+const OWN_TEAM_SUFFIX = '-nur-05d1.vercel.app'
+
+function isAllowedOrigin(origin: string): boolean {
+  return ALLOWED_ORIGINS.has(origin) || origin.endsWith(OWN_TEAM_SUFFIX)
+}
+
 // Dakikada IP başına kaç istek. Fonksiyon "soğuk" başladığında bu liste
 // sıfırlanır, yani mükemmel bir koruma değil — ama ucuz bir ilk savunma
 // hattı. Asıl garanti Groq'un kendi ücretsiz plan limitleri (console.groq.com).
@@ -45,7 +56,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const origin = req.headers.origin ?? ''
-  if (!ALLOWED_ORIGINS.has(origin)) {
+  if (!isAllowedOrigin(origin)) {
     res.status(403).json({ error: 'forbidden origin' })
     return
   }
