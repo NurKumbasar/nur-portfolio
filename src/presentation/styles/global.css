@@ -680,6 +680,38 @@ html {
   margin-bottom: 0;
 }
 
+/* Bento düzeni — Hizmetler, Yetenekler ve Projeler bölümlerinde kartların
+   hepsi aynı boyutta olmasın diye ilk kart 2 sütun genişliğinde "öne
+   çıkan" kart oluyor, geri kalanlar tek sütunda kalıyor. Sadece genişlik
+   farkı kullanıyoruz (yükseklik değil) — ilk kartı hem geniş hem yüksek
+   yapmak, yanındaki küçük kartların altında boş bir alan bırakıyordu.
+   Mobilde (760px altı) herkes tek sütuna, eşit boyuta dönüyor. */
+#services .grid,
+#skills .grid,
+#projects .grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+#services .grid .glass-card:first-child,
+#skills .grid .glass-card:first-child,
+#projects .grid .glass-card:first-child {
+  grid-column: span 2;
+}
+
+@media (max-width: 759px) {
+  #services .grid,
+  #skills .grid,
+  #projects .grid {
+    grid-template-columns: 1fr;
+  }
+
+  #services .grid .glass-card:first-child,
+  #skills .grid .glass-card:first-child,
+  #projects .grid .glass-card:first-child {
+    grid-column: span 1;
+  }
+}
+
 /* "Cam kart" — glassmorphism'in temel görsel birimi.
    Bunu her kart/panel bileşeninde tekrar kullanacağız. */
 .glass-card {
