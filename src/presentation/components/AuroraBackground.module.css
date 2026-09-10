@@ -1,0 +1,52 @@
+.wrapper {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  width: 42vw;
+  height: 42vw;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: var(--blob-opacity);
+  background: var(--blob-color);
+  animation: float 16s ease-in-out infinite;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.blob1 {
+  top: -12%;
+  left: -10%;
+}
+
+.blob2 {
+  top: 15%;
+  right: -18%;
+  animation-delay: -5s;
+}
+
+.blob3 {
+  bottom: -18%;
+  left: 22%;
+  animation-delay: -10s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(30px, -25px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blob {
+    animation: none;
+  }
+}

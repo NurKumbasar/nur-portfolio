@@ -16,10 +16,18 @@ Thumbs.db
 *.sln
 *.sw?
 
-# Node (Eğer ilerde eklenecekse önlem olarak)
+# Node
 node_modules/
 npm-debug.log
 yarn-error.log
 
 # Log files
 *.log
+*.local
+
+# Vite / build output
+dist/
+dist-ssr/
+
+# Python (scratch/ scripts)
+.venv/

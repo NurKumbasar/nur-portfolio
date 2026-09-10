@@ -1,0 +1,655 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap');
+
+/* Tasarım token'ları — "const" mantığının CSS'teki karşılığı.
+   Bir rengi/boşluğu tek yerde tanımlayıp her yerde `var(--isim)` ile
+   kullanıyoruz. Değiştirmek istersen sadece burayı değiştirirsin.
+
+   Manuel bir tema butonu yok — tarayıcı/işletim sistemi tercihine göre
+   otomatik geçiyoruz. :root varsayılan olarak açık temayı tutuyor,
+   `prefers-color-scheme: dark` eşleştiğinde aşağıdaki blok aynı
+   değişkenleri koyu değerlerle eziyor (override). */
+:root {
+  /* Renkler — açık tema (varsayılan) */
+  --color-bg: #fafafa;
+  --color-bg-elevated: #ffffff;
+  --color-text: #0a0a0a;
+  --color-text-muted: #525252;
+  --color-accent: #0a0a0a;
+  --color-accent-soft: rgba(10, 10, 10, 0.06);
+  --color-glass-bg: rgba(255, 255, 255, 0.6);
+  --color-glass-border: rgba(10, 10, 10, 0.08);
+  --blob-color: #0a0a0a;
+  --blob-opacity: 0.06;
+
+  /* Tek vurgu rengi — toz pembe. Sadece küçük, seçilmiş yerlerde
+     kullanılıyor (bölüm numaraları, buton, timeline noktaları, maskot)
+     — her yeri boyamak yerine "kişilik" için birkaç dokunuş. Her iki
+     temada da aynı kalıyor. */
+  --color-accent-bold: #e2a0ae;
+  --color-accent-bold-soft: rgba(226, 160, 174, 0.18);
+  --color-accent-bold-contrast: #2a1219;
+
+  /* Tipografi — başlıklar ve terminal/kod hissi veren yerler mono
+     fontla, uzun paragraflar (bio, kart metinleri) okunabilirlik için
+     DM Sans'ta kalıyor. */
+  --font-heading: 'JetBrains Mono', monospace;
+  --font-body: 'DM Sans', sans-serif;
+
+  /* Boşluk skalası */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+
+  /* Cam efekti (glassmorphism) */
+  --glass-blur: 16px;
+  --radius: 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0a0a0a;
+    --color-bg-elevated: #161616;
+    --color-text: #f5f5f5;
+    --color-text-muted: #a3a3a3;
+    --color-accent: #f5f5f5;
+    --color-accent-soft: rgba(245, 245, 245, 0.1);
+    --color-glass-bg: rgba(255, 255, 255, 0.05);
+    --color-glass-border: rgba(255, 255, 255, 0.14);
+    --blob-color: #ffffff;
+    --blob-opacity: 0.16;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  /* İnce bir "mühendislik kağıdı" noktalı ızgarası — aurora blob'larının
+     ulaşmadığı orta bölgelerin dümdüz/boş görünmesini engelliyor. */
+  background-image: radial-gradient(circle at 1px 1px, var(--color-glass-border) 1px, transparent 0);
+  background-size: 28px 28px;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+/* Navbar */
+html {
+  scroll-behavior: smooth;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid var(--color-glass-border);
+}
+
+.navbar-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.navbar-logo::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-accent-bold);
+  box-shadow: 0 0 8px var(--color-accent-bold);
+}
+
+.navbar-links {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.navbar-links a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+}
+
+.navbar-links a::before {
+  content: '#';
+  color: var(--color-accent-bold);
+}
+
+.navbar-links a:hover {
+  color: var(--color-text);
+}
+
+.navbar-controls {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.navbar-controls button {
+  padding: var(--space-1) var(--space-2);
+  font-size: 0.85rem;
+}
+
+.section,
+.hero {
+  scroll-margin-top: 80px;
+}
+
+/* Bölümler sayfa yüklenirken değil, kullanıcı o bölüme kaydırdıkça
+   belirsin — Reveal bileşeni IntersectionObserver ile bunu tespit edip
+   "reveal-visible" class'ını ekliyor, animasyonun kendisi burada. */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Hero (profil) bölümü — masaüstünde iki sütun: solda metin, sağda
+   dönen halkalı avatar. Mobilde tek sütun, avatar üstte (order: -1). */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-7) var(--space-6);
+}
+
+/* ParticleField'in <canvas>'ı bu class'la .hero'yu dolduruyor, gövde
+   içeriğinin arkasında kalıyor. */
+.particle-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+@media (min-width: 760px) {
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: center;
+    gap: var(--space-7);
+  }
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-3);
+}
+
+@media (min-width: 760px) {
+  .hero-copy {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+.hero-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  background: var(--color-glass-bg);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+}
+
+.hero-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3ddc72;
+  box-shadow: 0 0 0 0 rgba(61, 220, 114, 0.6);
+  animation: status-pulse 2s ease-out infinite;
+}
+
+@keyframes status-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(61, 220, 114, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(61, 220, 114, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(61, 220, 114, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-status-dot {
+    animation: none;
+  }
+}
+
+.hero-name {
+  font-size: clamp(2.75rem, 7vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+.hero-role {
+  display: inline-flex;
+  color: var(--color-text);
+  background: var(--color-accent-bold-soft);
+  border: 1px solid var(--color-accent-bold);
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.hero-bio {
+  max-width: 480px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  order: -1;
+}
+
+@media (min-width: 760px) {
+  .hero-visual {
+    order: 2;
+    justify-content: flex-end;
+  }
+}
+
+/* Maskot — Mascot.tsx'teki SVG'yi yüzdürüp (float) arada göz kırpan
+   (blink) küçük bir karaktere çeviriyor. Gövde ve göz grubu ayrı ayrı
+   animasyonlanıyor, ikisi de aynı SVG içinde farklı class'larla. */
+.mascot {
+  width: clamp(170px, 22vw, 260px);
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  animation: mascot-float 4.5s ease-in-out infinite;
+}
+
+.mascot-body {
+  fill: var(--color-accent-bold-soft);
+  stroke: var(--color-accent-bold);
+  stroke-width: 2.5;
+}
+
+.mascot-eyes {
+  transform-origin: 78px 92px;
+  animation: mascot-blink 5s ease-in-out infinite;
+}
+
+.mascot-eye {
+  fill: var(--color-accent-bold-contrast);
+}
+
+.mascot-mouth {
+  fill: none;
+  stroke: var(--color-accent-bold-contrast);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.mascot-cheek {
+  fill: var(--color-accent-bold);
+  opacity: 0.5;
+}
+
+@keyframes mascot-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(2deg);
+  }
+}
+
+@keyframes mascot-blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  96% {
+    transform: scaleY(0.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mascot,
+  .mascot-eyes {
+    animation: none;
+  }
+}
+
+.button-like {
+  display: inline-flex;
+  align-items: center;
+  background: var(--color-accent-bold);
+  color: var(--color-accent-bold-contrast);
+  font-weight: 600;
+  border-radius: 8px;
+  padding: var(--space-2) var(--space-4);
+  text-decoration: none;
+  font-size: 0.95rem;
+  box-shadow: 0 10px 24px -12px var(--color-accent-bold-soft);
+  transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+}
+
+.button-like:hover {
+  transform: translateY(-2px);
+  opacity: 0.92;
+  box-shadow: 0 14px 28px -12px var(--color-accent-bold-soft);
+}
+
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--color-glass-border);
+  color: var(--color-text);
+  transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.icon-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-accent-bold);
+  background: var(--color-accent-bold-soft);
+}
+
+/* Sayfa içeriğini ortalayıp maksimum genişlik veren sarmalayıcı */
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: var(--space-4);
+}
+
+/* Her bölüm arası dikey boşluk */
+.section {
+  padding-block: var(--space-6);
+}
+
+.section-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+}
+
+/* Başlığın önünde terminal komut satırı hissi veren bir "$" işareti */
+.section-title::before {
+  content: '$';
+  flex-shrink: 0;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--color-accent-bold);
+}
+
+/* Başlığın hemen altına bir alt metin (subtitle) geldiğinde aradaki
+   boşluğu sıkılaştırıyoruz — :has() ile "yanında subtitle olan title" */
+.section-title:has(+ .section-subtitle) {
+  margin-bottom: var(--space-2);
+}
+
+.section-subtitle {
+  margin-bottom: var(--space-5);
+  max-width: 520px;
+  color: var(--color-text-muted);
+}
+
+/* Yol (road) — Deneyim ve Eğitim'i düz bir çizgi yerine kıvrılan bir
+   patika üzerinde birleştirir. Solda dalgalı bir şerit "yolu" temsil
+   ediyor, duraklar (kartlar) tek sütunda onun sağında sıralanıyor.
+   (İlk denemede yol ortada olup kartlar sağa-sola dağılıyordu; uzun
+   metinli kartlarda bu çok boşluk israf edip dağınık durdu.) */
+.road {
+  position: relative;
+  padding-left: 52px;
+}
+
+/* SVG'yi position:absolute + top/bottom ile tam boyda uzatmak istiyoruz.
+   SVG kendisi "replaced element" olduğu için bunu doğrudan yapınca
+   boyu içeriğe göre değil varsayılan/oranlı bir değere düşüyor — bu yüzden
+   aradaki bu sarmalayıcı <div> boyu gerçekten uzatıyor, SVG de onun
+   %100'ünü dolduruyor. */
+.road-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+}
+
+.road-line svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.road-path {
+  stroke: var(--color-glass-border);
+}
+
+.road-label {
+  position: relative;
+  margin: 0 0 var(--space-3);
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.road-label:not(:first-child) {
+  margin-top: var(--space-6);
+}
+
+.road-item {
+  position: relative;
+  margin-bottom: var(--space-4);
+}
+
+.road-dot {
+  position: absolute;
+  left: -38px;
+  top: 8px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-accent-bold);
+  box-shadow: 0 0 0 4px var(--color-bg), 0 0 10px var(--color-accent-bold-soft);
+}
+
+.road-card .glass-card {
+  margin-bottom: 0;
+}
+
+/* İki kolonlu düzen — Yetenekler ve Projeler bölümlerinde kullanılıyor,
+   kartların hepsi tek sütunda alt alta durmasın diye. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-3);
+}
+
+.grid .glass-card {
+  margin-bottom: 0;
+}
+
+/* "Cam kart" — glassmorphism'in temel görsel birimi.
+   Bunu her kart/panel bileşeninde tekrar kullanacağız. */
+.glass-card {
+  background: var(--color-glass-bg);
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glass-card:not(form):hover {
+  transform: translateY(-3px);
+  border-color: var(--color-accent-bold);
+  box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.35), 0 0 0 1px var(--color-accent-bold-soft);
+}
+
+.glass-card h3 {
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.glass-card p {
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* İletişim formu */
+.glass-card form,
+form.glass-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+input,
+textarea {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 8px;
+  padding: var(--space-2) var(--space-3);
+}
+
+input:focus,
+textarea:focus {
+  outline: 2px solid var(--color-accent-bold);
+  outline-offset: 1px;
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  cursor: pointer;
+  background: var(--color-accent-bold);
+  color: var(--color-accent-bold-contrast);
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: var(--space-2) var(--space-4);
+  align-self: flex-start;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Etiket görünümü (proje tag'leri, yetenekler) */
+.tag {
+  display: inline-block;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+  font-size: 0.85rem;
+  margin: var(--space-1) var(--space-1) 0 0;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.tag:hover {
+  background: var(--color-accent-bold);
+  color: var(--color-accent-bold-contrast);
+  transform: translateY(-1px);
+}
