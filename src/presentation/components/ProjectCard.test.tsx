@@ -6,7 +6,7 @@ import { ProjectCard } from './ProjectCard'
 const ornekProje: Project = {
   title: 'GreenGrocer',
   tags: ['Java', 'MySQL'],
-  highlights: ['Test maddesi 1', 'Test maddesi 2'],
+  description: 'Test açıklaması.',
 }
 
 describe('ProjectCard', () => {
@@ -21,9 +21,8 @@ describe('ProjectCard', () => {
     expect(screen.getByText('MySQL')).toBeInTheDocument()
   })
 
-  it('tüm madde başlıklarını (highlights) gösterir', () => {
+  it('açıklamayı gösterir', () => {
     render(<ProjectCard project={ornekProje} />)
-    expect(screen.getByText('Test maddesi 1')).toBeInTheDocument()
-    expect(screen.getByText('Test maddesi 2')).toBeInTheDocument()
+    expect(screen.getByText('Test açıklaması.')).toBeInTheDocument()
   })
 })

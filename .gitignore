@@ -29,5 +29,11 @@ yarn-error.log
 dist/
 dist-ssr/
 
+# Vercel / gizli anahtarlar
+.vercel/
+.env
+.env.local
+.env*.local
+
 # Python (scratch/ scripts)
 .venv/

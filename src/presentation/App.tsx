@@ -2,9 +2,11 @@ import { useLocale } from '../application/state/LocaleContext'
 import type { MessageSender } from '../domain/ports/MessageSender'
 import { AuroraBackground } from './components/AuroraBackground'
 import { ContactForm } from './components/ContactForm'
+import { Footer } from './components/Footer'
 import { Hero } from './components/Hero'
 import { JourneySection } from './components/JourneySection'
 import { LanguagesSection } from './components/LanguagesSection'
+import { Mascot } from './components/Mascot'
 import { Navbar } from './components/Navbar'
 import { ProjectsSection } from './components/ProjectsSection'
 import { Reveal } from './components/Reveal'
@@ -17,6 +19,7 @@ function App(props: { messageSender: MessageSender }) {
   return (
     <>
       <AuroraBackground />
+      <Mascot />
       <Navbar />
       <main className="container">
         <Reveal>
@@ -44,6 +47,7 @@ function App(props: { messageSender: MessageSender }) {
           </section>
         </Reveal>
       </main>
+      <Footer />
     </>
   )
 }

@@ -10,8 +10,8 @@ export const translations = {
   heroContactCta: { tr: 'İletişime Geç', en: 'Get in Touch' },
   servicesTitle: { tr: 'Hizmetler', en: 'Services' },
   servicesSubtitle: {
-    tr: 'Stajın yanında freelance olarak da bu alanlarda proje alıyorum.',
-    en: 'Alongside my internship, I also take on freelance projects in these areas.',
+    tr: 'Stajımın yanı sıra, freelance olarak da aşağıdaki alanlarda proje üstleniyorum.',
+    en: 'Beyond my internship, I take on freelance projects in the following areas.',
   },
   journeyTitle: { tr: 'Yolculuğum', en: 'My Journey' },
   experienceTitle: { tr: 'Deneyim', en: 'Experience' },
@@ -29,6 +29,17 @@ export const translations = {
   formSuccess: { tr: 'Mesajın gönderildi, teşekkürler!', en: 'Your message has been sent, thank you!' },
   formError: { tr: 'Bir şeyler ters gitti, tekrar dener misin?', en: 'Something went wrong, please try again.' },
   languageToggleLabel: { tr: 'EN', en: 'TR' },
+  mascotChatTitle: { tr: 'Maskotla Sohbet', en: 'Chat with the Mascot' },
+  mascotChatGreeting: {
+    tr: 'Merhaba! Ben Nur\'un dijital maskotuyum. Bir şey sorabilirsin.',
+    en: "Hi! I'm Nur's digital mascot. Feel free to ask me something.",
+  },
+  mascotChatPlaceholder: { tr: 'Bir şey sor...', en: 'Ask something...' },
+  mascotChatSend: { tr: 'Gönder', en: 'Send' },
+  mascotChatError: {
+    tr: 'Şu an cevap veremiyorum, biraz sonra tekrar dener misin?',
+    en: "I can't reply right now — could you try again in a bit?",
+  },
 }
 
 export type TranslationKey = keyof typeof translations

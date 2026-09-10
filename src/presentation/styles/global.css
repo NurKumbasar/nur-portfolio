@@ -325,11 +325,140 @@ html {
   }
 }
 
+/* Sürükleme sarmalayıcısı — artık sayfaya sabitlenmiş (fixed), tek bir
+   hero'ya değil tüm siteye ait. Mascot.tsx pointer olaylarıyla bunun
+   inline style'ındaki transform:translate()'i güncelliyor; bu da
+   dinlenme konumuna (top/right) eklenen bir ofset gibi çalışıyor.
+   Float/blink animasyonu içerideki .mascot üzerinde ayrı çalışıyor;
+   ikisi farklı elemanlarda olduğu için transform'lar çakışmadan üst
+   üste biniyor. */
+.mascot-drag {
+  position: fixed;
+  top: 88px;
+  right: clamp(16px, 6vw, 64px);
+  z-index: 40;
+  display: inline-flex;
+  cursor: grab;
+  touch-action: none;
+}
+
+.mascot-drag-active {
+  cursor: grabbing;
+}
+
+.mascot-drag-active .mascot {
+  animation-play-state: paused;
+}
+
+/* Sohbet paneli — maskota tıklayınca altında açılıyor. .mascot-drag
+   zaten position:fixed olduğu için bu panel ona göre konumlanıyor. */
+.mascot-chat {
+  position: absolute;
+  top: calc(100% + 14px);
+  right: 0;
+  width: min(280px, calc(100vw - 32px));
+  max-height: 340px;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  animation: mascot-chat-in 0.2s ease-out;
+}
+
+.mascot-chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-glass-border);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.mascot-chat-header button {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0;
+}
+
+.mascot-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: 0.85rem;
+  min-height: 120px;
+}
+
+.mascot-chat-message {
+  margin: 0;
+  padding: var(--space-1) var(--space-2);
+  border-radius: 10px;
+  max-width: 85%;
+  line-height: 1.4;
+}
+
+.mascot-chat-message-assistant {
+  align-self: flex-start;
+  background: var(--color-glass-bg);
+  color: var(--color-text);
+}
+
+.mascot-chat-message-user {
+  align-self: flex-end;
+  background: var(--color-accent-bold);
+  color: var(--color-accent-bold-contrast);
+}
+
+.mascot-chat-loading {
+  opacity: 0.6;
+}
+
+.mascot-chat-form {
+  display: flex;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  border-top: 1px solid var(--color-glass-border);
+}
+
+.mascot-chat-form input {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.85rem;
+  padding: var(--space-1) var(--space-2);
+}
+
+.mascot-chat-form button {
+  padding: var(--space-1) var(--space-2);
+  font-size: 0.8rem;
+}
+
+@keyframes mascot-chat-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 /* Maskot — Mascot.tsx'teki SVG'yi yüzdürüp (float) arada göz kırpan
    (blink) küçük bir karaktere çeviriyor. Gövde ve göz grubu ayrı ayrı
    animasyonlanıyor, ikisi de aynı SVG içinde farklı class'larla. */
 .mascot {
-  width: clamp(170px, 22vw, 260px);
+  width: clamp(110px, 13vw, 170px);
   aspect-ratio: 1;
   flex-shrink: 0;
   animation: mascot-float 4.5s ease-in-out infinite;
@@ -385,7 +514,8 @@ html {
 
 @media (prefers-reduced-motion: reduce) {
   .mascot,
-  .mascot-eyes {
+  .mascot-eyes,
+  .mascot-chat {
     animation: none;
   }
 }
@@ -428,9 +558,12 @@ html {
   background: var(--color-accent-bold-soft);
 }
 
-/* Sayfa içeriğini ortalayıp maksimum genişlik veren sarmalayıcı */
+/* Sayfa içeriğini ortalayıp maksimum genişlik veren sarmalayıcı — geniş
+   ekranlarda içerik dar dikey bir şerit gibi kalmasın diye 860px'ten
+   1100px'e çıkarıldı; grid'ler (Projeler, Yetenekler...) bu ekstra
+   genişlikle otomatik olarak daha ferah bir sütun düzenine geçiyor. */
 .container {
-  max-width: 860px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: var(--space-4);
 }
@@ -652,4 +785,31 @@ button:disabled {
   background: var(--color-accent-bold);
   color: var(--color-accent-bold-contrast);
   transform: translateY(-1px);
+}
+
+/* Alt bilgi (footer) — Hero'daki sosyal linklerin bir tekrarı, sayfayı
+   sonuna kadar okuyanın tekrar yukarı çıkmasına gerek kalmasın diye. */
+.site-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-top: 1px solid var(--color-glass-border);
+}
+
+.footer-social {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.footer-social .icon-link {
+  width: 32px;
+  height: 32px;
+}
+
+.footer-signature {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
 }

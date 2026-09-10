@@ -3,12 +3,12 @@ import type { Profile } from '../../domain/entities/Profile'
 export const profile: Profile = {
   name: 'Nur Kumbasar',
   role: {
-    tr: 'Bilgisayar Mühendisliği Öğrencisi',
-    en: 'Computer Engineering Student',
+    tr: 'Bilgisayar Mühendisliği Lisans Öğrencisi',
+    en: "Bachelor's Student in Computer Engineering",
   },
   bio: {
-    tr: 'Teknolojiye ilgi duyan, kendini sürekli geliştirmeye odaklanan biriyim. Yazılım geliştirme ve problem çözme süreçlerinde analitik düşünmeye ve detaylara dikkat etmeye önem veririm. Takım çalışmasına yatkın, sorumluluk almaktan çekinmeyen ve proje süreçlerinde aktif rol alan bir yapıya sahibim.',
-    en: "I'm someone with a strong interest in technology, focused on continuously improving myself. In software development and problem-solving, I value analytical thinking and attention to detail. I work well in teams, take on responsibility readily, and play an active role throughout a project.",
+    tr: 'Teknolojiye tutkuyla bağlı, kendini sürekli geliştirmeyi ilke edinmiş bir bilgisayar mühendisliği öğrencisiyim. Yazılım geliştirme ve problem çözme süreçlerinde analitik düşünceye ve detaylara verdiğim önemle yaklaşıyorum. Takım çalışmasına yatkın, sorumluluk almaktan çekinmeyen ve proje süreçlerinde aktif rol üstlenen bir çalışma anlayışına sahibim.',
+    en: 'I am a Computer Engineering student with a genuine passion for technology and a strong commitment to continuous growth. In software development and problem-solving, I bring analytical thinking and close attention to detail. I thrive in collaborative environments, take ownership readily, and play an active role throughout every stage of a project.',
   },
   githubUrl: 'https://github.com/NurKumbasar',
   linkedinUrl: 'https://www.linkedin.com/in/nur-kumbasar',
