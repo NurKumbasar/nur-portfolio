@@ -29,10 +29,10 @@ export const translations = {
   formSuccess: { tr: 'Mesajın gönderildi, teşekkürler!', en: 'Your message has been sent, thank you!' },
   formError: { tr: 'Bir şeyler ters gitti, tekrar dener misin?', en: 'Something went wrong, please try again.' },
   languageToggleLabel: { tr: 'EN', en: 'TR' },
-  mascotChatTitle: { tr: 'Maskotla Sohbet', en: 'Chat with the Mascot' },
+  mascotChatTitle: { tr: 'Nuriş ile Sohbet', en: 'Chat with Nuriş' },
   mascotChatGreeting: {
-    tr: 'Merhaba! Ben Nur\'un dijital maskotuyum. Bir şey sorabilirsin.',
-    en: "Hi! I'm Nur's digital mascot. Feel free to ask me something.",
+    tr: 'Merhaba! Ben Nuriş, Nur\'un dijital maskotuyum. Bir şey sorabilirsin.',
+    en: "Hi! I'm Nuriş, Nur's digital mascot. Feel free to ask me something.",
   },
   mascotChatPlaceholder: { tr: 'Bir şey sor...', en: 'Ask something...' },
   mascotChatSend: { tr: 'Gönder', en: 'Send' },
