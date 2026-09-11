@@ -35,11 +35,11 @@ export function JourneySection() {
         </div>
 
         <p className="road-label">{translate('experienceTitle', locale)}</p>
-        {experiences[locale].map((experience) => (
+        {experiences[locale].map((experience, index) => (
           <div className="road-item" key={experience.company + experience.period}>
-            <span className="road-dot" />
+            <span className={`road-dot${index === 0 ? ' road-dot-current' : ''}`} />
             <div className="road-card">
-              <ExperienceCard experience={experience} />
+              <ExperienceCard experience={experience} isCurrent={index === 0} />
             </div>
           </div>
         ))}

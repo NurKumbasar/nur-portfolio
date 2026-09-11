@@ -826,8 +826,56 @@ html {
   box-shadow: 0 0 0 4px var(--color-bg), 0 0 10px var(--color-accent-bold-soft);
 }
 
+/* En üstteki (güncel) deneyimi işaret eden nokta yavaşça yanıp sönüyor —
+   hero'daki "Yeni fırsatlara açığım" noktasıyla aynı fikir, farklı renk. */
+.road-dot-current {
+  animation: road-pulse 2s ease-out infinite;
+}
+
+@keyframes road-pulse {
+  0% {
+    box-shadow: 0 0 0 4px var(--color-bg), 0 0 0 0 rgba(226, 160, 174, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 4px var(--color-bg), 0 0 0 8px rgba(226, 160, 174, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 4px var(--color-bg), 0 0 0 0 rgba(226, 160, 174, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .road-dot-current {
+    animation: none;
+  }
+}
+
 .road-card .glass-card {
   margin-bottom: 0;
+}
+
+/* Güncel deneyim kartı — bento'daki "öne çıkan kart" fikrinin zaman
+   çizelgesindeki karşılığı: büyütmek yerine kenarlığı vurguluyoruz.
+   `.glass-card.glass-card-current` (iki class birden) kullanıyoruz ki
+   .glass-card'ın kendi `border` kısayolu (dosyada daha sonra tanımlı
+   olduğu için normalde kazanırdı) her zaman ezilsin. */
+.glass-card.glass-card-current {
+  border-color: var(--color-accent-bold);
+  box-shadow: 0 0 0 1px var(--color-accent-bold-soft);
+}
+
+.current-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-accent-bold-contrast);
+  background: var(--color-accent-bold);
+  border-radius: 999px;
+  padding: 2px var(--space-2);
+  vertical-align: middle;
 }
 
 /* İki kolonlu düzen — Yetenekler ve Projeler bölümlerinde kullanılıyor,

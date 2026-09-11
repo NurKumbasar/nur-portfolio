@@ -19,6 +19,7 @@ export const translations = {
     en: 'Beyond my internship, I take on freelance projects in the following areas.',
   },
   journeyTitle: { tr: 'Yolculuğum', en: 'My Journey' },
+  journeyCurrentBadge: { tr: 'Şu an', en: 'Current' },
   experienceTitle: { tr: 'Deneyim', en: 'Experience' },
   educationTitle: { tr: 'Eğitim', en: 'Education' },
   skillsTitle: { tr: 'Yetenekler', en: 'Skills' },
