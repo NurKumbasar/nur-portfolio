@@ -27,16 +27,14 @@ export function Hero() {
           <TerminalIntro />
 
           <div className="hero-actions">
-            <a href="#contact" className="button-like">
+            <a href="#projects" className="button-like">
+              {translate('heroProjectsCta', locale)}
+            </a>
+            <a href="#contact" className="button-like button-like-outline">
               {translate('heroContactCta', locale)}
             </a>
           </div>
         </div>
-
-        {/* Maskot artık burada değil — App.tsx'te sabit (fixed) konumlu,
-            tüm sayfada sürüklenebilir. Bu boş kutu sadece iki sütunlu
-            grid oranını (metin/görsel) korumak için duruyor. */}
-        <div className="hero-visual" aria-hidden="true" />
       </div>
     </section>
   )

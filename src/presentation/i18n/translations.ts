@@ -8,10 +8,11 @@ import type { Locale } from '../../domain/entities/Locale'
 export const translations = {
   heroStatus: { tr: 'Yeni fırsatlara açığım', en: 'Open to new opportunities' },
   heroTagline: {
-    tr: 'Merhaba dünya! Kod yazan, kahve içen, öğrenmeyi hiç bırakmayan bir mühendislik öğrencisiyim.',
-    en: "Hello world! I'm an engineering student who codes, drinks too much coffee, and never stops learning.",
+    tr: 'Merak ve azimle kod yazan bir bilgisayar mühendisliği öğrencisiyim — fikirden yayına kadar sürece değer katmayı hedefliyorum.',
+    en: 'A computer engineering student who codes with curiosity and discipline — aiming to add real value from idea to launch.',
   },
   heroContactCta: { tr: 'İletişime Geç', en: 'Get in Touch' },
+  heroProjectsCta: { tr: 'Projelerimi Gör', en: 'See My Projects' },
   servicesTitle: { tr: 'Hizmetler', en: 'Services' },
   servicesSubtitle: {
     tr: 'Stajımın yanı sıra, freelance olarak da aşağıdaki alanlarda proje üstleniyorum.',

@@ -191,6 +191,46 @@ html {
   }
 }
 
+/* Tarayıcı destekliyorsa (Chrome/Edge 115+, güncel Safari), yukarıdaki
+   JS/IntersectionObserver tabanlı "bir kere belir" efekti yerine, doğrudan
+   kaydırma pozisyonuna bağlı bir "sahne" animasyonu devreye giriyor:
+   bölüm ekrana girerken belirip büyüyor, ekrandan çıkarken tekrar
+   küçülüp soluyor — JS yok, ekstra scroll dinleyicisi yok, GPU'da
+   çalıştığı için IntersectionObserver'dan daha hafif. Desteklemeyen
+   tarayıcılarda yukarıdaki .reveal/.reveal-visible kuralları aynen
+   çalışmaya devam ediyor (kademeli iyileştirme). */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      animation: reveal-scene linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+
+    @keyframes reveal-scene {
+      0% {
+        opacity: 0;
+        transform: translateY(64px) scale(0.94);
+      }
+      30% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      70% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-64px) scale(0.94);
+      }
+    }
+  }
+}
+
 /* Hero (profil) bölümü — masaüstünde iki sütun: solda metin, sağda
    dönen halkalı avatar. Mobilde tek sütun, avatar üstte (order: -1). */
 .hero {
@@ -208,6 +248,9 @@ html {
   pointer-events: none;
 }
 
+/* Maskot artık burada değil — App.tsx'te sabit (fixed) konumlu, tüm
+   sayfada sürüklenebilir. Bu yüzden hero artık iki sütunlu bir grid
+   değil, tek sütunda ortalanmış tek bir metin bloğu. */
 .hero-grid {
   position: relative;
   z-index: 1;
@@ -217,28 +260,13 @@ html {
   gap: var(--space-5);
 }
 
-@media (min-width: 760px) {
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    align-items: center;
-    gap: var(--space-7);
-  }
-}
-
 .hero-copy {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: var(--space-3);
-}
-
-@media (min-width: 760px) {
-  .hero-copy {
-    align-items: flex-start;
-    text-align: left;
-  }
+  max-width: 640px;
 }
 
 .hero-status {
@@ -282,10 +310,17 @@ html {
   }
 }
 
+/* JetBrains Mono sabit genişlikli (monospace) — her karakter, boşluk
+   dahil, aynı genişlikte. Bu boyutta (72px'e kadar) bir tek boşluk bile
+   göze normalden çok geniş görünüyor; word-spacing ile sadece
+   kelimeler arasını sıkılaştırıyoruz, harflerin kendi aralığına
+   dokunmadan. */
 .hero-name {
   font-size: clamp(2.75rem, 7vw, 4.5rem);
   line-height: 1.02;
   letter-spacing: -0.02em;
+  word-spacing: -0.3em;
+  text-shadow: 0 0 20px var(--color-accent-bold-soft), 0 0 50px var(--color-accent-bold-soft);
 }
 
 /* Sadece ekran okuyucular için — görsel olarak gizli ama DOM'da,
@@ -387,21 +422,9 @@ html {
 .hero-actions {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: var(--space-3);
   margin-top: var(--space-2);
-}
-
-.hero-visual {
-  display: flex;
-  justify-content: center;
-  order: -1;
-}
-
-@media (min-width: 760px) {
-  .hero-visual {
-    order: 2;
-    justify-content: flex-end;
-  }
 }
 
 /* Sürükleme sarmalayıcısı — artık sayfaya sabitlenmiş (fixed), tek bir
@@ -619,6 +642,21 @@ html {
   box-shadow: 0 14px 28px -12px var(--color-accent-bold-soft);
 }
 
+/* İkinci ("İletişime Geç") CTA — doldurulmuş birincil butonun (Projelerimi
+   Gör) yanında ikincil bir seçenek gibi dursun diye içi boş, sadece
+   kenarlıklı. */
+.button-like-outline {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: none;
+}
+
+.button-like-outline:hover {
+  border-color: var(--color-accent-bold);
+  box-shadow: none;
+}
+
 .icon-link {
   display: inline-flex;
   align-items: center;
@@ -769,6 +807,11 @@ html {
 #skills .grid,
 #projects .grid {
   grid-template-columns: repeat(4, 1fr);
+  /* Grid satırları varsayılan olarak o satırdaki en uzun karta göre
+     gerilir — geniş kart daha az metin içerince altında boş alan
+     kalıyordu. align-items:start her kartı kendi içeriği kadar
+     yükseklikte tutuyor. */
+  align-items: start;
 }
 
 #services .grid .glass-card:first-child,
