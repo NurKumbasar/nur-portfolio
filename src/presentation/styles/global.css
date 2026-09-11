@@ -797,15 +797,15 @@ html {
   margin-bottom: 0;
 }
 
-/* Bento düzeni — Hizmetler, Yetenekler ve Projeler bölümlerinde kartların
-   hepsi aynı boyutta olmasın diye ilk kart 2 sütun genişliğinde "öne
-   çıkan" kart oluyor, geri kalanlar tek sütunda kalıyor. Sadece genişlik
-   farkı kullanıyoruz (yükseklik değil) — ilk kartı hem geniş hem yüksek
-   yapmak, yanındaki küçük kartların altında boş bir alan bırakıyordu.
-   Mobilde (760px altı) herkes tek sütuna, eşit boyuta dönüyor. */
+/* Bento düzeni — Hizmetler ve Yetenekler'de kartların hepsi aynı boyutta
+   olmasın diye ilk kart 2 sütun genişliğinde "öne çıkan" kart oluyor,
+   geri kalanlar tek sütunda kalıyor. Projeler'e de aynısını denedik ama
+   proje başlıkları (ör. "GreenGrocer E-Commerce Management System")
+   dar sütunda 3 satıra bölünüp dağınık durdu — bu yüzden Projeler eşit
+   boyutlu karta geri döndü. Mobilde (760px altı) herkes tek sütuna,
+   eşit boyuta dönüyor. */
 #services .grid,
-#skills .grid,
-#projects .grid {
+#skills .grid {
   grid-template-columns: repeat(4, 1fr);
   /* Grid satırları varsayılan olarak o satırdaki en uzun karta göre
      gerilir — geniş kart daha az metin içerince altında boş alan
@@ -815,21 +815,18 @@ html {
 }
 
 #services .grid .glass-card:first-child,
-#skills .grid .glass-card:first-child,
-#projects .grid .glass-card:first-child {
+#skills .grid .glass-card:first-child {
   grid-column: span 2;
 }
 
 @media (max-width: 759px) {
   #services .grid,
-  #skills .grid,
-  #projects .grid {
+  #skills .grid {
     grid-template-columns: 1fr;
   }
 
   #services .grid .glass-card:first-child,
-  #skills .grid .glass-card:first-child,
-  #projects .grid .glass-card:first-child {
+  #skills .grid .glass-card:first-child {
     grid-column: span 1;
   }
 }
@@ -941,8 +938,28 @@ button:disabled {
   transform: translateY(-1px);
 }
 
-/* Alt bilgi (footer) — Hero'daki sosyal linklerin bir tekrarı, sayfayı
-   sonuna kadar okuyanın tekrar yukarı çıkmasına gerek kalmasın diye. */
+.project-links {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.project-link:hover {
+  color: var(--color-accent-bold);
+}
+
+/* Alt bilgi (footer) — sayfayı sonuna kadar okuyanın sosyal linklere
+   ulaşmak için tekrar yukarı çıkmasına gerek kalmasın diye. */
 .site-footer {
   display: flex;
   flex-direction: column;

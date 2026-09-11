@@ -25,3 +25,13 @@ export function MailIcon() {
     </svg>
   )
 }
+
+export function ExternalLinkIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 6H6.75A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V15" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M13 4h7v7" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M20 4 11 13" />
+    </svg>
+  )
+}

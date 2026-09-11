@@ -23,6 +23,8 @@ export const translations = {
   educationTitle: { tr: 'Eğitim', en: 'Education' },
   skillsTitle: { tr: 'Yetenekler', en: 'Skills' },
   projectsTitle: { tr: 'Projeler', en: 'Projects' },
+  projectCode: { tr: 'Kod', en: 'Code' },
+  projectDemo: { tr: 'Demo', en: 'Demo' },
   languagesTitle: { tr: 'Diller', en: 'Languages' },
   contactTitle: { tr: 'İletişim', en: 'Contact' },
   formName: { tr: 'Ad Soyad', en: 'Full Name' },
