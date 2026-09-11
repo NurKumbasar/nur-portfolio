@@ -1,6 +1,7 @@
 import { useLocale } from '../../application/state/LocaleContext'
 import { translate } from '../i18n/translations'
 import { LanguageToggle } from './LanguageToggle'
+import { ThemeToggle } from './ThemeToggle'
 
 export function Navbar() {
   const { locale } = useLocale()
@@ -21,6 +22,7 @@ export function Navbar() {
       </div>
 
       <div className="navbar-controls">
+        <ThemeToggle />
         <LanguageToggle />
       </div>
     </nav>
