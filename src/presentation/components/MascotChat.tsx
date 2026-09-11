@@ -7,6 +7,11 @@ type ChatMessage = {
   content: string
 }
 
+// Sohbet daha hiç kullanılmamışsa (sadece karşılama mesajı varken)
+// gösterilen, tek tıkla soru soran öneri butonları — boş bir kutuya
+// bakıp ne yazacağını bilemeyenler için.
+const SUGGESTION_KEYS = ['mascotChatSuggestion1', 'mascotChatSuggestion2', 'mascotChatSuggestion3'] as const
+
 export function MascotChat(props: { onClose: () => void }) {
   const { locale } = useLocale()
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -15,9 +20,8 @@ export function MascotChat(props: { onClose: () => void }) {
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault()
-    const trimmed = input.trim()
+  async function sendMessage(content: string) {
+    const trimmed = content.trim()
     if (!trimmed || isLoading) return
 
     const nextMessages: ChatMessage[] = [...messages, { role: 'user', content: trimmed }]
@@ -43,6 +47,11 @@ export function MascotChat(props: { onClose: () => void }) {
     }
   }
 
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault()
+    void sendMessage(input)
+  }
+
   return (
     <div className="mascot-chat" onPointerDown={(e) => e.stopPropagation()}>
       <div className="mascot-chat-header">
@@ -60,6 +69,16 @@ export function MascotChat(props: { onClose: () => void }) {
         ))}
         {isLoading && <p className="mascot-chat-message mascot-chat-message-assistant mascot-chat-loading">...</p>}
       </div>
+
+      {messages.length === 1 && !isLoading && (
+        <div className="mascot-chat-suggestions">
+          {SUGGESTION_KEYS.map((key) => (
+            <button key={key} type="button" onClick={() => void sendMessage(translate(key, locale))}>
+              {translate(key, locale)}
+            </button>
+          ))}
+        </div>
+      )}
 
       <form className="mascot-chat-form" onSubmit={handleSubmit}>
         <input

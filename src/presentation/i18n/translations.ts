@@ -43,6 +43,9 @@ export const translations = {
   },
   mascotChatPlaceholder: { tr: 'Bir şey sor...', en: 'Ask something...' },
   mascotChatSend: { tr: 'Gönder', en: 'Send' },
+  mascotChatSuggestion1: { tr: 'Deneyimlerin neler?', en: "What's your experience?" },
+  mascotChatSuggestion2: { tr: 'Hangi projelerde çalıştın?', en: 'What projects have you worked on?' },
+  mascotChatSuggestion3: { tr: 'Hangi teknolojileri biliyorsun?', en: 'What technologies do you know?' },
   mascotChatError: {
     tr: 'Şu an cevap veremiyorum, biraz sonra tekrar dener misin?',
     en: "I can't reply right now — could you try again in a bit?",

@@ -526,6 +526,33 @@ html {
   opacity: 0.6;
 }
 
+/* Sohbet daha hiç kullanılmamışken görünen, tek tıkla soru soran öneri
+   butonları — ilk mesaj gönderilince kayboluyorlar (MascotChat.tsx'te
+   messages.length === 1 şartı). */
+.mascot-chat-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: 0 var(--space-3) var(--space-2);
+}
+
+.mascot-chat-suggestions button {
+  text-align: left;
+  background: var(--color-glass-bg);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-2);
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.mascot-chat-suggestions button:hover {
+  border-color: var(--color-accent-bold);
+  color: var(--color-text);
+}
+
 .mascot-chat-form {
   display: flex;
   gap: var(--space-1);
