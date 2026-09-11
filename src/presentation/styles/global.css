@@ -288,21 +288,100 @@ html {
   letter-spacing: -0.02em;
 }
 
-.hero-role {
-  display: inline-flex;
-  color: var(--color-text);
-  background: var(--color-accent-bold-soft);
-  border: 1px solid var(--color-accent-bold);
-  border-radius: 999px;
-  padding: var(--space-1) var(--space-3);
-  font-size: 0.85rem;
-  font-weight: 500;
+/* Sadece ekran okuyucular için — görsel olarak gizli ama DOM'da,
+   düzende yer kaplamadan duruyor. TerminalIntro'nun yazma animasyonu
+   dekoratif olduğu için asıl metin buraya taşınıyor. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.hero-bio {
+/* Terminal penceresi — hero'daki rol/tanıtım metnini yazı yazılıyormuş
+   gibi gösteriyor. Üstteki üç nokta, klasik terminal pencere çubuğunu
+   taklit ediyor (işlevsiz, sadece görsel). */
+/* `.terminal.glass-card` (iki class birden) kullanıyoruz ki padding:0,
+   .glass-card'ın kendi padding'ini (dosyada daha sonra tanımlı olduğu
+   için normalde kazanırdı) her zaman ezsin. */
+.terminal.glass-card {
+  width: 100%;
   max-width: 480px;
+  padding: 0;
+  margin-bottom: 0;
+  overflow: hidden;
+}
+
+.terminal-titlebar {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-glass-border);
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.terminal-dot-red {
+  background: #ff5f56;
+}
+
+.terminal-dot-yellow {
+  background: #ffbd2e;
+}
+
+.terminal-dot-green {
+  background: #27c93f;
+}
+
+.terminal-body {
+  padding: var(--space-3);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  min-height: 108px;
+}
+
+.terminal-line {
+  line-height: 1.7;
+}
+
+.terminal-line-output {
   color: var(--color-text-muted);
-  line-height: 1.6;
+}
+
+.terminal-prompt-sign {
+  color: var(--color-accent-bold);
+  margin-right: var(--space-2);
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--color-accent-bold);
+  animation: terminal-blink 1s step-end infinite;
+}
+
+@keyframes terminal-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-cursor {
+    animation: none;
+  }
 }
 
 .hero-actions {
