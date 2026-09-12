@@ -52,4 +52,14 @@ describe('ProjectCard', () => {
     expect(screen.getByText('Kod').closest('a')).toHaveAttribute('href', 'https://github.com/x')
     expect(screen.getByText('Demo').closest('a')).toHaveAttribute('href', 'https://example.com')
   })
+
+  it('link yoksa ve note verilmişse notu gösterir', () => {
+    renderProjectCard({ ...ornekProje, note: 'Okul projesi' })
+    expect(screen.getByText('Okul projesi')).toBeInTheDocument()
+  })
+
+  it('link varsa note verilmiş olsa bile notu göstermez', () => {
+    renderProjectCard({ ...ornekProje, githubUrl: 'https://github.com/x', note: 'Okul projesi' })
+    expect(screen.queryByText('Okul projesi')).not.toBeInTheDocument()
+  })
 })

@@ -1,11 +1,11 @@
 import { useLocale } from '../../application/state/LocaleContext'
 import type { Project } from '../../domain/entities/Project'
 import { translate } from '../i18n/translations'
-import { ExternalLinkIcon, GithubIcon } from './SocialIcons'
+import { ExternalLinkIcon, GithubIcon, LockIcon } from './SocialIcons'
 
 export function ProjectCard(props: { project: Project }) {
   const { locale } = useLocale()
-  const { githubUrl, demoUrl } = props.project
+  const { githubUrl, demoUrl, note } = props.project
 
   return (
     <div className="glass-card">
@@ -19,9 +19,6 @@ export function ProjectCard(props: { project: Project }) {
       </div>
       <p>{props.project.description}</p>
 
-      {/* Repo/demo linki olmayan projeler için hiçbir şey göstermiyoruz
-          — henüz her projenin genel bir linki yok, ilerde eklenince
-          otomatik görünecek. */}
       {(githubUrl || demoUrl) && (
         <div className="project-links">
           {githubUrl && (
@@ -37,6 +34,15 @@ export function ProjectCard(props: { project: Project }) {
             </a>
           )}
         </div>
+      )}
+
+      {/* Link yoksa, boş bırakmak yerine nedenini söylüyoruz — "unutulmuş"
+          değil, bilinçli bir tercih olduğu anlaşılsın diye. */}
+      {!githubUrl && !demoUrl && note && (
+        <p className="project-note">
+          <LockIcon />
+          {note}
+        </p>
       )}
     </div>
   )

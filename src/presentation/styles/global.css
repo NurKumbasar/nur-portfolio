@@ -1051,6 +1051,16 @@ button:disabled {
   color: var(--color-accent-bold);
 }
 
+.project-note {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
 /* Alt bilgi (footer) — sayfayı sonuna kadar okuyanın sosyal linklere
    ulaşmak için tekrar yukarı çıkmasına gerek kalmasın diye. */
 .site-footer {
