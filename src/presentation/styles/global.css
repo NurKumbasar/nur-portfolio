@@ -30,11 +30,11 @@
   --color-accent-bold-soft: rgba(226, 160, 174, 0.18);
   --color-accent-bold-contrast: #2a1219;
 
-  /* Tipografi — başlıklar ve terminal/kod hissi veren yerler mono
-     fontla, uzun paragraflar (bio, kart metinleri) okunabilirlik için
-     DM Sans'ta kalıyor. */
+  /* Tipografi — kemalasliyuksek.com'daki gibi tam "terminal" hissi için
+     gövde metni de mono. DM Sans importu, aynı tema geri istenirse diye
+     hâlâ yukarıda duruyor ama artık kullanılmıyor. */
   --font-heading: 'JetBrains Mono', monospace;
-  --font-body: 'DM Sans', sans-serif;
+  --font-body: 'JetBrains Mono', monospace;
 
   /* Boşluk skalası */
   --space-1: 4px;
@@ -253,16 +253,18 @@ html {
    dönen halkalı avatar. Mobilde tek sütun, avatar üstte (order: -1). */
 .hero {
   position: relative;
-  overflow: hidden;
-  padding-block: var(--space-7);
+  padding-block: var(--space-7) var(--space-6);
 }
 
-/* ParticleField'in <canvas>'ı bu class'la .hero'yu dolduruyor, gövde
-   içeriğinin arkasında kalıyor. */
+/* AuroraBackground gibi — sabit (fixed), tüm sayfanın arkasında, hero'ya
+   özel değil. Artık hero'nun kendi kutusuyla sınırlı olmadığı için
+   sayfanın her yerinde (Hizmetler, Projeler, vb.) de görünüyor ve
+   hero'nun içerik yüksekliği değiştiğinde (örn. TerminalIntro yazarken)
+   hiç etkilenmiyor. */
 .particle-field {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: -1;
   pointer-events: none;
 }
 
@@ -334,11 +336,21 @@ html {
    kelimeler arasını sıkılaştırıyoruz, harflerin kendi aralığına
    dokunmadan. */
 .hero-name {
-  font-size: clamp(2.75rem, 7vw, 4.5rem);
+  font-size: clamp(3rem, 10vw, 7rem);
   line-height: 1.02;
   letter-spacing: -0.02em;
   word-spacing: -0.3em;
-  text-shadow: 0 0 20px var(--color-accent-bold-soft), 0 0 50px var(--color-accent-bold-soft);
+  text-align: center;
+  /* hero-copy'nin dışına çıktı (bkz. Hero.tsx) — artık onun text-align
+     ve max-width'ini miras almıyor, kendi başına ayarlıyor. */
+  /* kemalasliyuksek.com'daki gibi daha büyük ve daha güçlü, katmanlı bir
+     glow — paylaşılan --color-accent-bold-soft (0.18 opaklık) diğer çok
+     yerde (rozet, buton, zaman çizelgesi noktası) kullanıldığı için onu
+     değiştirmiyoruz, sadece burada daha yüksek opaklıklı rgba'lar. */
+  text-shadow:
+    0 0 14px rgba(226, 160, 174, 0.5),
+    0 0 36px rgba(226, 160, 174, 0.32),
+    0 0 72px rgba(226, 160, 174, 0.18);
 
   /* Sabit renk yerine, üzerinden yavaşça bir parlaklık şeridi geçen bir
      gradient — metin çoğu zaman normal renginde okunur, aralıklarla
@@ -433,10 +445,26 @@ html {
 }
 
 .terminal-body {
+  position: relative;
   padding: var(--space-3);
   font-family: var(--font-heading);
   font-size: 0.9rem;
-  min-height: 108px;
+}
+
+/* Hayalet kopya: tam metni görünmez ama akışta tutarak kutunun
+   yüksekliğini belirliyor (bkz. TerminalIntro.tsx). */
+.terminal-body-ghost {
+  visibility: hidden;
+}
+
+/* Yazma animasyonu bu ghost'un üzerine, aynı konuma bindirilmiş şekilde
+   çiziliyor. inset:0'ın referans noktası ebeveynin padding kutusunun iç
+   kenarı olduğu için (spec böyle tanımlıyor) ekstra padding eklemiyoruz
+   — eklersek ghost'un üstüne değil, ondan bir padding daha içeriye
+   biner, ikisi hizasız kalır. */
+.terminal-body-animated {
+  position: absolute;
+  inset: 0;
 }
 
 .terminal-line {
@@ -480,68 +508,6 @@ html {
   flex-wrap: wrap;
   gap: var(--space-3);
   margin-top: var(--space-2);
-}
-
-/* .hero'nun altına, içerik yüksekliğinden bağımsız olarak sabitlenmiş
-   "aşağı kaydır" ipucu — büyük ekranlarda hero-copy'nin altında kalan
-   boş alanı doldurur, gözü bir sonraki bölüme yönlendirir. */
-.hero-scroll-cue {
-  position: absolute;
-  left: 50%;
-  bottom: var(--space-4);
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-1);
-  transform: translateX(-50%);
-  color: var(--color-text-muted);
-  font-family: var(--font-heading);
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  opacity: 0.75;
-  transition: opacity 0.15s ease, color 0.15s ease;
-}
-
-.hero-scroll-cue:hover {
-  opacity: 1;
-  color: var(--color-accent-bold);
-}
-
-.hero-scroll-cue-chevron {
-  width: 9px;
-  height: 9px;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
-  transform: rotate(45deg);
-  animation: hero-scroll-cue-bounce 1.8s ease-in-out infinite;
-}
-
-@keyframes hero-scroll-cue-bounce {
-  0%,
-  100% {
-    transform: rotate(45deg) translate(0, 0);
-  }
-  50% {
-    transform: rotate(45deg) translate(3px, 3px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-scroll-cue-chevron {
-    animation: none;
-  }
-}
-
-/* Mobilde .hero-scroll-cue absolute konumu Hizmetler bölümüyle
-   çakışabilir (hero'nun kendi yüksekliği tek sütunda daha kısa
-   kalabiliyor) — küçük ekranlarda göstermiyoruz, zaten dokunmatik
-   kaydırma zaten sezgisel. */
-@media (max-width: 640px) {
-  .hero-scroll-cue {
-    display: none;
-  }
 }
 
 /* Sürükleme sarmalayıcısı — artık sayfaya sabitlenmiş (fixed), tek bir

@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 
 type Particle = { x: number; y: number; vx: number; vy: number }
 
-const LINK_DISTANCE = 120
+const LINK_DISTANCE = 150
 // --color-accent-bold'un RGB karşılığı — <canvas> CSS değişkeni okuyamadığı
 // için burada tekrar yazıyoruz, ikisini birlikte değiştirmeyi unutma.
 const ACCENT_RGB = '226, 160, 174'
@@ -12,9 +12,19 @@ const ACCENT_RGB = '226, 160, 174'
 const MOUSE_RADIUS = 140
 const MOUSE_PUSH = 34
 
-// Hero'nun arkasında yavaşça süzülen, birbirine yakın olduğunda çizgiyle
-// bağlanan noktalar — <canvas> üzerine her karede (frame) elle çiziyoruz,
-// CSS/SVG ile bu kadar noktayı performanslı şekilde animasyonlamak zor.
+// Noktalar sadece bundan büyük bir boyut değişiminde (örn. pencere
+// yeniden boyutlandırma) sıfırdan dağıtılıyor. Küçük değişimlerde
+// (mobilde adres çubuğunun gizlenmesi gibi) yerlerinde kalıyorlar.
+const RESIZE_THRESHOLD = 60
+
+// AuroraBackground gibi sayfa geneline sabitlenmiş (fixed), tüm sayfanın
+// arkasında duran bir katman — artık hero'nun kendi kutusuna değil,
+// doğrudan pencereye göre boyutlanıyor. Böylece hem arka plan tüm sayfayı
+// kaplıyor hem de hero içindeki içerik (örn. TerminalIntro'nun satır satır
+// büyümesi) yükseklik değiştirdiğinde noktalar hiç etkilenmiyor — eskiden
+// hero'yu izleyen bir ResizeObserver her küçük içerik büyümesinde tüm
+// noktaları sıfırdan rastgele dağıtıyordu, bu da "arka plan zıplıyor" gibi
+// görünüyordu.
 export function ParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -33,28 +43,32 @@ export function ParticleField() {
     // etmediyse noktalar hiçbir şeyden kaçmıyormuş gibi görünsün.
     const mouse = { x: -9999, y: -9999 }
 
-    // Ebeveyn (.hero) her boyut değiştirdiğinde canvas'ı ve nokta
-    // sayısını yeniden hesaplıyoruz — alan büyüdükçe nokta sayısı da artar.
     function resize() {
-      const parent = canvas!.parentElement
-      if (!parent) return
-      width = parent.clientWidth
-      height = parent.clientHeight
+      const newWidth = window.innerWidth
+      const newHeight = window.innerHeight
 
       const dpr = window.devicePixelRatio || 1
-      canvas!.width = width * dpr
-      canvas!.height = height * dpr
-      canvas!.style.width = `${width}px`
-      canvas!.style.height = `${height}px`
+      canvas!.width = newWidth * dpr
+      canvas!.height = newHeight * dpr
+      canvas!.style.width = `${newWidth}px`
+      canvas!.style.height = `${newHeight}px`
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0)
 
-      const count = Math.min(70, Math.round((width * height) / 13000))
-      particles = Array.from({ length: count }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: (Math.random() - 0.5) * 0.25,
-      }))
+      const sizeChangedSignificantly =
+        Math.abs(newWidth - width) > RESIZE_THRESHOLD || Math.abs(newHeight - height) > RESIZE_THRESHOLD
+
+      width = newWidth
+      height = newHeight
+
+      if (particles.length === 0 || sizeChangedSignificantly) {
+        const count = Math.min(110, Math.round((width * height) / 9000))
+        particles = Array.from({ length: count }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+        }))
+      }
     }
 
     // Bir noktanın kendi "asıl" konumuyla fareden kaçarken göründüğü
@@ -89,7 +103,7 @@ export function ParticleField() {
           const dy = positions[i].y - positions[j].y
           const dist = Math.hypot(dx, dy)
           if (dist < LINK_DISTANCE) {
-            ctx!.strokeStyle = `rgba(${ACCENT_RGB}, ${0.16 * (1 - dist / LINK_DISTANCE)})`
+            ctx!.strokeStyle = `rgba(${ACCENT_RGB}, ${0.22 * (1 - dist / LINK_DISTANCE)})`
             ctx!.lineWidth = 1
             ctx!.beginPath()
             ctx!.moveTo(positions[i].x, positions[i].y)
@@ -102,7 +116,7 @@ export function ParticleField() {
       for (const pos of positions) {
         ctx!.fillStyle = `rgba(${ACCENT_RGB}, 0.6)`
         ctx!.beginPath()
-        ctx!.arc(pos.x, pos.y, 1.6, 0, Math.PI * 2)
+        ctx!.arc(pos.x, pos.y, 1.9, 0, Math.PI * 2)
         ctx!.fill()
       }
 
@@ -114,16 +128,12 @@ export function ParticleField() {
     resize()
     draw()
 
-    // window 'resize' yerine ResizeObserver kullanıyoruz — .hero'nun
-    // boyutu sadece pencere değişince değil, içerik/font yüklenince de
-    // değişebilir; ResizeObserver ebeveynin kendisini izlediği için
-    // her durumda doğru boyutu yakalıyor.
-    const observer = new ResizeObserver(resize)
-    observer.observe(canvas.parentElement!)
+    window.addEventListener('resize', resize)
 
     // Canvas'ın kendisi pointer-events:none (altındaki linkler/butonlar
-    // tıklanabilsin diye) — bu yüzden fareyi window üzerinden dinleyip
-    // canvas'ın sayfadaki konumuna göre göreli koordinata çeviriyoruz.
+    // tıklanabilsin diye) — bu yüzden fareyi window üzerinden dinliyoruz.
+    // Canvas artık tüm pencereyi kapladığı için konumu hep (0,0)'da, ama
+    // yine de getBoundingClientRect üzerinden okumak daha güvenli.
     function handlePointerMove(e: PointerEvent) {
       const rect = canvas!.getBoundingClientRect()
       mouse.x = e.clientX - rect.left
@@ -140,7 +150,7 @@ export function ParticleField() {
     }
 
     return () => {
-      observer.disconnect()
+      window.removeEventListener('resize', resize)
       cancelAnimationFrame(frameId)
       window.removeEventListener('pointermove', handlePointerMove)
       window.removeEventListener('pointerleave', handlePointerLeave)

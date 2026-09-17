@@ -71,17 +71,34 @@ export function TerminalIntro() {
         <span className="terminal-dot terminal-dot-green" />
       </div>
       <div className="terminal-body">
-        {segments.slice(0, doneCount + (isTyping ? 1 : 0)).map((segment, index) => {
-          const isCurrent = index === doneCount
-          const text = isCurrent ? segment.text.slice(0, charCount) : segment.text
-          return (
+        {/* Görünmez "hayalet" kopya — tam metni (yazma animasyonu
+            olmadan) normal akışta render edip kutunun yüksekliğini baştan
+            son haline göre belirliyor. Böylece yazı uzadıkça kutu
+            büyümüyor, altındaki butonlar aşağı kaymıyor. Elle piksel
+            hesaplamak yerine tarayıcının kendi layout'una bırakıyoruz —
+            dil (TR/EN) veya genişlik değişse de doğru kalır. */}
+        <div className="terminal-body-ghost">
+          {segments.map((segment, index) => (
             <p key={index} className={`terminal-line terminal-line-${segment.kind}`}>
               {segment.kind === 'prompt' && <span className="terminal-prompt-sign">$</span>}
-              {text}
-              {isCurrent && <span className="terminal-cursor" />}
+              {segment.text}
             </p>
-          )
-        })}
+          ))}
+        </div>
+
+        <div className="terminal-body-animated">
+          {segments.slice(0, doneCount + (isTyping ? 1 : 0)).map((segment, index) => {
+            const isCurrent = index === doneCount
+            const text = isCurrent ? segment.text.slice(0, charCount) : segment.text
+            return (
+              <p key={index} className={`terminal-line terminal-line-${segment.kind}`}>
+                {segment.kind === 'prompt' && <span className="terminal-prompt-sign">$</span>}
+                {text}
+                {isCurrent && <span className="terminal-cursor" />}
+              </p>
+            )
+          })}
+        </div>
       </div>
     </div>
   )

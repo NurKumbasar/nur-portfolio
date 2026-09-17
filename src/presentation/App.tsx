@@ -8,6 +8,7 @@ import { JourneySection } from './components/JourneySection'
 import { LanguagesSection } from './components/LanguagesSection'
 import { Mascot } from './components/Mascot'
 import { Navbar } from './components/Navbar'
+import { ParticleField } from './components/ParticleField'
 import { ProjectsSection } from './components/ProjectsSection'
 import { Reveal } from './components/Reveal'
 import { ServicesSection } from './components/ServicesSection'
@@ -19,6 +20,7 @@ function App(props: { messageSender: MessageSender }) {
   return (
     <>
       <AuroraBackground />
+      <ParticleField />
       <Mascot />
       <Navbar />
       <main className="container">
