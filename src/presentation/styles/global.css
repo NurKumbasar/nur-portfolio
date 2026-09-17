@@ -254,7 +254,7 @@ html {
 .hero {
   position: relative;
   overflow: hidden;
-  padding-block: var(--space-7) var(--space-6);
+  padding-block: var(--space-7);
 }
 
 /* ParticleField'in <canvas>'ı bu class'la .hero'yu dolduruyor, gövde
@@ -339,6 +339,43 @@ html {
   letter-spacing: -0.02em;
   word-spacing: -0.3em;
   text-shadow: 0 0 20px var(--color-accent-bold-soft), 0 0 50px var(--color-accent-bold-soft);
+
+  /* Sabit renk yerine, üzerinden yavaşça bir parlaklık şeridi geçen bir
+     gradient — metin çoğu zaman normal renginde okunur, aralıklarla
+     vurgu rengi ("aksan") bir ışık gibi kayıp gidiyor. text-shadow
+     glow'u zaten glyph şekline göre çalıştığı için transparent fill ile
+     birlikte de görünür kalıyor. */
+  background-image: linear-gradient(
+    100deg,
+    var(--color-text) 30%,
+    var(--color-accent-bold) 50%,
+    var(--color-text) 70%
+  );
+  background-size: 260% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: hero-name-shine 6s ease-in-out infinite;
+}
+
+@keyframes hero-name-shine {
+  0%,
+  15% {
+    background-position: 100% 0;
+  }
+  85%,
+  100% {
+    background-position: -60% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-name {
+    animation: none;
+    background-position: 30% 0;
+  }
 }
 
 /* Sadece ekran okuyucular için — görsel olarak gizli ama DOM'da,
@@ -443,6 +480,68 @@ html {
   flex-wrap: wrap;
   gap: var(--space-3);
   margin-top: var(--space-2);
+}
+
+/* .hero'nun altına, içerik yüksekliğinden bağımsız olarak sabitlenmiş
+   "aşağı kaydır" ipucu — büyük ekranlarda hero-copy'nin altında kalan
+   boş alanı doldurur, gözü bir sonraki bölüme yönlendirir. */
+.hero-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-4);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  transform: translateX(-50%);
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  opacity: 0.75;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.hero-scroll-cue:hover {
+  opacity: 1;
+  color: var(--color-accent-bold);
+}
+
+.hero-scroll-cue-chevron {
+  width: 9px;
+  height: 9px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  animation: hero-scroll-cue-bounce 1.8s ease-in-out infinite;
+}
+
+@keyframes hero-scroll-cue-bounce {
+  0%,
+  100% {
+    transform: rotate(45deg) translate(0, 0);
+  }
+  50% {
+    transform: rotate(45deg) translate(3px, 3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll-cue-chevron {
+    animation: none;
+  }
+}
+
+/* Mobilde .hero-scroll-cue absolute konumu Hizmetler bölümüyle
+   çakışabilir (hero'nun kendi yüksekliği tek sütunda daha kısa
+   kalabiliyor) — küçük ekranlarda göstermiyoruz, zaten dokunmatik
+   kaydırma zaten sezgisel. */
+@media (max-width: 640px) {
+  .hero-scroll-cue {
+    display: none;
+  }
 }
 
 /* Sürükleme sarmalayıcısı — artık sayfaya sabitlenmiş (fixed), tek bir
@@ -670,6 +769,8 @@ html {
 .button-like {
   display: inline-flex;
   align-items: center;
+  position: relative;
+  overflow: hidden;
   background: var(--color-accent-bold);
   color: var(--color-accent-bold-contrast);
   font-weight: 600;
@@ -681,15 +782,43 @@ html {
   transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
 }
 
+/* Hover'da soldan sağa geçen ince bir ışık şeridi — buton "cam gibi
+   parlıyor" hissi versin diye. Kendi genişliğinin dışında, çapraz
+   (skew) bir dikdörtgen; normalde sol dışta bekliyor, hover'da sağ
+   dışa doğru kayıyor. */
+.button-like::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  left: -60%;
+  width: 40%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-20deg);
+  transition: transform 0.55s ease;
+  pointer-events: none;
+}
+
+.button-like:hover::after {
+  transform: skewX(-20deg) translateX(400%);
+}
+
 .button-like:hover {
   transform: translateY(-2px);
   opacity: 0.92;
-  box-shadow: 0 14px 28px -12px var(--color-accent-bold-soft);
+  box-shadow: 0 16px 32px -10px rgba(226, 160, 174, 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button-like::after {
+    transition: none;
+    display: none;
+  }
 }
 
 /* İkinci ("İletişime Geç") CTA — doldurulmuş birincil butonun (Projelerimi
    Gör) yanında ikincil bir seçenek gibi dursun diye içi boş, sadece
-   kenarlıklı. */
+   kenarlıklı. Şerit efekti sadece dolu (birincil) butonda anlamlı
+   olduğu için burada iptal ediyoruz. */
 .button-like-outline {
   background: transparent;
   color: var(--color-text);
@@ -697,8 +826,13 @@ html {
   box-shadow: none;
 }
 
+.button-like-outline::after {
+  content: none;
+}
+
 .button-like-outline:hover {
   border-color: var(--color-accent-bold);
+  background: var(--color-accent-bold-soft);
   box-shadow: none;
 }
 

@@ -36,6 +36,16 @@ export function Hero() {
           </div>
         </div>
       </div>
+
+      {/* Hero'nun altındaki büyük boş alanı doldurmak ve bir sonraki
+          bölüme göz teması kurmak için — sahte istatistik satırı yerine
+          (öğrenci profiline abartılı gelir) sade bir "aşağı kaydır"
+          ipucu. Hero'nun kendisine göre en altta sabit, içerik
+          yüksekliğinden bağımsız. */}
+      <a href="#services" className="hero-scroll-cue" aria-label={translate('heroScrollCue', locale)}>
+        <span className="hero-scroll-cue-text">{translate('heroScrollCue', locale)}</span>
+        <span className="hero-scroll-cue-chevron" aria-hidden="true" />
+      </a>
     </section>
   )
 }

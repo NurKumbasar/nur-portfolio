@@ -13,6 +13,7 @@ export const translations = {
   },
   heroContactCta: { tr: 'İletişime Geç', en: 'Get in Touch' },
   heroProjectsCta: { tr: 'Projelerimi Gör', en: 'See My Projects' },
+  heroScrollCue: { tr: 'Kaydır', en: 'Scroll' },
   servicesTitle: { tr: 'Hizmetler', en: 'Services' },
   servicesSubtitle: {
     tr: 'Stajımın yanı sıra, freelance olarak da aşağıdaki alanlarda proje üstleniyorum.',
