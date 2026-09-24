@@ -1,10 +1,11 @@
-import { profile } from '../../infrastructure/content/profile'
+import { useContent } from '../../application/state/useContent'
 import { GithubIcon, LinkedinIcon, MailIcon } from './SocialIcons'
 
 // Hero'daki sosyal linklerin bir kopyası — sayfayı sonuna kadar okuyan
 // birinin tekrar en yukarı çıkmadan da GitHub/LinkedIn/e-postaya
 // ulaşabilmesi için.
 export function Footer() {
+  const profile = useContent().getProfile()
   return (
     <footer className="site-footer">
       <div className="footer-social">

@@ -1,4 +1,5 @@
-import { useLocale } from '../application/state/LocaleContext'
+import { useLocale } from '../application/state/useLocale'
+import type { ChatService } from '../domain/ports/ChatService'
 import type { MessageSender } from '../domain/ports/MessageSender'
 import { AuroraBackground } from './components/AuroraBackground'
 import { ContactForm } from './components/ContactForm'
@@ -15,13 +16,13 @@ import { ServicesSection } from './components/ServicesSection'
 import { SkillsSection } from './components/SkillsSection'
 import { translate } from './i18n/translations'
 
-function App(props: { messageSender: MessageSender }) {
+function App(props: { messageSender: MessageSender; chatService: ChatService }) {
   const { locale } = useLocale()
   return (
     <>
       <AuroraBackground />
       <ParticleField />
-      <Mascot />
+      <Mascot chatService={props.chatService} />
       <Navbar />
       <main className="container">
         <Reveal>

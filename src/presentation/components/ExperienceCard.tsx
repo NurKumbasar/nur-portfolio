@@ -1,4 +1,4 @@
-import { useLocale } from '../../application/state/LocaleContext'
+import { useLocale } from '../../application/state/useLocale'
 import type { Experience } from '../../domain/entities/Experience'
 import { translate } from '../i18n/translations'
 

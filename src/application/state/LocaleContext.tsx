@@ -1,15 +1,13 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import type { Locale } from '../../domain/entities/Locale'
 import type { LocaleStore } from '../../domain/ports/LocaleStore'
 import { resolveInitialLocale, toggleLocale as toggleLocaleValue } from '../useCases/locale'
+import { LocaleContext } from './localeCtx'
 
-interface LocaleContextValue {
-  locale: Locale
-  toggleLocale: () => void
-}
-
-const LocaleContext = createContext<LocaleContextValue | null>(null)
-
+// Bu dosya sadece bileşeni (LocaleProvider) dışa aktarıyor; context nesnesi
+// `localeContext.ts`'te, hook ise `useLocale.ts`'te. Böylece React'in
+// "Fast Refresh" özelliği (kod değişince sayfayı sıfırlamadan güncelleme)
+// bu dosyada düzgün çalışıyor.
 export function LocaleProvider({ children, store }: { children: ReactNode; store: LocaleStore }) {
   const [locale, setLocale] = useState<Locale>(() => resolveInitialLocale(store))
 
@@ -26,12 +24,4 @@ export function LocaleProvider({ children, store }: { children: ReactNode; store
   }
 
   return <LocaleContext.Provider value={{ locale, toggleLocale }}>{children}</LocaleContext.Provider>
-}
-
-export function useLocale(): LocaleContextValue {
-  const context = useContext(LocaleContext)
-  if (!context) {
-    throw new Error('useLocale, LocaleProvider içinde kullanılmalı')
-  }
-  return context
 }

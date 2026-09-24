@@ -1,4 +1,4 @@
-import { useLocale } from '../../application/state/LocaleContext'
+import { useLocale } from '../../application/state/useLocale'
 import { useContactForm } from '../../application/state/useContactForm'
 import type { MessageSender } from '../../domain/ports/MessageSender'
 import { translate } from '../i18n/translations'

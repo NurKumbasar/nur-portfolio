@@ -30,9 +30,13 @@ Kurallar:
 const MAX_TOKENS = 180
 const MAX_HISTORY = 6
 const MAX_MESSAGE_LENGTH = 500
+const GROQ_TIMEOUT_MS = 15_000
 
-// Sadece kendi sitenden gelen isteklere izin ver — rastgele bir bot bu
-// adrese direkt istek atarsa Origin header'ı eşleşmeyeceği için reddedilir.
+// Başka bir sitenin (tarayıcıda) bu adresi kendi sayfasından çağırmasını
+// engeller. DİKKAT: Origin header'ını tarayıcı dışındaki bir program (curl,
+// script) istediği gibi yazabilir, yani bu kontrol tek başına bir bot
+// koruması DEĞİL. Asıl koruma katmanları aşağıdaki hız sınırı, kısa
+// cevap/mesaj limitleri ve Groq'un kendi ücretsiz plan limitleridir.
 const ALLOWED_ORIGINS = new Set([
   'https://nurkumbasar.com',
   'https://www.nurkumbasar.com',
@@ -66,7 +70,25 @@ function isRateLimited(ip: string): boolean {
   return recent.length > RATE_LIMIT_MAX
 }
 
-type IncomingMessage = { role: 'user' | 'assistant'; content: string }
+type ChatRole = 'user' | 'assistant'
+type ChatMessage = { role: ChatRole; content: string }
+
+// Tarayıcıdan gelen mesajlara GÜVENMİYORUZ: biri `role: 'system'` yollayıp
+// maskotun talimatlarını değiştirmeye çalışabilir. Sadece 'user' ve
+// 'assistant' rollerini, metin içeren mesajları alıyoruz; gerisini atıyoruz.
+function sanitizeMessages(input: unknown): ChatMessage[] {
+  if (!Array.isArray(input)) return []
+  return input
+    .filter(
+      (m): m is { role: ChatRole; content: string } =>
+        typeof m === 'object' &&
+        m !== null &&
+        ((m as { role?: unknown }).role === 'user' || (m as { role?: unknown }).role === 'assistant') &&
+        typeof (m as { content?: unknown }).content === 'string',
+    )
+    .slice(-MAX_HISTORY)
+    .map((m) => ({ role: m.role, content: m.content.slice(0, MAX_MESSAGE_LENGTH) }))
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
@@ -86,19 +108,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return
   }
 
-  const body = req.body as { messages?: IncomingMessage[] }
-  if (!Array.isArray(body.messages) || body.messages.length === 0) {
+  const history = sanitizeMessages((req.body as { messages?: unknown } | undefined)?.messages)
+  if (history.length === 0) {
     res.status(400).json({ error: 'invalid body' })
     return
   }
 
-  const messages = [
-    { role: 'system', content: SYSTEM_PROMPT },
-    ...body.messages.slice(-MAX_HISTORY).map((m) => ({
-      role: m.role,
-      content: String(m.content).slice(0, MAX_MESSAGE_LENGTH),
-    })),
-  ]
+  const messages = [{ role: 'system', content: SYSTEM_PROMPT }, ...history]
 
   const apiKey = process.env.GROQ_API_KEY
   if (!apiKey) {
@@ -106,17 +122,29 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return
   }
 
-  const groqRes = await fetch(GROQ_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
-    body: JSON.stringify({ model: MODEL, messages, max_tokens: MAX_TOKENS }),
-  })
+  // Groq yanıt vermezse fonksiyon sonsuza kadar asılı kalmasın, ağ hatası
+  // da yakalanmamış bir çökme yerine düzgün bir 502'ye dönüşsün.
+  try {
+    const groqRes = await fetch(GROQ_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+      body: JSON.stringify({ model: MODEL, messages, max_tokens: MAX_TOKENS }),
+      signal: AbortSignal.timeout(GROQ_TIMEOUT_MS),
+    })
 
-  if (!groqRes.ok) {
+    if (!groqRes.ok) {
+      res.status(502).json({ error: 'groq request failed' })
+      return
+    }
+
+    const data = (await groqRes.json()) as { choices?: { message?: { content?: string } }[] }
+    const reply = data.choices?.[0]?.message?.content
+    if (!reply) {
+      res.status(502).json({ error: 'empty reply' })
+      return
+    }
+    res.status(200).json({ reply })
+  } catch {
     res.status(502).json({ error: 'groq request failed' })
-    return
   }
-
-  const data = (await groqRes.json()) as { choices: { message: { content: string } }[] }
-  res.status(200).json({ reply: data.choices[0].message.content })
 }

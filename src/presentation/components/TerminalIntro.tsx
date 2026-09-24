@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useLocale } from '../../application/state/LocaleContext'
-import { profile } from '../../infrastructure/content/profile'
+import { useContent } from '../../application/state/useContent'
+import { useLocale } from '../../application/state/useLocale'
 import { translate } from '../i18n/translations'
 
 type Segment = { kind: 'prompt' | 'output'; text: string }
@@ -14,15 +14,16 @@ const SEGMENT_PAUSE_MS = 350
 // bölüm başlıklarındaki $ işareti) hero'ya kadar taşıyor.
 export function TerminalIntro() {
   const { locale } = useLocale()
+  const content = useContent()
 
   const segments: Segment[] = useMemo(
     () => [
       { kind: 'prompt', text: 'whoami' },
-      { kind: 'output', text: profile.role[locale] },
+      { kind: 'output', text: content.getProfile().role[locale] },
       { kind: 'prompt', text: 'cat intro.txt' },
       { kind: 'output', text: translate('heroTagline', locale) },
     ],
-    [locale],
+    [content, locale],
   )
 
   const prefersReducedMotion = useMemo(
@@ -32,18 +33,11 @@ export function TerminalIntro() {
 
   // `doneCount` kaç segmentin tamamen yazıldığını, `charCount` o an
   // yazılmakta olan segmentin kaç karakterinin göründüğünü tutuyor.
-  // Dil değişince (locale) efekt baştan başlıyor.
+  // Dil değişince animasyonun baştan başlaması için state'i bir efektle
+  // sıfırlamıyoruz: Hero bu bileşeni `key={locale}` ile çiziyor, yani dil
+  // değişince bileşen baştan (sıfır state ile) yeniden oluşuyor.
   const [doneCount, setDoneCount] = useState(prefersReducedMotion ? segments.length : 0)
   const [charCount, setCharCount] = useState(0)
-
-  useEffect(() => {
-    if (prefersReducedMotion) {
-      setDoneCount(segments.length)
-      return
-    }
-    setDoneCount(0)
-    setCharCount(0)
-  }, [locale, prefersReducedMotion, segments.length])
 
   useEffect(() => {
     if (prefersReducedMotion || doneCount >= segments.length) return

@@ -1,55 +1,34 @@
 import { useState, type FormEvent } from 'react'
-import { useLocale } from '../../application/state/LocaleContext'
+import { useLocale } from '../../application/state/useLocale'
+import { useMascotChat } from '../../application/state/useMascotChat'
+import type { ChatService } from '../../domain/ports/ChatService'
 import { translate } from '../i18n/translations'
-
-type ChatMessage = {
-  role: 'user' | 'assistant'
-  content: string
-}
 
 // Sohbet daha hiç kullanılmamışsa (sadece karşılama mesajı varken)
 // gösterilen, tek tıkla soru soran öneri butonları — boş bir kutuya
 // bakıp ne yazacağını bilemeyenler için.
 const SUGGESTION_KEYS = ['mascotChatSuggestion1', 'mascotChatSuggestion2', 'mascotChatSuggestion3'] as const
 
-export function MascotChat(props: { onClose: () => void }) {
+// Bu bileşen sadece "gösterir": mesajları tutma, cevap isteme ve hata
+// yönetimi `useMascotChat` hook'unda; cevabın nereden geldiği ise
+// `ChatService` arkasında (bkz. main.tsx'teki composition root).
+export function MascotChat(props: { chatService: ChatService; onClose: () => void }) {
   const { locale } = useLocale()
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    { role: 'assistant', content: translate('mascotChatGreeting', locale) },
-  ])
+  const { messages, isLoading, sendMessage } = useMascotChat(props.chatService, {
+    greeting: translate('mascotChatGreeting', locale),
+    error: translate('mascotChatError', locale),
+  })
   const [input, setInput] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
 
-  async function sendMessage(content: string) {
-    const trimmed = content.trim()
-    if (!trimmed || isLoading) return
-
-    const nextMessages: ChatMessage[] = [...messages, { role: 'user', content: trimmed }]
-    setMessages(nextMessages)
+  function send(content: string) {
+    if (!content.trim() || isLoading) return
+    void sendMessage(content)
     setInput('')
-    setIsLoading(true)
-
-    try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: nextMessages }),
-      })
-
-      if (!response.ok) throw new Error('request failed')
-
-      const data = (await response.json()) as { reply: string }
-      setMessages((prev) => [...prev, { role: 'assistant', content: data.reply }])
-    } catch {
-      setMessages((prev) => [...prev, { role: 'assistant', content: translate('mascotChatError', locale) }])
-    } finally {
-      setIsLoading(false)
-    }
   }
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
-    void sendMessage(input)
+    send(input)
   }
 
   return (
@@ -73,7 +52,7 @@ export function MascotChat(props: { onClose: () => void }) {
       {messages.length === 1 && !isLoading && (
         <div className="mascot-chat-suggestions">
           {SUGGESTION_KEYS.map((key) => (
-            <button key={key} type="button" onClick={() => void sendMessage(translate(key, locale))}>
+            <button key={key} type="button" onClick={() => send(translate(key, locale))}>
               {translate(key, locale)}
             </button>
           ))}

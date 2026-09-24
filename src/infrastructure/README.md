@@ -6,8 +6,8 @@ detaylar burada yaşar.
 
 Buradaki her dosya, `domain/ports` içinde tanımlanmış bir arayüzü
 **gerçeklemek (implement)** için vardır. Örneğin `domain/ports/ContentRepository.ts`
-bir arayüz tanımlar, `infrastructure/content/JsonContentRepository.ts` ise
-bu arayüzü JSON dosyalarını okuyarak gerçekler.
+bir arayüz tanımlar, `infrastructure/content/staticContentRepository.ts` ise
+bu arayüzü bu klasördeki TypeScript içerik dosyalarını okuyarak gerçekler.
 
 ## Bağımlılık Kuralı
 
@@ -18,8 +18,10 @@ gerçeklemek için). `application` veya `presentation` katmanlarını import
 
 ## Alt klasörler
 
-- `content/` — Site içeriğini (projeler, deneyimler, yetenekler) JSON'dan
-  okuyup `domain/entities` şekline dönüştüren kod.
+- `content/` — Site içeriği (projeler, deneyimler, yetenekler; TR/EN) ve
+  bunu `ContentRepository` arayüzü olarak sunan `staticContentRepository`.
+- `chat/` — Maskot sohbeti için `ChatService`'i gerçekleyen, sitenin
+  `/api/chat` sunucu fonksiyonuna istek atan adaptör.
 - `storage/` — `localStorage` ile tema/dil tercihini saklayan adaptörler.
 - `messaging/` — İletişim formunu Formspree'ye (veya seçtiğimiz servise)
   gönderen adaptör.
