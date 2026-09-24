@@ -65,8 +65,8 @@ Her katmanın kendi `README.md` dosyası var.
 │   ├── test/                # Mimari testi, API testi, test için sahte bağımlılıklar
 │   └── learn/               # Öğrenme alıştırmaları (site koduna dahil değil)
 ├── public/                  # Statik dosyalar (CV, favicon, paylaşım görseli)
-├── legacy/                  # Sitenin eski (framework'süz) sürümü — arşiv
-└── scratch/generate_cv.py   # CV PDF'ini üreten yardımcı betik
+├── docs/                    # Tasarım notları (mimari kararlar için sorular)
+└── tools/generate_cv.py     # CV PDF'ini üretip public/ altına yazan yardımcı betik (reportlab gerekir)
 ```
 
 ## Çalıştırma
