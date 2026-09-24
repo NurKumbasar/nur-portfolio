@@ -239,4 +239,4 @@ def generate_pdf(filename):
     print(f"Successfully generated PDF: {filename}")
 
 if __name__ == "__main__":
-    generate_pdf("../Nur_Kumbasar_CV.pdf")
+    generate_pdf("../public/Nur_Kumbasar_CV.pdf")
