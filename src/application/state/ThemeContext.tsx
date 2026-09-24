@@ -1,15 +1,11 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import type { Theme } from '../../domain/entities/Theme'
 import type { ThemeStore } from '../../domain/ports/ThemeStore'
 import { resolveInitialTheme, toggleTheme as toggleThemeValue } from '../useCases/theme'
+import { ThemeContext } from './themeCtx'
 
-interface ThemeContextValue {
-  theme: Theme
-  toggleTheme: () => void
-}
-
-const ThemeContext = createContext<ThemeContextValue | null>(null)
-
+// Context nesnesi `themeContext.ts`'te, hook `useTheme.ts`'te — bkz.
+// LocaleContext.tsx'teki açıklama.
 export function ThemeProvider({ children, store }: { children: ReactNode; store: ThemeStore }) {
   const [theme, setTheme] = useState<Theme>(() => resolveInitialTheme(store))
 
@@ -25,12 +21,4 @@ export function ThemeProvider({ children, store }: { children: ReactNode; store:
   }
 
   return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>
-}
-
-export function useTheme(): ThemeContextValue {
-  const context = useContext(ThemeContext)
-  if (!context) {
-    throw new Error('useTheme, ThemeProvider içinde kullanılmalı')
-  }
-  return context
 }

@@ -1,126 +1,103 @@
-<p align="center">
-  <img src="nk-favicon.png" alt="NK Logo" width="80" />
-</p>
-
-<h1 align="center">Nur Kumbasar — Personal Portfolio</h1>
+<h1 align="center">Nur Kumbasar — Kişisel Portfolyo</h1>
 
 <p align="center">
-  <strong>🚀 nurkumbasar.com</strong><br/>
-  Bilgisayar Mühendisliği öğrencisi & QA Intern — kişisel portföy web sitesi.
-</p>
-
-<p align="center">
-  <a href="https://nurkumbasar.com">🌐 Canlı Site</a> •
+  Bilgisayar Mühendisliği öğrencisinin kişisel portfolyo sitesi.<br/>
+  <a href="https://nurkumbasar.com">nurkumbasar.com</a> •
   <a href="https://github.com/nurkumbasar">GitHub</a> •
   <a href="https://www.linkedin.com/in/nur-kumbasar">LinkedIn</a>
 </p>
 
----
-
-## 📸 Önizleme
-
 <p align="center">
-  <img src="image.png" alt="Portfolio Preview" width="700" />
+  <img src="public/og-banner.png" alt="Portfolyo önizlemesi" width="700" />
 </p>
 
 ---
 
-## ✨ Özellikler
+## Özellikler
 
-| Özellik | Açıklama |
-|---------|----------|
-| 🎨 **IDE Temalı Tasarım** | VS Code / terminal estetiğinden ilham alan modern arayüz |
-| 🌙 **Dark / Light Mode** | Tema geçişi desteği |
-| 🌍 **Çift Dil (TR / EN)** | Türkçe ve İngilizce arasında geçiş |
-| 💻 **İnteraktif Terminal** | Gerçek komutları destekleyen terminal emülatörü |
-| 🦖 **Gizli Dino Oyunu** | Terminale `hack` yazarak erişilen easter egg |
-| 📱 **Responsive Tasarım** | Mobil, tablet ve masaüstüne uyumlu |
-| 🎯 **Aurora Arka Plan** | Dinamik blob animasyonları |
-| 📄 **CV İndirme** | Tek tıkla PDF CV indirme |
+- **Terminal temalı arayüz:** Hero bölümünde karakter karakter "yazılan" terminal, cam efektli kartlar, fareye duyarlı parçacık arka planı ve aurora animasyonu.
+- **Açık / koyu tema:** Sistem tercihini izler, navbar'dan elle değiştirilebilir ve hatırlanır.
+- **Türkçe / İngilizce:** Tek tıkla dil değişimi; seçim hatırlanır, `<html lang>` güncellenir.
+- **Nuriş maskotu:** Sayfada sürüklenebilen bir maskot. Tıklayınca Nur hakkındaki sorulara cevap veren, LLM destekli bir sohbet paneli açar.
+- **Bölümler:** Hizmetler, Yolculuk (deneyim + eğitim), Yetenekler, Projeler, Diller, İletişim formu.
+- **Erişilebilirlik:** `prefers-reduced-motion` desteği, ekran okuyucu için düz metin karşılıkları, `aria-live` form bildirimleri.
 
----
+## Teknolojiler
 
-## 🛠️ Teknolojiler
+React 19 · TypeScript · Vite · Vitest + Testing Library · oxlint  
+Sunucu tarafı: Vercel serverless fonksiyonu (`api/chat.ts`) → Groq API  
+İletişim formu: Formspree
 
-```
-HTML5 · CSS3 · Vanilla JavaScript
-```
+## Mimari
 
-- **Font**: [Geist Mono](https://fonts.google.com/specimen/Geist+Mono)
-- **İkonlar**: [Font Awesome 6.5](https://fontawesome.com/)
-- **Hosting**: GitHub Pages + Custom Domain (CNAME)
-
----
-
-## 📂 Proje Yapısı
+Kod, **katmanlı (clean) mimariyle** düzenlenmiştir. Kural: *değişme sebebi farklı olan şeyleri ayır.*
 
 ```
-nur-portfolio/
-├── index.html          # Ana sayfa (tüm bölümler)
-├── style.css           # Tüm stiller (63KB)
-├── script.js           # Etkileşimler, terminal, tema, dil
-├── Avatar_Nur.png      # Profil fotoğrafı
-├── Nur_Kumbasar_CV.pdf # İndirilebilir CV
-├── nk-favicon.png      # Favicon
-├── image.png           # Site önizleme görseli (OG Image)
-├── ramdesign.png       # RAM Design proje görseli
-├── CNAME               # GitHub Pages custom domain
-└── .gitignore
+src/
+├── domain/          # Saf tipler (entities) ve sözleşmeler (ports). Hiçbir şeye bağımlı değil.
+├── application/     # Kullanım senaryoları ve React state'i (context, hook'lar). Sadece domain'i bilir.
+├── infrastructure/  # Dış dünya: içerik verisi, localStorage, Formspree, sohbet API'si. Portları gerçekler.
+├── presentation/    # Bileşenler, stiller, i18n metinleri. Sadece application + domain'i bilir.
+└── main.tsx         # Composition root: somut implementasyonlar burada seçilip enjekte edilir.
 ```
 
----
+Bağımlılık yönü:
 
-## 📑 Bölümler
+```
+presentation ──▶ application ──▶ domain ◀── infrastructure
+```
 
-1. **Hero** — Avatar, rozet animasyonları ve proje dropdown
-2. **Hakkımda** — İnteraktif terminal + bio
-3. **Deneyim** — Timeline formatında staj geçmişi
-4. **Eğitim** — Akademik geçmiş
-5. **Yetenekler** — Kategorize edilmiş skill kartları
-6. **Projeler** — Tab yapısında proje detayları (GreenGrocer, RAM Design, DSA)
-7. **İletişim** — İletişim formu ve sosyal linkler
+Örnek: bileşenler içeriği `ContentRepository` arayüzünden (`useContent()`), sohbeti `ChatService`
+arayüzünden (`useMascotChat`) alır. İçerik bir dosyadan mı, CMS'ten mi geliyor; sohbet Groq'tan mı,
+başka bir modelden mi cevap alıyor — bunu yalnızca `infrastructure` ve `main.tsx` bilir.
 
----
+Bu kurallar `src/test/architecture.test.ts` ile **otomatik denetlenir**: yanlış yönde bir import
+eklendiğinde test kırılır. Ayrıca `fetch`/`localStorage` çağrıları yalnızca `infrastructure` içinde olabilir.
 
-## 🚀 Kurulum & Çalıştırma
+Her katmanın kendi `README.md` dosyası var.
 
-Proje herhangi bir build aracı gerektirmez. Basit bir static site'tır.
+## Proje yapısı
+
+```
+.
+├── api/chat.ts              # Vercel sunucu fonksiyonu: Groq'a güvenli istek (API anahtarı sadece burada)
+├── src/                     # Site kodu (yukarıdaki katmanlar)
+│   ├── test/                # Mimari testi, API testi, test için sahte bağımlılıklar
+│   └── learn/               # Öğrenme alıştırmaları (site koduna dahil değil)
+├── public/                  # Statik dosyalar (CV, favicon, paylaşım görseli)
+├── legacy/                  # Sitenin eski (framework'süz) sürümü — arşiv
+└── scratch/generate_cv.py   # CV PDF'ini üreten yardımcı betik
+```
+
+## Çalıştırma
 
 ```bash
-# Repoyu klonlayın
-git clone https://github.com/nurkumbasar/nur-portfolio.git
-cd nur-portfolio
-
-# Herhangi bir local server ile açın
-# Örnek 1: Python
-python3 -m http.server 8000
-
-# Örnek 2: VS Code Live Server eklentisi
-# index.html → sağ tık → "Open with Live Server"
+npm install
+npm run dev        # http://localhost:5173
+npm test           # testleri izleme modunda çalıştır  (tek seferlik: npm test -- --run)
+npm run lint       # oxlint
+npm run build      # tip kontrolü + production build
 ```
 
-Tarayıcınızda `http://localhost:8000` adresine gidin.
+> `npm run dev` yalnızca arayüzü çalıştırır; `/api/chat` (maskot sohbeti) yerelde
+> Vercel ortamı gerektirir (`npx vercel dev`).
 
----
+## Ortam değişkenleri
 
-## 🌐 Deployment
+| Değişken | Nerede | Açıklama |
+|---|---|---|
+| `GROQ_API_KEY` | Vercel → Project Settings → Environment Variables | Maskot sohbeti için Groq API anahtarı. Yalnızca sunucu fonksiyonunda okunur, tarayıcıya gitmez. |
 
-Site **GitHub Pages** üzerinde barındırılmaktadır ve `nurkumbasar.com` custom domain'e yönlendirilmiştir.
+## Otomatik kontroller
 
-```
-CNAME → nurkumbasar.com
-```
+Her `push` ve pull request'te GitHub Actions (`.github/workflows/ci.yml`) lint, test ve build adımlarını çalıştırır.
 
----
+## Yayın
 
-## 🤝 İletişim
+Site Vercel'de barındırılır ve `nurkumbasar.com` alan adına bağlıdır. `main` dalına yapılan her push yeni bir yayın üretir.
 
-- **Email**: nurkumbsr@gmail.com
-- **LinkedIn**: [linkedin.com/in/nur-kumbasar](https://www.linkedin.com/in/nur-kumbasar)
-- **GitHub**: [github.com/nurkumbasar](https://github.com/nurkumbasar)
+## İletişim
 
----
-
-<p align="center">
-  <sub>Made with 💜 by Nur Kumbasar</sub>
-</p>
+- **E-posta:** nurkumbsr@gmail.com
+- **LinkedIn:** [linkedin.com/in/nur-kumbasar](https://www.linkedin.com/in/nur-kumbasar)
+- **GitHub:** [github.com/nurkumbasar](https://github.com/nurkumbasar)

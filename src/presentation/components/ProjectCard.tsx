@@ -1,4 +1,4 @@
-import { useLocale } from '../../application/state/LocaleContext'
+import { useLocale } from '../../application/state/useLocale'
 import type { Project } from '../../domain/entities/Project'
 import { translate } from '../i18n/translations'
 import { ExternalLinkIcon, GithubIcon, LockIcon } from './SocialIcons'

@@ -1,4 +1,4 @@
-import { useLocale } from '../../application/state/LocaleContext'
+import { useLocale } from '../../application/state/useLocale'
 import { translate } from '../i18n/translations'
 import { LanguageToggle } from './LanguageToggle'
 import { ThemeToggle } from './ThemeToggle'

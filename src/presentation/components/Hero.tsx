@@ -1,10 +1,11 @@
-import { useLocale } from '../../application/state/LocaleContext'
-import { profile } from '../../infrastructure/content/profile'
+import { useContent } from '../../application/state/useContent'
+import { useLocale } from '../../application/state/useLocale'
 import { translate } from '../i18n/translations'
 import { TerminalIntro } from './TerminalIntro'
 
 export function Hero() {
   const { locale } = useLocale()
+  const profile = useContent().getProfile()
 
   return (
     <section className="hero" id="hero">
@@ -26,7 +27,7 @@ export function Hero() {
           <p className="sr-only">
             {profile.role[locale]}. {translate('heroTagline', locale)}
           </p>
-          <TerminalIntro />
+          <TerminalIntro key={locale} />
 
           <div className="hero-actions">
             <a href="#projects" className="button-like">

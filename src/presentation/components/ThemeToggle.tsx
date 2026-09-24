@@ -1,4 +1,4 @@
-import { useTheme } from '../../application/state/ThemeContext'
+import { useTheme } from '../../application/state/useTheme'
 
 // Şu an hangi temadaysak, geçilecek diğer temanın ikonunu gösteriyoruz
 // (karanlık moddayken güneş = "aydınlığa geç" gibi).

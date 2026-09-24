@@ -1,6 +1,5 @@
-import { useLocale } from '../../application/state/LocaleContext'
-import { educations } from '../../infrastructure/content/educations'
-import { experiences } from '../../infrastructure/content/experiences'
+import { useContent } from '../../application/state/useContent'
+import { useLocale } from '../../application/state/useLocale'
 import { translate } from '../i18n/translations'
 import { EducationCard } from './EducationCard'
 import { ExperienceCard } from './ExperienceCard'
@@ -10,6 +9,7 @@ import { ExperienceCard } from './ExperienceCard'
 // (<pattern>) alt alta dizilmesiyle çiziliyor.
 export function JourneySection() {
   const { locale } = useLocale()
+  const content = useContent()
 
   return (
     <section className="section" id="journey">
@@ -35,7 +35,7 @@ export function JourneySection() {
         </div>
 
         <p className="road-label">{translate('experienceTitle', locale)}</p>
-        {experiences[locale].map((experience, index) => (
+        {content.getExperiences(locale).map((experience, index) => (
           <div className="road-item" key={experience.company + experience.period}>
             <span className={`road-dot${index === 0 ? ' road-dot-current' : ''}`} />
             <div className="road-card">
@@ -45,7 +45,7 @@ export function JourneySection() {
         ))}
 
         <p className="road-label">{translate('educationTitle', locale)}</p>
-        {educations[locale].map((education) => (
+        {content.getEducations(locale).map((education) => (
           <div className="road-item" key={education.institution + education.period}>
             <span className="road-dot" />
             <div className="road-card">

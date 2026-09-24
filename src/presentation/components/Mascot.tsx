@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type PointerEvent } from 'react'
+import type { ChatService } from '../../domain/ports/ChatService'
 import { MascotChat } from './MascotChat'
 
 function clamp(value: number, min: number, max: number) {
@@ -25,8 +26,8 @@ type DragState = {
 // çizilmiş. App.tsx'te `position: fixed` ile render ediliyor, yani tek
 // bir hero'ya değil tüm sayfaya ait; pointer olaylarıyla her yere
 // sürüklenebiliyor. Sürüklemeden ayırt edilen bir tıklama, üstünde
-// (henüz sahte cevaplar veren) bir sohbet panelini açıp kapatıyor.
-export function Mascot() {
+// bir sohbet panelini açıp kapatıyor.
+export function Mascot(props: { chatService: ChatService }) {
   const [pos, setPos] = useState({ x: 0, y: 0 })
   const [dragging, setDragging] = useState(false)
   const [chatOpen, setChatOpen] = useState(false)
@@ -99,7 +100,7 @@ export function Mascot() {
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
     >
-      {chatOpen && <MascotChat onClose={() => setChatOpen(false)} />}
+      {chatOpen && <MascotChat chatService={props.chatService} onClose={() => setChatOpen(false)} />}
 
       <svg viewBox="0 0 200 200" className="mascot" aria-hidden="true">
         <path
